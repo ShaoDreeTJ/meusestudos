@@ -1,0 +1,2856 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="antialiased">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AcadDrive — Portal de Organização Acadêmica e Estudos</title>
+
+  <!-- Fonte Inter (Google Fonts) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+          },
+          boxShadow: {
+            'soft': '0 2px 10px -2px rgba(15, 23, 42, 0.06), 0 1px 3px -1px rgba(15, 23, 42, 0.04)',
+            'card': '0 4px 20px -4px rgba(15, 23, 42, 0.08)',
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    /* Ajustes finos de barra de rolagem e editor rico estilo Notion */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(148, 163, 184, 0.35);
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(148, 163, 184, 0.55);
+    }
+
+    /* Estilos para conteúdo do editor rico e visualizador de resumos */
+    .rich-content h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-top: 1.1rem;
+      margin-bottom: 0.5rem;
+      line-height: 1.3;
+    }
+    .rich-content h2 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-top: 0.95rem;
+      margin-bottom: 0.4rem;
+      line-height: 1.35;
+    }
+    .rich-content p {
+      margin-bottom: 0.65rem;
+      line-height: 1.65;
+    }
+    .rich-content ul {
+      list-style-type: disc;
+      padding-left: 1.4rem;
+      margin-bottom: 0.75rem;
+    }
+    .rich-content ol {
+      list-style-type: decimal;
+      padding-left: 1.4rem;
+      margin-bottom: 0.75rem;
+    }
+    .rich-content li {
+      margin-bottom: 0.25rem;
+      line-height: 1.6;
+    }
+    .rich-content blockquote {
+      border-left: 3px solid #6366f1;
+      padding-left: 0.9rem;
+      margin: 0.75rem 0;
+      font-style: italic;
+      opacity: 0.9;
+    }
+    .rich-content:empty:before {
+      content: attr(data-placeholder);
+      color: #94a3b8;
+      pointer-events: none;
+      display: block;
+    }
+
+    /* Animação suave de entrada */
+    @keyframes fadeSlideUp {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .animate-fade-in {
+      animation: fadeSlideUp 0.22s ease-out forwards;
+    }
+  </style>
+</head>
+
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-200 selection:bg-indigo-500/20 selection:text-indigo-700 dark:selection:text-indigo-300">
+
+  <!-- Container Principal da Aplicação -->
+  <div id="app" class="min-h-screen flex flex-col lg:flex-row">
+
+    <!-- Backdrop Mobile da Barra Lateral -->
+    <div id="sidebar-backdrop" onclick="toggleSidebar(false)" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-30 hidden lg:hidden transition-opacity"></div>
+
+    <!-- ===================================================================== -->
+    <!-- 1. BARRA LATERAL ESQUERDA (NAVEGAÇÃO POR PERÍODOS E VISÃO GERAL)      -->
+    <!-- ===================================================================== -->
+    <aside id="sidebar" class="fixed lg:sticky top-0 left-0 z-40 h-screen w-72 shrink-0 bg-white dark:bg-slate-900 border-r border-slate-200/80 dark:border-slate-800 flex flex-col transform -translate-x-full lg:translate-x-0 transition-transform duration-200 ease-out">
+      
+      <!-- Cabeçalho da Marca -->
+      <div class="h-16 px-5 flex items-center justify-between border-b border-slate-100 dark:border-slate-800/80">
+        <div class="flex items-center gap-2.5 cursor-pointer" onclick="navigateToOverview('all')">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-violet-600 flex items-center justify-center text-white shadow-sm">
+            <i data-lucide="graduation-cap" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <span class="font-bold text-base tracking-tight text-slate-900 dark:text-white block leading-none">AcadDrive</span>
+            <span class="text-[11px] font-medium text-slate-400 dark:text-slate-500 mt-0.5 block">Repositório de Estudos</span>
+          </div>
+        </div>
+        <button onclick="toggleSidebar(false)" class="lg:hidden p-2 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800" aria-label="Fechar menu">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Conteúdo Rolável da Sidebar -->
+      <div class="flex-1 overflow-y-auto px-3.5 py-4 space-y-6">
+        
+        <!-- Visão Geral Rápida -->
+        <div>
+          <p class="px-2.5 text-[11px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2">Visão Geral</p>
+          <nav class="space-y-1">
+            <button id="nav-all" onclick="navigateToOverview('all')" class="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-medium transition-all">
+              <span class="flex items-center gap-2.5">
+                <i data-lucide="layers" class="w-4 h-4"></i>
+                <span>Todos os Materiais</span>
+              </span>
+              <span id="badge-all-count" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold">0</span>
+            </button>
+
+            <button id="nav-exam" onclick="navigateToOverview('exam')" class="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-medium transition-all">
+              <span class="flex items-center gap-2.5">
+                <i data-lucide="star" class="w-4 h-4 text-amber-500 fill-amber-500"></i>
+                <span>Cai na Prova</span>
+              </span>
+              <span id="badge-exam-count" class="text-xs px-2 py-0.5 rounded-full bg-amber-50 dark:bg-amber-500/15 text-amber-700 dark:text-amber-300 font-semibold">0</span>
+            </button>
+          </nav>
+        </div>
+
+        <!-- Períodos Acadêmicos -->
+        <div>
+          <div class="px-2.5 flex items-center justify-between mb-2">
+            <p class="text-[11px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">Períodos Acadêmicos</p>
+            <button onclick="openPeriodModal()" class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 flex items-center gap-1 px-1.5 py-0.5 rounded-md hover:bg-indigo-50 dark:hover:bg-indigo-500/10 transition-colors">
+              <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+              <span>Novo</span>
+            </button>
+          </div>
+
+          <nav id="periods-list" class="space-y-1">
+            <!-- Lista de períodos renderizada via JS -->
+          </nav>
+
+          <button onclick="openPeriodModal()" class="mt-3 w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl border border-dashed border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-600 dark:text-slate-300 hover:border-indigo-400 dark:hover:border-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50/50 dark:hover:bg-indigo-500/5 transition-all">
+            <i data-lucide="plus-circle" class="w-4 h-4"></i>
+            <span>+ Novo Período</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Rodapé de Conta e Sincronização Firebase -->
+      <div class="p-3.5 border-t border-slate-100 dark:border-slate-800/80 bg-slate-50/70 dark:bg-slate-900/80">
+        <div id="auth-box" class="rounded-xl p-3 bg-white dark:bg-slate-800/80 border border-slate-200/70 dark:border-slate-700/70 shadow-2xs">
+          <div class="flex items-center gap-2.5">
+            <div id="user-avatar" class="w-8 h-8 rounded-full bg-indigo-100 dark:bg-indigo-500/20 text-indigo-600 dark:text-indigo-300 flex items-center justify-center font-bold text-xs shrink-0 overflow-hidden">
+              <i data-lucide="cloud" class="w-4 h-4"></i>
+            </div>
+            <div class="min-w-0 flex-1">
+              <p id="user-name" class="text-xs font-semibold text-slate-800 dark:text-slate-100 truncate">Conectando...</p>
+              <p id="user-status" class="text-[11px] text-emerald-600 dark:text-emerald-400 flex items-center gap-1 truncate">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block"></span>
+                <span>Nuvem sincronizada</span>
+              </p>
+            </div>
+          </div>
+          <div id="auth-actions" class="mt-2.5 pt-2 border-t border-slate-100 dark:border-slate-700/70">
+            <button onclick="handleGoogleSignIn()" class="w-full py-1.5 px-2.5 rounded-lg bg-slate-900 dark:bg-slate-700 hover:bg-slate-800 dark:hover:bg-slate-600 text-white text-xs font-medium flex items-center justify-center gap-2 transition-colors">
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+              </svg>
+              <span>Entrar com Google</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ===================================================================== -->
+    <!-- 2. ÁREA PRINCIPAL (CABEÇALHO GLOBAL + CONTEÚDO DINÂMICO)              -->
+    <!-- ===================================================================== -->
+    <div class="flex-1 flex flex-col min-w-0">
+      
+      <!-- Cabeçalho Superior Fixo com Busca Global e Modo Claro/Escuro -->
+      <header class="sticky top-0 z-20 h-16 bg-white/85 dark:bg-slate-900/85 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800 px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-3">
+        
+        <!-- Botão Menu Mobile + Campo de Busca Global -->
+        <div class="flex items-center gap-3 flex-1 max-w-2xl">
+          <button onclick="toggleSidebar(true)" class="lg:hidden p-2.5 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 shrink-0" aria-label="Abrir menu">
+            <i data-lucide="menu" class="w-5 h-5"></i>
+          </button>
+
+          <div class="relative flex-1">
+            <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none"></i>
+            <input
+              id="global-search-input"
+              type="text"
+              oninput="handleGlobalSearch(this.value)"
+              placeholder="Buscar arquivos, resumos, links ou matérias em todos os períodos..."
+              class="w-full pl-10 pr-16 py-2 rounded-xl bg-slate-100/90 dark:bg-slate-800/90 border border-transparent focus:border-indigo-500/60 focus:bg-white dark:focus:bg-slate-800 text-sm text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 outline-none transition-all"
+            />
+            <button id="clear-search-btn" onclick="clearGlobalSearch()" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 p-1 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-200/70 dark:hover:bg-slate-700" title="Limpar busca">
+              <i data-lucide="x" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Ações Direitas do Cabeçalho -->
+        <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+          <!-- Botão Alternar Modo Claro / Escuro -->
+          <button
+            onclick="toggleDarkMode()"
+            id="theme-toggle-btn"
+            class="p-2.5 rounded-xl border border-slate-200/80 dark:border-slate-700/80 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
+            title="Alternar Modo Claro / Escuro"
+            aria-label="Alternar tema"
+          >
+            <i data-lucide="moon" class="w-4 h-4 dark:hidden"></i>
+            <i data-lucide="sun" class="w-4 h-4 hidden dark:block text-amber-400"></i>
+          </button>
+        </div>
+      </header>
+
+      <!-- Área Principal Dinâmica -->
+      <main id="main-content" class="flex-1 px-4 sm:px-6 lg:px-8 py-6 sm:py-8 max-w-7xl w-full mx-auto">
+        <!-- Estado inicial de carregamento -->
+        <div class="flex flex-col items-center justify-center py-24 text-center">
+          <div class="w-10 h-10 border-3 border-indigo-600 border-t-transparent rounded-full animate-spin mb-4"></div>
+          <p class="text-sm font-medium text-slate-500 dark:text-slate-400">Carregando seu ambiente de estudos...</p>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- 3. MODAIS INTERATIVOS (PERÍODO, MATÉRIA, LINK, RESUMO, VISUALIZADOR)  -->
+  <!-- ===================================================================== -->
+
+  <!-- Modal: Criar / Editar Período -->
+  <div id="modal-period" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs">
+    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xl w-full max-w-md overflow-hidden animate-fade-in">
+      <div class="px-6 py-4 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
+        <h3 id="modal-period-title" class="font-semibold text-base text-slate-900 dark:text-white">Novo Período Acadêmico</h3>
+        <button onclick="closeModal('modal-period')" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+      <form onsubmit="savePeriodForm(event)" class="p-6 space-y-4">
+        <input type="hidden" id="period-edit-id" />
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wider mb-1.5">Nome do Período</label>
+          <input
+            id="period-name-input"
+            type="text"
+            required
+            placeholder="Ex: 5º Período ou 2026.2"
+            class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 outline-none"
+          />
+        </div>
+        <div class="flex items-center justify-end gap-2.5 pt-2">
+          <button type="button" onclick="closeModal('modal-period')" class="px-4 py-2 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">Cancelar</button>
+          <button type="submit" class="px-4 py-2 rounded-xl text-sm font-semibold bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm transition-colors">Salvar Período</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Criar / Editar Matéria -->
+  <div id="modal-subject" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs">
+    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xl w-full max-w-lg overflow-hidden animate-fade-in">
+      <div class="px-6 py-4 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
+        <h3 id="modal-subject-title" class="font-semibold text-base text-slate-900 dark:text-white">Nova Matéria</h3>
+        <button onclick="closeModal('modal-subject')" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+      <form onsubmit="saveSubjectForm(event)" class="p-6 space-y-4">
+        <input type="hidden" id="subject-edit-id" />
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wider mb-1.5">Nome da Matéria *</label>
+          <input
+            id="subject-name-input"
+            type="text"
+            required
+            placeholder="Ex: Semiologia Médica, Cálculo II, Direito Civil..."
+            class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 outline-none"
+          />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wider mb-1.5">Professor(a) / Observação</label>
+          <input
+            id="subject-prof-input"
+            type="text"
+            placeholder="Ex: Prof. Dr. André Silva • Terças e Quintas"
+            class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 outline-none"
+          />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wider mb-2">Cor de Identificação</label>
+          <div id="subject-color-picker" class="flex flex-wrap gap-2.5">
+            <!-- Swatches inseridos via JS -->
+          </div>
+          <input type="hidden" id="subject-color-input" value="indigo" />
+        </div>
+        <div class="flex items-center justify-end gap-2.5 pt-3">
+          <button type="button" onclick="closeModal('modal-subject')" class="px-4 py-2 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">Cancelar</button>
+          <button type="submit" class="px-4 py-2 rounded-xl text-sm font-semibold bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm transition-colors">Salvar Matéria</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Adicionar / Editar Link Externo -->
+  <div id="modal-link" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs">
+    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xl w-full max-w-lg overflow-hidden animate-fade-in">
+      <div class="px-6 py-4 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
+        <h3 id="modal-link-title" class="font-semibold text-base text-slate-900 dark:text-white">Adicionar Link Externo</h3>
+        <button onclick="closeModal('modal-link')" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+      <form onsubmit="saveLinkForm(event)" class="p-6 space-y-4">
+        <input type="hidden" id="link-edit-id" />
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wider mb-1.5">Título do Material *</label>
+          <input
+            id="link-title-input"
+            type="text"
+            required
+            placeholder="Ex: Pasta do Google Drive — Slides da Turma"
+            class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 outline-none"
+          />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wider mb-1.5">URL (Link) *</label>
+          <input
+            id="link-url-input"
+            type="url"
+            required
+            placeholder="https://docs.google.com/..."
+            class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 outline-none"
+          />
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wider mb-1.5">Categoria</label>
+            <select id="link-category-input" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm focus:border-indigo-500 outline-none">
+              <option value="Slides / Aula">Slides / Aula</option>
+              <option value="Resumo / Estudo Dirigido">Resumo / Estudo Dirigido</option>
+              <option value="Livro / Referência">Livro / Referência</option>
+              <option value="Provas e Questões">Provas e Questões</option>
+              <option value="Artigo">Artigo</option>
+            </select>
+          </div>
+          <div class="flex items-end">
+            <label class="w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 cursor-pointer select-none">
+              <input id="link-exam-input" type="checkbox" class="w-4 h-4 rounded text-amber-500 focus:ring-amber-500" />
+              <span class="text-sm font-medium text-slate-700 dark:text-slate-200 flex items-center gap-1.5">
+                <i data-lucide="star" class="w-4 h-4 text-amber-500"></i>
+                <span>Cai na Prova</span>
+              </span>
+            </label>
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wider mb-1.5">Descrição / Notas (opcional)</label>
+          <textarea
+            id="link-desc-input"
+            rows="2"
+            placeholder="Anotação rápida sobre o conteúdo deste link..."
+            class="w-full px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm focus:border-indigo-500 outline-none"
+          ></textarea>
+        </div>
+        <div class="flex items-center justify-end gap-2.5 pt-2">
+          <button type="button" onclick="closeModal('modal-link')" class="px-4 py-2 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">Cancelar</button>
+          <button type="submit" class="px-4 py-2 rounded-xl text-sm font-semibold bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm transition-colors">Salvar Link</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Editor Integrado de Resumos / Estudo Dirigido -->
+  <div id="modal-summary" class="fixed inset-0 z-50 hidden items-center justify-center p-2 sm:p-4 bg-slate-900/60 backdrop-blur-xs">
+    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl w-full max-w-4xl max-h-[92vh] flex flex-col overflow-hidden animate-fade-in">
+      
+      <!-- Topo do Editor -->
+      <div class="px-5 py-3.5 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between gap-3">
+        <div class="flex items-center gap-2 text-xs font-semibold text-indigo-600 dark:text-indigo-400">
+          <i data-lucide="file-edit" class="w-4 h-4"></i>
+          <span id="modal-summary-header-label">Editor de Resumo / Estudo Dirigido</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <label class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 cursor-pointer text-xs font-medium select-none">
+            <input id="summary-exam-input" type="checkbox" class="w-3.5 h-3.5 rounded text-amber-500" />
+            <i data-lucide="star" class="w-3.5 h-3.5 text-amber-500"></i>
+            <span>Cai na Prova</span>
+          </label>
+          <button onclick="closeModal('modal-summary')" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800">
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Metadados do Resumo -->
+      <div class="px-5 sm:px-8 pt-5 pb-3 space-y-3 border-b border-slate-100 dark:border-slate-800/80">
+        <input type="hidden" id="summary-edit-id" />
+        <input
+          id="summary-title-input"
+          type="text"
+          placeholder="Título do Resumo ou Estudo Dirigido..."
+          class="w-full text-xl sm:text-2xl font-bold bg-transparent text-slate-900 dark:text-white placeholder-slate-300 dark:placeholder-slate-600 outline-none"
+        />
+        <div class="flex flex-wrap items-center gap-3">
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-medium text-slate-400">Categoria:</span>
+            <select id="summary-category-input" class="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-xs font-medium text-slate-700 dark:text-slate-200 border border-transparent focus:border-indigo-500 outline-none">
+              <option value="Resumo / Estudo Dirigido">Resumo / Estudo Dirigido</option>
+              <option value="Provas e Questões">Provas e Questões</option>
+              <option value="Slides / Aula">Slides / Aula</option>
+              <option value="Livro / Referência">Livro / Referência</option>
+              <option value="Artigo">Artigo</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Barra de Formatação Estilo Notion -->
+      <div class="px-5 sm:px-8 py-2 bg-slate-50/80 dark:bg-slate-800/50 border-b border-slate-100 dark:border-slate-800 flex flex-wrap items-center gap-1">
+        <button type="button" onclick="execEditorCmd('formatBlock', 'H1')" class="px-2 py-1 rounded-md text-xs font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-200/70 dark:hover:bg-slate-700" title="Título 1">H1</button>
+        <button type="button" onclick="execEditorCmd('formatBlock', 'H2')" class="px-2 py-1 rounded-md text-xs font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-200/70 dark:hover:bg-slate-700" title="Título 2">H2</button>
+        <button type="button" onclick="execEditorCmd('formatBlock', 'P')" class="px-2 py-1 rounded-md text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-200/70 dark:hover:bg-slate-700" title="Parágrafo">Texto</button>
+        <span class="w-px h-4 bg-slate-200 dark:bg-slate-700 mx-1"></span>
+        <button type="button" onclick="execEditorCmd('bold')" class="p-1.5 rounded-md text-slate-600 dark:text-slate-300 hover:bg-slate-200/70 dark:hover:bg-slate-700" title="Negrito (Ctrl+B)"><i data-lucide="bold" class="w-3.5 h-3.5"></i></button>
+        <button type="button" onclick="execEditorCmd('italic')" class="p-1.5 rounded-md text-slate-600 dark:text-slate-300 hover:bg-slate-200/70 dark:hover:bg-slate-700" title="Itálico (Ctrl+I)"><i data-lucide="italic" class="w-3.5 h-3.5"></i></button>
+        <button type="button" onclick="execEditorCmd('underline')" class="p-1.5 rounded-md text-slate-600 dark:text-slate-300 hover:bg-slate-200/70 dark:hover:bg-slate-700" title="Sublinhado (Ctrl+U)"><i data-lucide="underline" class="w-3.5 h-3.5"></i></button>
+        <span class="w-px h-4 bg-slate-200 dark:bg-slate-700 mx-1"></span>
+        <button type="button" onclick="execEditorCmd('insertUnorderedList')" class="p-1.5 rounded-md text-slate-600 dark:text-slate-300 hover:bg-slate-200/70 dark:hover:bg-slate-700" title="Lista com marcadores"><i data-lucide="list" class="w-3.5 h-3.5"></i></button>
+        <button type="button" onclick="execEditorCmd('insertOrderedList')" class="p-1.5 rounded-md text-slate-600 dark:text-slate-300 hover:bg-slate-200/70 dark:hover:bg-slate-700" title="Lista numerada"><i data-lucide="list-ordered" class="w-3.5 h-3.5"></i></button>
+        <button type="button" onclick="execEditorCmd('formatBlock', 'BLOCKQUOTE')" class="p-1.5 rounded-md text-slate-600 dark:text-slate-300 hover:bg-slate-200/70 dark:hover:bg-slate-700" title="Citação / Destaque"><i data-lucide="quote" class="w-3.5 h-3.5"></i></button>
+      </div>
+
+      <!-- Área Editável -->
+      <div class="flex-1 overflow-y-auto px-5 sm:px-8 py-5">
+        <div
+          id="summary-editor-body"
+          contenteditable="true"
+          data-placeholder="Comece a escrever seu resumo, tópicos da aula, perguntas de revisão ou mapa mental em texto..."
+          class="rich-content min-h-[280px] text-sm sm:text-base text-slate-800 dark:text-slate-100 outline-none"
+        ></div>
+      </div>
+
+      <!-- Rodapé do Editor -->
+      <div class="px-5 sm:px-8 py-3.5 border-t border-slate-100 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-900 flex items-center justify-between">
+        <span class="text-xs text-slate-400">Dica: Use títulos e listas para organizar tópicos de prova.</span>
+        <div class="flex items-center gap-2.5">
+          <button type="button" onclick="closeModal('modal-summary')" class="px-4 py-2 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">Cancelar</button>
+          <button type="button" onclick="saveSummaryForm()" class="px-5 py-2 rounded-xl text-sm font-semibold bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm transition-colors flex items-center gap-2">
+            <i data-lucide="check" class="w-4 h-4"></i>
+            <span>Salvar Resumo</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Editar Metadados de Arquivo (Nome / Categoria / Cai na Prova) -->
+  <div id="modal-edit-file" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs">
+    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xl w-full max-w-md overflow-hidden animate-fade-in">
+      <div class="px-6 py-4 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
+        <h3 class="font-semibold text-base text-slate-900 dark:text-white">Editar Detalhes do Arquivo</h3>
+        <button onclick="closeModal('modal-edit-file')" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+      <form onsubmit="saveFileMetadataForm(event)" class="p-6 space-y-4">
+        <input type="hidden" id="file-edit-id" />
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wider mb-1.5">Nome de Exibição *</label>
+          <input
+            id="file-title-input"
+            type="text"
+            required
+            class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm focus:border-indigo-500 outline-none"
+          />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wider mb-1.5">Categoria</label>
+          <select id="file-category-input" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm focus:border-indigo-500 outline-none">
+            <option value="Slides / Aula">Slides / Aula</option>
+            <option value="Resumo / Estudo Dirigido">Resumo / Estudo Dirigido</option>
+            <option value="Livro / Referência">Livro / Referência</option>
+            <option value="Provas e Questões">Provas e Questões</option>
+            <option value="Artigo">Artigo</option>
+          </select>
+        </div>
+        <label class="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 cursor-pointer select-none">
+          <input id="file-exam-input" type="checkbox" class="w-4 h-4 rounded text-amber-500" />
+          <span class="text-sm font-medium text-slate-700 dark:text-slate-200 flex items-center gap-1.5">
+            <i data-lucide="star" class="w-4 h-4 text-amber-500"></i>
+            <span>Destacar como "Cai na Prova"</span>
+          </span>
+        </label>
+        <div class="flex items-center justify-end gap-2.5 pt-2">
+          <button type="button" onclick="closeModal('modal-edit-file')" class="px-4 py-2 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">Cancelar</button>
+          <button type="submit" class="px-4 py-2 rounded-xl text-sm font-semibold bg-indigo-600 hover:bg-indigo-700 text-white">Salvar Alterações</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Visualizador Integrado (PDF, Imagem, Resumo, Link) -->
+  <div id="modal-viewer" class="fixed inset-0 z-50 hidden items-center justify-center p-2 sm:p-5 bg-slate-900/75 backdrop-blur-xs">
+    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl w-full max-w-5xl h-[90vh] flex flex-col overflow-hidden animate-fade-in">
+      
+      <!-- Cabeçalho do Visualizador -->
+      <div class="px-5 py-3.5 border-b border-slate-100 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3">
+        <div class="min-w-0 flex-1">
+          <div class="flex items-center gap-2">
+            <span id="viewer-category-badge" class="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-500/15 text-indigo-600 dark:text-indigo-300">Categoria</span>
+            <span id="viewer-context-label" class="text-xs text-slate-400 truncate">Período • Matéria</span>
+          </div>
+          <h3 id="viewer-title" class="font-bold text-base sm:text-lg text-slate-900 dark:text-white truncate mt-1">Título do Documento</h3>
+        </div>
+
+        <div id="viewer-actions" class="flex items-center gap-2 shrink-0">
+          <!-- Botões dinâmicos (Editar, Baixar, Abrir em Nova Aba, Fechar) -->
+        </div>
+      </div>
+
+      <!-- Corpo do Visualizador -->
+      <div id="viewer-body" class="flex-1 overflow-y-auto bg-slate-100/70 dark:bg-slate-950/70 flex flex-col">
+        <!-- Conteúdo dinâmico renderizado via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Confirmação de Exclusão Personalizado (Substitui confirm()) -->
+  <div id="modal-confirm" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs">
+    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xl w-full max-w-sm overflow-hidden animate-fade-in p-6">
+      <div class="w-11 h-11 rounded-xl bg-rose-50 dark:bg-rose-500/15 text-rose-600 dark:text-rose-400 flex items-center justify-center mb-4">
+        <i data-lucide="trash-2" class="w-5 h-5"></i>
+      </div>
+      <h3 id="confirm-title" class="font-bold text-base text-slate-900 dark:text-white">Excluir item?</h3>
+      <p id="confirm-message" class="text-sm text-slate-500 dark:text-slate-400 mt-1.5 leading-relaxed">Esta ação não pode ser desfeita.</p>
+      <div class="flex items-center justify-end gap-2.5 mt-6">
+        <button onclick="closeModal('modal-confirm')" class="px-4 py-2 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">Cancelar</button>
+        <button id="confirm-yes-btn" class="px-4 py-2 rounded-xl text-sm font-semibold bg-rose-600 hover:bg-rose-700 text-white shadow-sm transition-colors">Excluir</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Container de Notificações Toast -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2.5 pointer-events-none max-w-sm w-full px-4 sm:px-0"></div>
+
+  <!-- ===================================================================== -->
+  <!-- 4. LÓGICA DA APLICAÇÃO E INTEGRAÇÃO FIREBASE (AUTH, FIRESTORE, STORAGE) -->
+  <!-- ===================================================================== -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import {
+      getAuth,
+      signInAnonymously,
+      signInWithCustomToken,
+      onAuthStateChanged,
+      GoogleAuthProvider,
+      signInWithPopup,
+      linkWithPopup,
+      signOut
+    } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+    import {
+      getFirestore,
+      doc,
+      getDoc,
+      setDoc,
+      addDoc,
+      updateDoc,
+      deleteDoc,
+      onSnapshot,
+      collection
+    } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+    import {
+      getStorage,
+      ref,
+      uploadBytesResumable,
+      getDownloadURL,
+      deleteObject
+    } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-storage.js";
+
+    // -------------------------------------------------------------------------
+    // Configuração e Inicialização do Firebase
+    // -------------------------------------------------------------------------
+    const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+    let firebaseConfig = null;
+    try {
+      if (typeof __firebase_config !== 'undefined' && __firebase_config) {
+        firebaseConfig = typeof __firebase_config === 'string'
+          ? JSON.parse(__firebase_config)
+          : __firebase_config;
+      }
+    } catch (e) {
+      console.warn('Configuração Firebase indisponível, usando modo local:', e);
+    }
+
+    let app = null;
+    let auth = null;
+    let db = null;
+    let storage = null;
+
+    if (firebaseConfig && firebaseConfig.apiKey) {
+      app = initializeApp(firebaseConfig);
+      auth = getAuth(app);
+      db = getFirestore(app);
+      try {
+        storage = getStorage(app);
+      } catch (err) {
+        console.warn('Firebase Storage não inicializado:', err);
+      }
+    }
+
+    // -------------------------------------------------------------------------
+    // Estado Global da Aplicação
+    // -------------------------------------------------------------------------
+    const state = {
+      user: null,
+      isCloudActive: Boolean(db),
+      periods: [],
+      subjects: [],
+      materials: [],
+      // Navegação: 'period' | 'subject' | 'overview-all' | 'overview-exam'
+      viewMode: 'period',
+      selectedPeriodId: null,
+      selectedSubjectId: null,
+      // Filtros dentro da matéria e visão geral
+      categoryFilter: 'Todos',
+      onlyExamFilter: false,
+      sortBy: 'recent', // 'recent' | 'alpha' | 'exam'
+      overviewPeriodFilter: 'all',
+      // Busca Global
+      searchQuery: '',
+      // Uploads em andamento
+      activeUploads: [], // { id, name, progress }
+      // URLs locais temporárias (Blob) para visualização/download instantâneo na sessão
+      sessionBlobs: {},
+      // Listeners ativos do Firestore
+      unsubscribers: []
+    };
+
+    // Paleta de cores das matérias
+    const SUBJECT_COLORS = {
+      indigo:  { label: 'Índigo',    bg: 'bg-indigo-500',  soft: 'bg-indigo-50 dark:bg-indigo-500/15',   text: 'text-indigo-600 dark:text-indigo-300',   border: 'border-indigo-200 dark:border-indigo-500/30' },
+      emerald: { label: 'Esmeralda', bg: 'bg-emerald-500', soft: 'bg-emerald-50 dark:bg-emerald-500/15', text: 'text-emerald-600 dark:text-emerald-300', border: 'border-emerald-200 dark:border-emerald-500/30' },
+      rose:    { label: 'Rosa',      bg: 'bg-rose-500',    soft: 'bg-rose-50 dark:bg-rose-500/15',       text: 'text-rose-600 dark:text-rose-300',       border: 'border-rose-200 dark:border-rose-500/30' },
+      amber:   { label: 'Âmbar',     bg: 'bg-amber-500',   soft: 'bg-amber-50 dark:bg-amber-500/15',     text: 'text-amber-600 dark:text-amber-300',     border: 'border-amber-200 dark:border-amber-500/30' },
+      sky:     { label: 'Azul Céu',  bg: 'bg-sky-500',     soft: 'bg-sky-50 dark:bg-sky-500/15',         text: 'text-sky-600 dark:text-sky-300',         border: 'border-sky-200 dark:border-sky-500/30' },
+      violet:  { label: 'Violeta',   bg: 'bg-violet-500',  soft: 'bg-violet-50 dark:bg-violet-500/15',   text: 'text-violet-600 dark:text-violet-300',   border: 'border-violet-200 dark:border-violet-500/30' },
+      teal:    { label: 'Turquesa',  bg: 'bg-teal-500',    soft: 'bg-teal-50 dark:bg-teal-500/15',       text: 'text-teal-600 dark:text-teal-300',       border: 'border-teal-200 dark:border-teal-500/30' },
+      orange:  { label: 'Laranja',   bg: 'bg-orange-500',  soft: 'bg-orange-50 dark:bg-orange-500/15',   text: 'text-orange-600 dark:text-orange-300',   border: 'border-orange-200 dark:border-orange-500/30' }
+    };
+
+    const CATEGORIES = [
+      'Todos',
+      'Resumo / Estudo Dirigido',
+      'Slides / Aula',
+      'Livro / Referência',
+      'Provas e Questões',
+      'Artigo'
+    ];
+
+    // -------------------------------------------------------------------------
+    // Gerenciamento de Tema (Claro / Escuro)
+    // -------------------------------------------------------------------------
+    function initTheme() {
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (prefersDark) {
+        document.documentElement.classList.add('dark');
+      }
+    }
+    initTheme();
+
+    window.toggleDarkMode = async function () {
+      const isDark = document.documentElement.classList.toggle('dark');
+      refreshIcons();
+      if (db && state.user) {
+        try {
+          await setDoc(
+            doc(db, 'artifacts', appId, 'users', state.user.uid, 'settings', 'preferences'),
+            { darkMode: isDark, updatedAt: Date.now() },
+            { merge: true }
+          );
+        } catch (err) {
+          console.warn('Não foi possível salvar preferência de tema:', err);
+        }
+      }
+    };
+
+    // -------------------------------------------------------------------------
+    // Utilitários Gerais
+    // -------------------------------------------------------------------------
+    function refreshIcons() {
+      if (window.lucide && typeof window.lucide.createIcons === 'function') {
+        window.lucide.createIcons();
+      }
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function stripHtml(html) {
+      const tmp = document.createElement('div');
+      tmp.innerHTML = html || '';
+      return (tmp.textContent || tmp.innerText || '').trim();
+    }
+
+    function formatBytes(bytes) {
+      if (!bytes || bytes === 0) return '';
+      const k = 1024;
+      const sizes = ['B', 'KB', 'MB', 'GB'];
+      const i = Math.floor(Math.log(bytes) / Math.log(k));
+      return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+    }
+
+    function formatDate(ts) {
+      if (!ts) return 'Hoje';
+      const d = new Date(ts);
+      return d.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' });
+    }
+
+    function sortPeriodsChronologically(periods) {
+      return [...periods].sort((a, b) => {
+        const orderA = typeof a.order === 'number' ? a.order : extractNumber(a.name);
+        const orderB = typeof b.order === 'number' ? b.order : extractNumber(b.name);
+        if (orderA !== orderB) return orderA - orderB;
+        return (a.name || '').localeCompare(b.name || '', 'pt-BR', { numeric: true });
+      });
+    }
+
+    function extractNumber(text) {
+      const match = String(text || '').match(/(\d+)/);
+      return match ? parseInt(match[1], 10) : 999;
+    }
+
+    function showToast(message, type = 'success') {
+      const container = document.getElementById('toast-container');
+      const id = 'toast-' + Date.now() + Math.random().toString(36).slice(2, 6);
+      const colors = {
+        success: 'bg-slate-900 dark:bg-slate-800 text-white border-slate-700',
+        error: 'bg-rose-600 text-white border-rose-500',
+        info: 'bg-indigo-600 text-white border-indigo-500'
+      };
+      const icons = {
+        success: 'check-circle-2',
+        error: 'alert-circle',
+        info: 'info'
+      };
+
+      const el = document.createElement('div');
+      el.id = id;
+      el.className = `pointer-events-auto flex items-center gap-2.5 px-4 py-3 rounded-xl border shadow-lg text-xs sm:text-sm font-medium animate-fade-in ${colors[type] || colors.success}`;
+      el.innerHTML = `
+        <i data-lucide="${icons[type] || 'check-circle-2'}" class="w-4 h-4 shrink-0"></i>
+        <span class="flex-1">${escapeHtml(message)}</span>
+      `;
+      container.appendChild(el);
+      refreshIcons();
+
+      setTimeout(() => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(6px)';
+        el.style.transition = 'all 0.2s ease';
+        setTimeout(() => el.remove(), 220);
+      }, 3400);
+    }
+
+    window.toggleSidebar = function (open) {
+      const sidebar = document.getElementById('sidebar');
+      const backdrop = document.getElementById('sidebar-backdrop');
+      if (open) {
+        sidebar.classList.remove('-translate-x-full');
+        backdrop.classList.remove('hidden');
+      } else {
+        sidebar.classList.add('-translate-x-full');
+        backdrop.classList.add('hidden');
+      }
+    };
+
+    window.openModal = function (id) {
+      const modal = document.getElementById(id);
+      if (!modal) return;
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      refreshIcons();
+    };
+
+    window.closeModal = function (id) {
+      const modal = document.getElementById(id);
+      if (!modal) return;
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    };
+
+    function openConfirmModal(title, message, onConfirm) {
+      document.getElementById('confirm-title').textContent = title;
+      document.getElementById('confirm-message').textContent = message;
+      const btn = document.getElementById('confirm-yes-btn');
+      btn.onclick = async () => {
+        closeModal('modal-confirm');
+        await onConfirm();
+      };
+      openModal('modal-confirm');
+    }
+
+    // -------------------------------------------------------------------------
+    // Autenticação (Custom Token -> Anônimo Automático + Login com Google)
+    // -------------------------------------------------------------------------
+    async function bootstrapAuth() {
+      if (!auth) {
+        // Fallback local caso não haja configuração Firebase no ambiente
+        state.user = { uid: 'local-student', isAnonymous: true, displayName: 'Estudante (Modo Local)' };
+        updateAuthUI();
+        seedInitialDataLocal();
+        renderAll();
+        return;
+      }
+
+      onAuthStateChanged(auth, async (user) => {
+        if (!user) return;
+        state.user = user;
+        updateAuthUI();
+        await ensureInitialSeedFirestore(user.uid);
+        subscribeToUserData(user.uid);
+      });
+
+      try {
+        if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+          await signInWithCustomToken(auth, __initial_auth_token);
+        } else {
+          await signInAnonymously(auth);
+        }
+      } catch (err) {
+        console.warn('Fallback para login anônimo:', err);
+        try {
+          await signInAnonymously(auth);
+        } catch (anonErr) {
+          console.error('Falha na autenticação:', anonErr);
+          showToast('Erro ao conectar autenticação. Usando modo local.', 'error');
+          state.user = { uid: 'local-student', isAnonymous: true };
+          seedInitialDataLocal();
+          renderAll();
+        }
+      }
+    }
+
+    function updateAuthUI() {
+      const user = state.user;
+      const avatarEl = document.getElementById('user-avatar');
+      const nameEl = document.getElementById('user-name');
+      const statusEl = document.getElementById('user-status');
+      const actionsEl = document.getElementById('auth-actions');
+
+      if (!user) return;
+
+      if (!user.isAnonymous && user.email) {
+        nameEl.textContent = user.displayName || user.email;
+        statusEl.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block"></span><span>Conta Google Ativa</span>`;
+        if (user.photoURL) {
+          avatarEl.innerHTML = `<img src="${escapeHtml(user.photoURL)}" alt="Avatar" class="w-full h-full object-cover" onerror="this.style.display='none'" />`;
+        } else {
+          avatarEl.textContent = (user.displayName || user.email || 'U').charAt(0).toUpperCase();
+        }
+        actionsEl.innerHTML = `
+          <button onclick="handleSignOut()" class="w-full py-1.5 px-2.5 rounded-lg bg-slate-100 dark:bg-slate-700/70 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-medium flex items-center justify-center gap-1.5 transition-colors">
+            <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
+            <span>Sair da Conta Google</span>
+          </button>
+        `;
+      } else {
+        nameEl.textContent = 'Sessão Rápida Ativa';
+        statusEl.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block"></span><span>Salvo na nuvem automaticamente</span>`;
+        avatarEl.innerHTML = `<i data-lucide="cloud" class="w-4 h-4"></i>`;
+        actionsEl.innerHTML = `
+          <button onclick="handleGoogleSignIn()" class="w-full py-1.5 px-2.5 rounded-lg bg-slate-900 dark:bg-slate-700 hover:bg-slate-800 dark:hover:bg-slate-600 text-white text-xs font-medium flex items-center justify-center gap-2 transition-colors">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+              <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+              <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+              <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+            </svg>
+            <span>Conectar com Google</span>
+          </button>
+        `;
+      }
+      refreshIcons();
+    }
+
+    window.handleGoogleSignIn = async function () {
+      if (!auth) {
+        showToast('Autenticação Google requer configuração Firebase ativa.', 'info');
+        return;
+      }
+      const provider = new GoogleAuthProvider();
+      try {
+        if (auth.currentUser && auth.currentUser.isAnonymous) {
+          // Tenta vincular a conta anônima atual ao Google para manter todos os estudos criados
+          const res = await linkWithPopup(auth.currentUser, provider);
+          state.user = res.user;
+          updateAuthUI();
+          showToast('Conta Google vinculada! Seus estudos foram preservados.');
+        } else {
+          await signInWithPopup(auth, provider);
+          showToast('Conectado com sua conta Google!');
+        }
+      } catch (err) {
+        if (err.code === 'auth/credential-already-in-use' || err.code === 'auth/email-already-in-use') {
+          try {
+            await signInWithPopup(auth, provider);
+            showToast('Bem-vindo de volta! Seus estudos foram carregados.');
+          } catch (popupErr) {
+            console.error(popupErr);
+            showToast('Não foi possível entrar com Google neste navegador.', 'error');
+          }
+        } else if (err.code !== 'auth/popup-closed-by-user') {
+          console.error('Erro Google Auth:', err);
+          showToast('Erro ao autenticar com Google. Verifique se pop-ups estão permitidos.', 'error');
+        }
+      }
+    };
+
+    window.handleSignOut = async function () {
+      if (!auth) return;
+      try {
+        await signOut(auth);
+        await signInAnonymously(auth);
+        showToast('Sessão encerrada. Iniciada nova sessão rápida.');
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    // -------------------------------------------------------------------------
+    // Pré-população Inicial (1º ao 4º Período + Matérias do 4º Período)
+    // -------------------------------------------------------------------------
+    function getInitialSeedPayload() {
+      const now = Date.now();
+      const periods = [
+        { id: 'period-1', name: '1º Período', order: 1, createdAt: now - 4000 },
+        { id: 'period-2', name: '2º Período', order: 2, createdAt: now - 3000 },
+        { id: 'period-3', name: '3º Período', order: 3, createdAt: now - 2000 },
+        { id: 'period-4', name: '4º Período', order: 4, createdAt: now - 1000 }
+      ];
+
+      const subjects = [
+        // 4º Período (Pré-população solicitada: Fisiologia, Neuroanatomia, Patologia e IETC)
+        {
+          id: 'subj-fisiologia',
+          periodId: 'period-4',
+          name: 'Fisiologia',
+          professor: 'Prof. Dr. Ricardo Almeida • Sistemas Cardiorrespiratório e Renal',
+          color: 'emerald',
+          createdAt: now - 900
+        },
+        {
+          id: 'subj-neuroanatomia',
+          periodId: 'period-4',
+          name: 'Neuroanatomia',
+          professor: 'Profa. Dra. Helena Vasconcelos • Vias Nervosas e Tronco Encefálico',
+          color: 'indigo',
+          createdAt: now - 800
+        },
+        {
+          id: 'subj-patologia',
+          periodId: 'period-4',
+          name: 'Patologia',
+          professor: 'Prof. Dr. Marcos Vinícius • Processos Patológicos Gerais',
+          color: 'rose',
+          createdAt: now - 700
+        },
+        {
+          id: 'subj-ietc',
+          periodId: 'period-4',
+          name: 'IETC',
+          professor: 'Integração Ensino, Trabalho e Comunidade IV',
+          color: 'amber',
+          createdAt: now - 600
+        },
+        // Matérias de exemplo nos períodos anteriores para navegação rica
+        {
+          id: 'subj-biocel',
+          periodId: 'period-1',
+          name: 'Biologia Celular e Molecular',
+          professor: 'Profa. Dra. Beatriz Nogueira',
+          color: 'sky',
+          createdAt: now - 500
+        },
+        {
+          id: 'subj-anatomia1',
+          periodId: 'period-1',
+          name: 'Anatomia Humana I',
+          professor: 'Prof. Dr. Eduardo Salles',
+          color: 'indigo',
+          createdAt: now - 450
+        },
+        {
+          id: 'subj-histologia',
+          periodId: 'period-2',
+          name: 'Histologia e Embriologia',
+          professor: 'Profa. Dra. Camila Duarte',
+          color: 'violet',
+          createdAt: now - 400
+        },
+        {
+          id: 'subj-farmaco',
+          periodId: 'period-3',
+          name: 'Farmacologia Básica',
+          professor: 'Prof. Dr. Thiago Ribeiro',
+          color: 'teal',
+          createdAt: now - 350
+        }
+      ];
+
+      const materials = [
+        {
+          id: 'mat-seed-1',
+          periodId: 'period-4',
+          subjectId: 'subj-fisiologia',
+          type: 'summary',
+          title: 'Estudo Dirigido: Ciclo Cardíaco e Regulação do Débito Cardíaco',
+          category: 'Resumo / Estudo Dirigido',
+          caiNaProva: true,
+          content: `
+            <h1>1. Fases do Ciclo Cardíaco</h1>
+            <p>O ciclo cardíaco compreende os eventos mecânicos e elétricos que ocorrem entre o início de um batimento cardíaco e o início do seguinte.</p>
+            <ul>
+              <li><strong>Sístole Atrial:</strong> Contribui com cerca de 20% do enchimento ventricular final (onda A no pulso venoso).</li>
+              <li><strong>Contração Isovolumétrica:</strong> Fechamento das valvas AV (1ª bulha cardíaca - B1). Pressão ventricular sobe rapidamente sem alterar o volume.</li>
+              <li><strong>Ejeção Ventricular:</strong> Abertura das valvas semilunares quando a pressão ventricular supera a pressão aórtica (~80 mmHg) e pulmonar (~8 mmHg).</li>
+              <li><strong>Relaxamento Isovolumétrico:</strong> Fechamento das valvas semilunares (2ª bulha cardíaca - B2).</li>
+            </ul>
+            <h2>2. Determinantes do Débito Cardíaco (DC = FC × VS)</h2>
+            <blockquote>Mecanismo de Frank-Starling: quanto maior o distendimento do miocárdio durante o enchimento (pré-carga), maior a força de contração e o volume sistólico ejetado.</blockquote>
+            <ol>
+              <li><strong>Pré-carga:</strong> Grau de estiramento dos sarcômeros ao final da diástole (VDF).</li>
+              <li><strong>Pós-carga:</strong> Resistência vascular periférica que o ventrículo precisa vencer para ejetar o sangue.</li>
+              <li><strong>Contratilidade (Inotropismo):</strong> Influenciada pelo sistema nervoso simpático (noradrenalina / receptores beta-1).</li>
+            </ol>
+          `,
+          createdAt: now - 200,
+          updatedAt: now - 200
+        },
+        {
+          id: 'mat-seed-2',
+          periodId: 'period-4',
+          subjectId: 'subj-neuroanatomia',
+          type: 'link',
+          title: 'Atlas de Neuroanatomia — Vias Ascendentes e Descendentes',
+          category: 'Livro / Referência',
+          url: 'https://www.kenhub.com/pt/library/anatomia/neuroanatomia',
+          description: 'Material visual de apoio para revisão dos tratos espinotalâmico lateral, grácil/cuneiforme e corticoespinhal.',
+          caiNaProva: true,
+          createdAt: now - 150,
+          updatedAt: now - 150
+        },
+        {
+          id: 'mat-seed-3',
+          periodId: 'period-4',
+          subjectId: 'subj-patologia',
+          type: 'summary',
+          title: 'Questões de Revisão: Inflamação Aguda vs. Crônica',
+          category: 'Provas e Questões',
+          caiNaProva: false,
+          content: `
+            <h2>Pontos-chave para diferenciar processos inflamatórios</h2>
+            <ul>
+              <li><strong>Inflamação Aguda:</strong> Início rápido (minutos a horas), predomínio de <em>neutrófilos</em>, edema exsudativo pronunciado e sinais cardinais clássicos (dor, calor, rubor, tumor e perda de função).</li>
+              <li><strong>Inflamação Crônica:</strong> Duração prolongada, infiltrado mononuclear (<em>macrófagos, linfócitos e plasmócitos</em>), destruição tecidual e tentativa de reparo por angiogênese e fibrose.</li>
+            </ul>
+          `,
+          createdAt: now - 100,
+          updatedAt: now - 100
+        }
+      ];
+
+      return { periods, subjects, materials };
+    }
+
+    async function ensureInitialSeedFirestore(uid) {
+      if (!db || !uid) return;
+      try {
+        const prefRef = doc(db, 'artifacts', appId, 'users', uid, 'settings', 'preferences');
+        const prefSnap = await getDoc(prefRef);
+
+        if (prefSnap.exists()) {
+          const data = prefSnap.data();
+          if (typeof data.darkMode === 'boolean') {
+            document.documentElement.classList.toggle('dark', data.darkMode);
+          }
+          if (data.seeded) return;
+        }
+
+        // Grava estrutura inicial com IDs determinísticos
+        const seed = getInitialSeedPayload();
+        for (const p of seed.periods) {
+          await setDoc(doc(db, 'artifacts', appId, 'users', uid, 'periods', p.id), p);
+        }
+        for (const s of seed.subjects) {
+          await setDoc(doc(db, 'artifacts', appId, 'users', uid, 'subjects', s.id), s);
+        }
+        for (const m of seed.materials) {
+          await setDoc(doc(db, 'artifacts', appId, 'users', uid, 'materials', m.id), m);
+        }
+
+        await setDoc(prefRef, {
+          seeded: true,
+          darkMode: document.documentElement.classList.contains('dark'),
+          createdAt: Date.now()
+        }, { merge: true });
+      } catch (err) {
+        console.error('Erro ao inicializar dados padrão:', err);
+      }
+    }
+
+    function seedInitialDataLocal() {
+      const seed = getInitialSeedPayload();
+      state.periods = seed.periods;
+      state.subjects = seed.subjects;
+      state.materials = seed.materials;
+      state.selectedPeriodId = 'period-4';
+      state.viewMode = 'period';
+    }
+
+    // -------------------------------------------------------------------------
+    // Listeners em Tempo Real do Firestore (Sem orderBy/where complexos)
+    // -------------------------------------------------------------------------
+    function subscribeToUserData(uid) {
+      // Limpa inscrições anteriores
+      state.unsubscribers.forEach(unsub => {
+        try { unsub(); } catch (_) {}
+      });
+      state.unsubscribers = [];
+
+      const periodsCol = collection(db, 'artifacts', appId, 'users', uid, 'periods');
+      const subjectsCol = collection(db, 'artifacts', appId, 'users', uid, 'subjects');
+      const materialsCol = collection(db, 'artifacts', appId, 'users', uid, 'materials');
+
+      const unsubPeriods = onSnapshot(
+        periodsCol,
+        (snapshot) => {
+          state.periods = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+          const sorted = sortPeriodsChronologically(state.periods);
+
+          // Seleciona o 4º Período por padrão no primeiro carregamento se existir
+          if (!state.selectedPeriodId && sorted.length > 0) {
+            const p4 = sorted.find(p => p.id === 'period-4' || p.name.includes('4º'));
+            state.selectedPeriodId = p4 ? p4.id : sorted[sorted.length - 1].id;
+          } else if (state.selectedPeriodId && !state.periods.some(p => p.id === state.selectedPeriodId)) {
+            state.selectedPeriodId = sorted.length > 0 ? sorted[0].id : null;
+            if (state.viewMode === 'subject') state.viewMode = 'period';
+          }
+          renderAll();
+        },
+        (error) => {
+          console.error('Erro ao carregar períodos:', error);
+          showToast('Erro ao sincronizar períodos.', 'error');
+        }
+      );
+
+      const unsubSubjects = onSnapshot(
+        subjectsCol,
+        (snapshot) => {
+          state.subjects = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+          if (state.selectedSubjectId && !state.subjects.some(s => s.id === state.selectedSubjectId)) {
+            state.selectedSubjectId = null;
+            if (state.viewMode === 'subject') state.viewMode = 'period';
+          }
+          renderAll();
+        },
+        (error) => {
+          console.error('Erro ao carregar matérias:', error);
+          showToast('Erro ao sincronizar matérias.', 'error');
+        }
+      );
+
+      const unsubMaterials = onSnapshot(
+        materialsCol,
+        (snapshot) => {
+          state.materials = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+          renderAll();
+        },
+        (error) => {
+          console.error('Erro ao carregar materiais:', error);
+          showToast('Erro ao sincronizar materiais.', 'error');
+        }
+      );
+
+      state.unsubscribers.push(unsubPeriods, unsubSubjects, unsubMaterials);
+    }
+
+    // -------------------------------------------------------------------------
+    // Navegação e Busca Global
+    // -------------------------------------------------------------------------
+    window.selectPeriod = function (periodId) {
+      state.selectedPeriodId = periodId;
+      state.selectedSubjectId = null;
+      state.viewMode = 'period';
+      state.searchQuery = '';
+      document.getElementById('global-search-input').value = '';
+      document.getElementById('clear-search-btn').classList.add('hidden');
+      toggleSidebar(false);
+      renderAll();
+    };
+
+    window.selectSubject = function (subjectId) {
+      const subj = state.subjects.find(s => s.id === subjectId);
+      if (!subj) return;
+      state.selectedPeriodId = subj.periodId;
+      state.selectedSubjectId = subjectId;
+      state.viewMode = 'subject';
+      state.categoryFilter = 'Todos';
+      state.onlyExamFilter = false;
+      state.searchQuery = '';
+      document.getElementById('global-search-input').value = '';
+      document.getElementById('clear-search-btn').classList.add('hidden');
+      toggleSidebar(false);
+      renderAll();
+    };
+
+    window.navigateToOverview = function (mode) {
+      state.viewMode = mode === 'exam' ? 'overview-exam' : 'overview-all';
+      state.selectedSubjectId = null;
+      state.overviewPeriodFilter = 'all';
+      state.searchQuery = '';
+      document.getElementById('global-search-input').value = '';
+      document.getElementById('clear-search-btn').classList.add('hidden');
+      toggleSidebar(false);
+      renderAll();
+    };
+
+    window.handleGlobalSearch = function (val) {
+      state.searchQuery = val.trim();
+      const clearBtn = document.getElementById('clear-search-btn');
+      if (state.searchQuery.length > 0) {
+        clearBtn.classList.remove('hidden');
+      } else {
+        clearBtn.classList.add('hidden');
+      }
+      renderMainContent();
+    };
+
+    window.clearGlobalSearch = function () {
+      state.searchQuery = '';
+      const input = document.getElementById('global-search-input');
+      input.value = '';
+      document.getElementById('clear-search-btn').classList.add('hidden');
+      renderMainContent();
+    };
+
+    // -------------------------------------------------------------------------
+    // CRUD de Períodos
+    // -------------------------------------------------------------------------
+    window.openPeriodModal = function (periodId = null) {
+      const titleEl = document.getElementById('modal-period-title');
+      const idInput = document.getElementById('period-edit-id');
+      const nameInput = document.getElementById('period-name-input');
+
+      if (periodId) {
+        const period = state.periods.find(p => p.id === periodId);
+        if (!period) return;
+        titleEl.textContent = 'Renomear Período';
+        idInput.value = period.id;
+        nameInput.value = period.name;
+      } else {
+        titleEl.textContent = 'Novo Período Acadêmico';
+        idInput.value = '';
+        const nextNum = state.periods.length + 1;
+        nameInput.value = `${nextNum}º Período`;
+      }
+      openModal('modal-period');
+      setTimeout(() => {
+        nameInput.focus();
+        nameInput.select();
+      }, 60);
+    };
+
+    window.savePeriodForm = async function (e) {
+      e.preventDefault();
+      const id = document.getElementById('period-edit-id').value;
+      const name = document.getElementById('period-name-input').value.trim();
+      if (!name) return;
+
+      closeModal('modal-period');
+
+      if (id) {
+        if (db && state.user) {
+          await updateDoc(doc(db, 'artifacts', appId, 'users', state.user.uid, 'periods', id), {
+            name,
+            order: extractNumber(name)
+          });
+        } else {
+          const p = state.periods.find(x => x.id === id);
+          if (p) { p.name = name; p.order = extractNumber(name); }
+          renderAll();
+        }
+        showToast('Período atualizado!');
+      } else {
+        const order = extractNumber(name) !== 999 ? extractNumber(name) : state.periods.length + 1;
+        const payload = { name, order, createdAt: Date.now() };
+        if (db && state.user) {
+          const docRef = await addDoc(collection(db, 'artifacts', appId, 'users', state.user.uid, 'periods'), payload);
+          state.selectedPeriodId = docRef.id;
+          state.viewMode = 'period';
+        } else {
+          const newId = 'period-' + Date.now();
+          state.periods.push({ id: newId, ...payload });
+          state.selectedPeriodId = newId;
+          state.viewMode = 'period';
+          renderAll();
+        }
+        showToast(`"${name}" criado com sucesso!`);
+      }
+    };
+
+    window.confirmDeletePeriod = function (periodId, event) {
+      if (event) event.stopPropagation();
+      const period = state.periods.find(p => p.id === periodId);
+      if (!period) return;
+
+      openConfirmModal(
+        `Excluir "${period.name}"?`,
+        'Todas as matérias e materiais vinculados a este período também serão removidos permanentemente.',
+        async () => {
+          const relatedSubjects = state.subjects.filter(s => s.periodId === periodId);
+          const relatedMaterials = state.materials.filter(m => m.periodId === periodId);
+
+          if (db && state.user) {
+            const uid = state.user.uid;
+            for (const m of relatedMaterials) {
+              await deleteDoc(doc(db, 'artifacts', appId, 'users', uid, 'materials', m.id));
+            }
+            for (const s of relatedSubjects) {
+              await deleteDoc(doc(db, 'artifacts', appId, 'users', uid, 'subjects', s.id));
+            }
+            await deleteDoc(doc(db, 'artifacts', appId, 'users', uid, 'periods', periodId));
+          } else {
+            state.materials = state.materials.filter(m => m.periodId !== periodId);
+            state.subjects = state.subjects.filter(s => s.periodId !== periodId);
+            state.periods = state.periods.filter(p => p.id !== periodId);
+            renderAll();
+          }
+          showToast(`"${period.name}" excluído.`);
+        }
+      );
+    };
+
+    // -------------------------------------------------------------------------
+    // CRUD de Matérias
+    // -------------------------------------------------------------------------
+    function renderColorPicker(selectedColor) {
+      const container = document.getElementById('subject-color-picker');
+      document.getElementById('subject-color-input').value = selectedColor;
+      container.innerHTML = Object.entries(SUBJECT_COLORS).map(([key, val]) => {
+        const isSelected = key === selectedColor;
+        return `
+          <button
+            type="button"
+            onclick="selectSubjectColor('${key}')"
+            class="w-9 h-9 rounded-xl ${val.bg} flex items-center justify-center text-white transition-transform ${isSelected ? 'ring-2 ring-offset-2 ring-slate-900 dark:ring-white dark:ring-offset-slate-900 scale-110' : 'opacity-80 hover:opacity-100'}"
+            title="${val.label}"
+          >
+            ${isSelected ? '<i data-lucide="check" class="w-4 h-4"></i>' : ''}
+          </button>
+        `;
+      }).join('');
+      refreshIcons();
+    }
+
+    window.selectSubjectColor = function (colorKey) {
+      renderColorPicker(colorKey);
+    };
+
+    window.openSubjectModal = function (subjectId = null) {
+      const titleEl = document.getElementById('modal-subject-title');
+      const idInput = document.getElementById('subject-edit-id');
+      const nameInput = document.getElementById('subject-name-input');
+      const profInput = document.getElementById('subject-prof-input');
+
+      if (subjectId) {
+        const subj = state.subjects.find(s => s.id === subjectId);
+        if (!subj) return;
+        titleEl.textContent = 'Editar Matéria';
+        idInput.value = subj.id;
+        nameInput.value = subj.name;
+        profInput.value = subj.professor || '';
+        renderColorPicker(subj.color || 'indigo');
+      } else {
+        titleEl.textContent = 'Nova Matéria';
+        idInput.value = '';
+        nameInput.value = '';
+        profInput.value = '';
+        const colorKeys = Object.keys(SUBJECT_COLORS);
+        const randomColor = colorKeys[state.subjects.length % colorKeys.length];
+        renderColorPicker(randomColor);
+      }
+      openModal('modal-subject');
+      setTimeout(() => nameInput.focus(), 60);
+    };
+
+    window.saveSubjectForm = async function (e) {
+      e.preventDefault();
+      const id = document.getElementById('subject-edit-id').value;
+      const name = document.getElementById('subject-name-input').value.trim();
+      const professor = document.getElementById('subject-prof-input').value.trim();
+      const color = document.getElementById('subject-color-input').value || 'indigo';
+      if (!name) return;
+
+      closeModal('modal-subject');
+
+      if (id) {
+        if (db && state.user) {
+          await updateDoc(doc(db, 'artifacts', appId, 'users', state.user.uid, 'subjects', id), {
+            name,
+            professor,
+            color
+          });
+        } else {
+          const s = state.subjects.find(x => x.id === id);
+          if (s) { s.name = name; s.professor = professor; s.color = color; }
+          renderAll();
+        }
+        showToast('Matéria atualizada!');
+      } else {
+        const periodId = state.selectedPeriodId || (state.periods[0] && state.periods[0].id);
+        if (!periodId) {
+          showToast('Crie um período antes de adicionar matérias.', 'error');
+          return;
+        }
+        const payload = {
+          periodId,
+          name,
+          professor,
+          color,
+          createdAt: Date.now()
+        };
+        if (db && state.user) {
+          await addDoc(collection(db, 'artifacts', appId, 'users', state.user.uid, 'subjects'), payload);
+        } else {
+          state.subjects.push({ id: 'subj-' + Date.now(), ...payload });
+          renderAll();
+        }
+        showToast(`Matéria "${name}" adicionada!`);
+      }
+    };
+
+    window.confirmDeleteSubject = function (subjectId, event) {
+      if (event) event.stopPropagation();
+      const subj = state.subjects.find(s => s.id === subjectId);
+      if (!subj) return;
+
+      openConfirmModal(
+        `Excluir "${subj.name}"?`,
+        'Todos os arquivos, links e resumos salvos dentro desta matéria serão apagados.',
+        async () => {
+          const relatedMaterials = state.materials.filter(m => m.subjectId === subjectId);
+          if (db && state.user) {
+            const uid = state.user.uid;
+            for (const m of relatedMaterials) {
+              await deleteDoc(doc(db, 'artifacts', appId, 'users', uid, 'materials', m.id));
+            }
+            await deleteDoc(doc(db, 'artifacts', appId, 'users', uid, 'subjects', subjectId));
+          } else {
+            state.materials = state.materials.filter(m => m.subjectId !== subjectId);
+            state.subjects = state.subjects.filter(s => s.id !== subjectId);
+            renderAll();
+          }
+          showToast(`Matéria "${subj.name}" removida.`);
+        }
+      );
+    };
+
+    // -------------------------------------------------------------------------
+    // Upload de Arquivos (Firebase Storage + Firestore + Fallback Resiliente)
+    // -------------------------------------------------------------------------
+    function inferCategoryFromFile(fileName) {
+      const lower = fileName.toLowerCase();
+      if (lower.includes('prova') || lower.includes('simulado') || lower.includes('quest') || lower.includes('gabarito')) {
+        return 'Provas e Questões';
+      }
+      if (lower.endsWith('.ppt') || lower.endsWith('.pptx') || lower.includes('slide') || lower.includes('aula')) {
+        return 'Slides / Aula';
+      }
+      if (lower.includes('artigo') || lower.includes('paper')) {
+        return 'Artigo';
+      }
+      if (lower.endsWith('.doc') || lower.endsWith('.docx') || lower.endsWith('.txt') || lower.endsWith('.md') || lower.includes('resumo')) {
+        return 'Resumo / Estudo Dirigido';
+      }
+      return 'Livro / Referência';
+    }
+
+    window.triggerFileInput = function () {
+      const input = document.getElementById('subject-file-input');
+      if (input) input.click();
+    };
+
+    window.handleFileSelect = function (event) {
+      const files = event.target.files;
+      if (files && files.length > 0) {
+        processUploadedFiles(Array.from(files));
+        event.target.value = '';
+      }
+    };
+
+    window.handleDragOver = function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+      const zone = document.getElementById('drop-zone');
+      if (zone) {
+        zone.classList.add('border-indigo-500', 'bg-indigo-50/70', 'dark:bg-indigo-500/10');
+      }
+    };
+
+    window.handleDragLeave = function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+      const zone = document.getElementById('drop-zone');
+      if (zone) {
+        zone.classList.remove('border-indigo-500', 'bg-indigo-50/70', 'dark:bg-indigo-500/10');
+      }
+    };
+
+    window.handleFileDrop = function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+      handleDragLeave(event);
+      const files = event.dataTransfer?.files;
+      if (files && files.length > 0) {
+        processUploadedFiles(Array.from(files));
+      }
+    };
+
+    async function processUploadedFiles(files) {
+      const subjectId = state.selectedSubjectId;
+      const periodId = state.selectedPeriodId;
+      if (!subjectId || !periodId) return;
+
+      for (const file of files) {
+        const uploadId = 'up-' + Date.now() + '-' + Math.random().toString(36).slice(2, 6);
+        const localBlobUrl = URL.createObjectURL(file);
+        const category = state.categoryFilter !== 'Todos' ? state.categoryFilter : inferCategoryFromFile(file.name);
+
+        state.activeUploads.push({ id: uploadId, name: file.name, progress: 10 });
+        renderUploadsBar();
+
+        const finalizeDocumentSave = async (downloadUrl, storagePath, isLocalOnly = false) => {
+          const materialData = {
+            periodId,
+            subjectId,
+            type: 'file',
+            title: file.name,
+            fileName: file.name,
+            fileSize: file.size,
+            mimeType: file.type || 'application/octet-stream',
+            category,
+            caiNaProva: false,
+            fileUrl: downloadUrl || '',
+            storagePath: storagePath || '',
+            isLocalSessionOnly: isLocalOnly,
+            createdAt: Date.now(),
+            updatedAt: Date.now()
+          };
+
+          if (db && state.user) {
+            const docRef = await addDoc(collection(db, 'artifacts', appId, 'users', state.user.uid, 'materials'), materialData);
+            state.sessionBlobs[docRef.id] = localBlobUrl;
+          } else {
+            const newId = 'mat-' + Date.now() + Math.random().toString(36).slice(2, 5);
+            state.sessionBlobs[newId] = localBlobUrl;
+            state.materials.push({ id: newId, ...materialData });
+            renderAll();
+          }
+
+          state.activeUploads = state.activeUploads.filter(u => u.id !== uploadId);
+          renderUploadsBar();
+          showToast(`"${file.name}" adicionado com sucesso!`);
+        };
+
+        // Tenta enviar ao Firebase Storage se disponível
+        if (storage && state.user) {
+          try {
+            const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+            const storagePath = `artifacts/${appId}/users/${state.user.uid}/files/${Date.now()}_${safeName}`;
+            const storageRef = ref(storage, storagePath);
+            const uploadTask = uploadBytesResumable(storageRef, file);
+
+            uploadTask.on(
+              'state_changed',
+              (snapshot) => {
+                const pct = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+                const item = state.activeUploads.find(u => u.id === uploadId);
+                if (item) {
+                  item.progress = Math.max(15, pct);
+                  renderUploadsBar();
+                }
+              },
+              async (storageErr) => {
+                console.warn('Fallback de Storage ativado:', storageErr);
+                // Garante que o arquivo funcione imediatamente na sessão e fique catalogado no Firestore
+                await finalizeDocumentSave('', '', true);
+              },
+              async () => {
+                const url = await getDownloadURL(uploadTask.snapshot.ref);
+                await finalizeDocumentSave(url, storagePath, false);
+              }
+            );
+          } catch (err) {
+            console.warn('Exceção no Storage, usando fallback:', err);
+            await finalizeDocumentSave('', '', true);
+          }
+        } else {
+          await finalizeDocumentSave('', '', true);
+        }
+      }
+    }
+
+    function renderUploadsBar() {
+      const container = document.getElementById('active-uploads-container');
+      if (!container) return;
+      if (state.activeUploads.length === 0) {
+        container.innerHTML = '';
+        return;
+      }
+      container.innerHTML = `
+        <div class="mb-4 p-3.5 rounded-xl bg-indigo-50/80 dark:bg-indigo-500/10 border border-indigo-200/70 dark:border-indigo-500/20 space-y-2.5">
+          ${state.activeUploads.map(u => `
+            <div>
+              <div class="flex items-center justify-between text-xs font-medium text-indigo-900 dark:text-indigo-200 mb-1">
+                <span class="truncate max-w-[75%]">Enviando: ${escapeHtml(u.name)}</span>
+                <span>${u.progress}%</span>
+              </div>
+              <div class="w-full h-1.5 rounded-full bg-indigo-200/60 dark:bg-indigo-950 overflow-hidden">
+                <div class="h-full bg-indigo-600 rounded-full transition-all duration-200" style="width: ${u.progress}%"></div>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+    }
+
+    // -------------------------------------------------------------------------
+    // CRUD de Links Externos
+    // -------------------------------------------------------------------------
+    window.openLinkModal = function (materialId = null) {
+      const titleHeader = document.getElementById('modal-link-title');
+      const idInput = document.getElementById('link-edit-id');
+      const titleInput = document.getElementById('link-title-input');
+      const urlInput = document.getElementById('link-url-input');
+      const catInput = document.getElementById('link-category-input');
+      const examInput = document.getElementById('link-exam-input');
+      const descInput = document.getElementById('link-desc-input');
+
+      if (materialId) {
+        const mat = state.materials.find(m => m.id === materialId);
+        if (!mat) return;
+        titleHeader.textContent = 'Editar Link Externo';
+        idInput.value = mat.id;
+        titleInput.value = mat.title || '';
+        urlInput.value = mat.url || '';
+        catInput.value = mat.category || 'Slides / Aula';
+        examInput.checked = Boolean(mat.caiNaProva);
+        descInput.value = mat.description || '';
+      } else {
+        titleHeader.textContent = 'Adicionar Link Externo';
+        idInput.value = '';
+        titleInput.value = '';
+        urlInput.value = '';
+        catInput.value = state.categoryFilter !== 'Todos' ? state.categoryFilter : 'Slides / Aula';
+        examInput.checked = false;
+        descInput.value = '';
+      }
+      openModal('modal-link');
+      setTimeout(() => titleInput.focus(), 60);
+    };
+
+    window.saveLinkForm = async function (e) {
+      e.preventDefault();
+      const id = document.getElementById('link-edit-id').value;
+      const title = document.getElementById('link-title-input').value.trim();
+      let url = document.getElementById('link-url-input').value.trim();
+      const category = document.getElementById('link-category-input').value;
+      const caiNaProva = document.getElementById('link-exam-input').checked;
+      const description = document.getElementById('link-desc-input').value.trim();
+
+      if (!title || !url) return;
+      if (!/^https?:\/\//i.test(url)) url = 'https://' + url;
+
+      closeModal('modal-link');
+
+      if (id) {
+        if (db && state.user) {
+          await updateDoc(doc(db, 'artifacts', appId, 'users', state.user.uid, 'materials', id), {
+            title,
+            url,
+            category,
+            caiNaProva,
+            description,
+            updatedAt: Date.now()
+          });
+        } else {
+          const m = state.materials.find(x => x.id === id);
+          if (m) Object.assign(m, { title, url, category, caiNaProva, description, updatedAt: Date.now() });
+          renderAll();
+        }
+        showToast('Link atualizado!');
+      } else {
+        const payload = {
+          periodId: state.selectedPeriodId,
+          subjectId: state.selectedSubjectId,
+          type: 'link',
+          title,
+          url,
+          category,
+          caiNaProva,
+          description,
+          createdAt: Date.now(),
+          updatedAt: Date.now()
+        };
+        if (db && state.user) {
+          await addDoc(collection(db, 'artifacts', appId, 'users', state.user.uid, 'materials'), payload);
+        } else {
+          state.materials.push({ id: 'mat-' + Date.now(), ...payload });
+          renderAll();
+        }
+        showToast('Link salvo no repositório!');
+      }
+    };
+
+    // -------------------------------------------------------------------------
+    // Editor Integrado de Resumos / Estudo Dirigido
+    // -------------------------------------------------------------------------
+    window.execEditorCmd = function (command, value = null) {
+      document.getElementById('summary-editor-body').focus();
+      document.execCommand(command, false, value);
+    };
+
+    window.openSummaryEditor = function (materialId = null) {
+      const idInput = document.getElementById('summary-edit-id');
+      const titleInput = document.getElementById('summary-title-input');
+      const catInput = document.getElementById('summary-category-input');
+      const examInput = document.getElementById('summary-exam-input');
+      const bodyEl = document.getElementById('summary-editor-body');
+      const headerLabel = document.getElementById('modal-summary-header-label');
+
+      if (materialId) {
+        const mat = state.materials.find(m => m.id === materialId);
+        if (!mat) return;
+        headerLabel.textContent = 'Editando Resumo / Estudo Dirigido';
+        idInput.value = mat.id;
+        titleInput.value = mat.title || '';
+        catInput.value = mat.category || 'Resumo / Estudo Dirigido';
+        examInput.checked = Boolean(mat.caiNaProva);
+        bodyEl.innerHTML = mat.content || '';
+      } else {
+        headerLabel.textContent = 'Novo Resumo / Estudo Dirigido';
+        idInput.value = '';
+        titleInput.value = '';
+        catInput.value = (state.categoryFilter !== 'Todos' && state.categoryFilter) ? state.categoryFilter : 'Resumo / Estudo Dirigido';
+        examInput.checked = false;
+        bodyEl.innerHTML = '';
+      }
+
+      openModal('modal-summary');
+      setTimeout(() => titleInput.focus(), 60);
+    };
+
+    window.saveSummaryForm = async function () {
+      const id = document.getElementById('summary-edit-id').value;
+      const title = document.getElementById('summary-title-input').value.trim() || 'Resumo sem título';
+      const category = document.getElementById('summary-category-input').value;
+      const caiNaProva = document.getElementById('summary-exam-input').checked;
+      const content = document.getElementById('summary-editor-body').innerHTML;
+
+      closeModal('modal-summary');
+
+      if (id) {
+        if (db && state.user) {
+          await updateDoc(doc(db, 'artifacts', appId, 'users', state.user.uid, 'materials', id), {
+            title,
+            category,
+            caiNaProva,
+            content,
+            updatedAt: Date.now()
+          });
+        } else {
+          const m = state.materials.find(x => x.id === id);
+          if (m) Object.assign(m, { title, category, caiNaProva, content, updatedAt: Date.now() });
+          renderAll();
+        }
+        showToast('Resumo salvo com sucesso!');
+      } else {
+        const payload = {
+          periodId: state.selectedPeriodId,
+          subjectId: state.selectedSubjectId,
+          type: 'summary',
+          title,
+          category,
+          caiNaProva,
+          content,
+          createdAt: Date.now(),
+          updatedAt: Date.now()
+        };
+        if (db && state.user) {
+          await addDoc(collection(db, 'artifacts', appId, 'users', state.user.uid, 'materials'), payload);
+        } else {
+          state.materials.push({ id: 'mat-' + Date.now(), ...payload });
+          renderAll();
+        }
+        showToast('Novo resumo criado!');
+      }
+    };
+
+    // -------------------------------------------------------------------------
+    // Editar Metadados de Arquivo, Favoritar ("Cai na Prova") e Excluir Material
+    // -------------------------------------------------------------------------
+    window.openEditFileModal = function (materialId, event) {
+      if (event) event.stopPropagation();
+      const mat = state.materials.find(m => m.id === materialId);
+      if (!mat) return;
+
+      document.getElementById('file-edit-id').value = mat.id;
+      document.getElementById('file-title-input').value = mat.title || '';
+      document.getElementById('file-category-input').value = mat.category || 'Livro / Referência';
+      document.getElementById('file-exam-input').checked = Boolean(mat.caiNaProva);
+      openModal('modal-edit-file');
+    };
+
+    window.saveFileMetadataForm = async function (e) {
+      e.preventDefault();
+      const id = document.getElementById('file-edit-id').value;
+      const title = document.getElementById('file-title-input').value.trim();
+      const category = document.getElementById('file-category-input').value;
+      const caiNaProva = document.getElementById('file-exam-input').checked;
+      if (!title) return;
+
+      closeModal('modal-edit-file');
+
+      if (db && state.user) {
+        await updateDoc(doc(db, 'artifacts', appId, 'users', state.user.uid, 'materials', id), {
+          title,
+          category,
+          caiNaProva,
+          updatedAt: Date.now()
+        });
+      } else {
+        const m = state.materials.find(x => x.id === id);
+        if (m) Object.assign(m, { title, category, caiNaProva, updatedAt: Date.now() });
+        renderAll();
+      }
+      showToast('Detalhes do arquivo atualizados!');
+    };
+
+    window.toggleCaiNaProva = async function (materialId, event) {
+      if (event) event.stopPropagation();
+      const mat = state.materials.find(m => m.id === materialId);
+      if (!mat) return;
+      const nextVal = !mat.caiNaProva;
+
+      if (db && state.user) {
+        await updateDoc(doc(db, 'artifacts', appId, 'users', state.user.uid, 'materials', materialId), {
+          caiNaProva: nextVal
+        });
+      } else {
+        mat.caiNaProva = nextVal;
+        renderAll();
+      }
+      showToast(nextVal ? 'Marcado como "Cai na Prova" ⭐' : 'Removido dos destaques de prova', 'info');
+    };
+
+    window.confirmDeleteMaterial = function (materialId, event) {
+      if (event) event.stopPropagation();
+      const mat = state.materials.find(m => m.id === materialId);
+      if (!mat) return;
+
+      openConfirmModal(
+        'Remover material?',
+        `Deseja excluir "${mat.title}" do seu repositório?`,
+        async () => {
+          if (mat.storagePath && storage) {
+            try {
+              await deleteObject(ref(storage, mat.storagePath));
+            } catch (err) {
+              console.warn('Objeto já removido ou inacessível no Storage:', err);
+            }
+          }
+          if (db && state.user) {
+            await deleteDoc(doc(db, 'artifacts', appId, 'users', state.user.uid, 'materials', materialId));
+          } else {
+            state.materials = state.materials.filter(m => m.id !== materialId);
+            renderAll();
+          }
+          showToast('Material removido.');
+        }
+      );
+    };
+
+    // -------------------------------------------------------------------------
+    // Visualizador Integrado (PDF, Imagem, Resumo, Link Externo)
+    // -------------------------------------------------------------------------
+    function resolveMaterialUrl(mat) {
+      return state.sessionBlobs[mat.id] || mat.fileUrl || '';
+    }
+
+    window.openMaterialViewer = function (materialId) {
+      const mat = state.materials.find(m => m.id === materialId);
+      if (!mat) return;
+
+      const period = state.periods.find(p => p.id === mat.periodId);
+      const subject = state.subjects.find(s => s.id === mat.subjectId);
+
+      document.getElementById('viewer-category-badge').textContent = mat.category || 'Material';
+      document.getElementById('viewer-context-label').textContent = `${period ? period.name : ''} • ${subject ? subject.name : ''}`;
+      document.getElementById('viewer-title').textContent = mat.title;
+
+      const actionsEl = document.getElementById('viewer-actions');
+      const bodyEl = document.getElementById('viewer-body');
+
+      // 1. RESUMO / ESTUDO DIRIGIDO
+      if (mat.type === 'summary') {
+        actionsEl.innerHTML = `
+          <button onclick="closeModal('modal-viewer'); openSummaryEditor('${mat.id}')" class="px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs sm:text-sm font-semibold flex items-center gap-1.5 transition-colors">
+            <i data-lucide="edit-3" class="w-4 h-4"></i>
+            <span>Editar Resumo</span>
+          </button>
+          <button onclick="downloadSummaryAsHtml('${mat.id}')" class="px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs sm:text-sm font-medium flex items-center gap-1.5 transition-colors" title="Baixar resumo">
+            <i data-lucide="download" class="w-4 h-4"></i>
+            <span class="hidden sm:inline">Baixar</span>
+          </button>
+          <button onclick="closeModal('modal-viewer')" class="p-2 rounded-xl text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800">
+            <i data-lucide="x" class="w-5 h-5"></i>
+          </button>
+        `;
+
+        bodyEl.innerHTML = `
+          <div class="max-w-3xl w-full mx-auto my-4 sm:my-8 bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl p-6 sm:p-10 shadow-soft">
+            <div class="rich-content text-slate-800 dark:text-slate-100 text-sm sm:text-base">
+              ${mat.content || '<p class="text-slate-400 italic">Este resumo ainda não possui conteúdo escrito.</p>'}
+            </div>
+          </div>
+        `;
+      }
+      // 2. LINK EXTERNO
+      else if (mat.type === 'link') {
+        actionsEl.innerHTML = `
+          <a href="${escapeHtml(mat.url)}" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs sm:text-sm font-semibold flex items-center gap-1.5 transition-colors">
+            <i data-lucide="external-link" class="w-4 h-4"></i>
+            <span>Abrir em Nova Aba</span>
+          </a>
+          <button onclick="closeModal('modal-viewer')" class="p-2 rounded-xl text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800">
+            <i data-lucide="x" class="w-5 h-5"></i>
+          </button>
+        `;
+
+        bodyEl.innerHTML = `
+          <div class="flex-1 flex items-center justify-center p-6">
+            <div class="max-w-lg w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 sm:p-8 text-center shadow-soft">
+              <div class="w-14 h-14 rounded-2xl bg-sky-50 dark:bg-sky-500/15 text-sky-600 dark:text-sky-400 flex items-center justify-center mx-auto mb-4">
+                <i data-lucide="link-2" class="w-7 h-7"></i>
+              </div>
+              <h4 class="font-bold text-lg text-slate-900 dark:text-white">${escapeHtml(mat.title)}</h4>
+              <p class="text-xs text-indigo-600 dark:text-indigo-400 break-all mt-1.5 font-medium">${escapeHtml(mat.url)}</p>
+              ${mat.description ? `<p class="text-sm text-slate-600 dark:text-slate-300 mt-4 leading-relaxed bg-slate-50 dark:bg-slate-800/70 p-3.5 rounded-xl">${escapeHtml(mat.description)}</p>` : ''}
+              <div class="mt-6 flex flex-wrap items-center justify-center gap-3">
+                <a href="${escapeHtml(mat.url)}" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold flex items-center gap-2 shadow-sm transition-colors">
+                  <i data-lucide="external-link" class="w-4 h-4"></i>
+                  <span>Acessar Recurso Externo</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+      // 3. ARQUIVO (PDF, IMAGEM OU DOCUMENTO)
+      else {
+        const activeUrl = resolveMaterialUrl(mat);
+        const mime = (mat.mimeType || '').toLowerCase();
+        const fname = (mat.fileName || mat.title || '').toLowerCase();
+        const isPdf = mime.includes('pdf') || fname.endsWith('.pdf');
+        const isImage = mime.startsWith('image/') || /\.(png|jpe?g|gif|webp|svg)$/i.test(fname);
+
+        actionsEl.innerHTML = `
+          ${activeUrl ? `
+            <a href="${escapeHtml(activeUrl)}" download="${escapeHtml(mat.fileName || mat.title)}" class="px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs sm:text-sm font-semibold flex items-center gap-1.5 transition-colors">
+              <i data-lucide="download" class="w-4 h-4"></i>
+              <span>Baixar</span>
+            </a>
+            <a href="${escapeHtml(activeUrl)}" target="_blank" rel="noopener noreferrer" class="px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs sm:text-sm font-medium flex items-center gap-1.5 transition-colors">
+              <i data-lucide="external-link" class="w-4 h-4"></i>
+              <span class="hidden sm:inline">Nova Aba</span>
+            </a>
+          ` : ''}
+          <button onclick="closeModal('modal-viewer')" class="p-2 rounded-xl text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800">
+            <i data-lucide="x" class="w-5 h-5"></i>
+          </button>
+        `;
+
+        if (!activeUrl) {
+          bodyEl.innerHTML = `
+            <div class="flex-1 flex items-center justify-center p-6">
+              <div class="max-w-md w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 text-center">
+                <i data-lucide="file-warning" class="w-10 h-10 text-amber-500 mx-auto mb-3"></i>
+                <h4 class="font-semibold text-base">Arquivo armazenado localmente em sessão anterior</h4>
+                <p class="text-sm text-slate-500 dark:text-slate-400 mt-1.5">Este arquivo foi catalogado sem URL pública de nuvem. Reenvie o arquivo se desejar visualizá-lo novamente.</p>
+              </div>
+            </div>
+          `;
+        } else if (isPdf) {
+          bodyEl.innerHTML = `
+            <iframe src="${escapeHtml(activeUrl)}" class="w-full h-full border-0 flex-1" title="${escapeHtml(mat.title)}"></iframe>
+          `;
+        } else if (isImage) {
+          bodyEl.innerHTML = `
+            <div class="flex-1 flex items-center justify-center p-4 sm:p-8 overflow-auto">
+              <img src="${escapeHtml(activeUrl)}" alt="${escapeHtml(mat.title)}" class="max-w-full max-h-full object-contain rounded-xl shadow-lg" />
+            </div>
+          `;
+        } else {
+          bodyEl.innerHTML = `
+            <div class="flex-1 flex items-center justify-center p-6">
+              <div class="max-w-md w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-8 text-center shadow-soft">
+                <div class="w-16 h-16 rounded-2xl bg-indigo-50 dark:bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mx-auto mb-4">
+                  <i data-lucide="file-text" class="w-8 h-8"></i>
+                </div>
+                <h4 class="font-bold text-base text-slate-900 dark:text-white break-words">${escapeHtml(mat.fileName || mat.title)}</h4>
+                <p class="text-xs text-slate-400 mt-1">${formatBytes(mat.fileSize)} • ${escapeHtml(mat.category)}</p>
+                <p class="text-sm text-slate-500 dark:text-slate-400 mt-4">Pré-visualização direta indisponível para este formato. Clique abaixo para baixar ou abrir no aplicativo padrão.</p>
+                <div class="mt-6 flex items-center justify-center gap-3">
+                  <a href="${escapeHtml(activeUrl)}" download="${escapeHtml(mat.fileName || mat.title)}" class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold flex items-center gap-2">
+                    <i data-lucide="download" class="w-4 h-4"></i>
+                    <span>Baixar Arquivo</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          `;
+        }
+      }
+
+      openModal('modal-viewer');
+    };
+
+    window.downloadSummaryAsHtml = function (materialId) {
+      const mat = state.materials.find(m => m.id === materialId);
+      if (!mat) return;
+      const htmlDoc = `<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><title>${escapeHtml(mat.title)}</title><style>body{font-family:system-ui,sans-serif;max-width:760px;margin:40px auto;padding:0 20px;line-height:1.6;color:#1e293b}h1,h2{color:#0f172a}blockquote{border-left:3px solid #6366f1;padding-left:12px;color:#475569}</style></head><body><h1>${escapeHtml(mat.title)}</h1><p><strong>Categoria:</strong> ${escapeHtml(mat.category)}</p><hr/>${mat.content || ''}</body></html>`;
+      const blob = new Blob([htmlDoc], { type: 'text/html;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${mat.title.replace(/[^a-zA-Z0-9À-ÿ _-]/g, '') || 'resumo'}.html`;
+      a.click();
+      URL.revokeObjectURL(url);
+    };
+
+    // -------------------------------------------------------------------------
+    // Renderização da Barra Lateral e Views Principais
+    // -------------------------------------------------------------------------
+    function renderSidebar() {
+      // Contadores de Visão Geral
+      const totalMaterials = state.materials.length;
+      const examMaterials = state.materials.filter(m => m.caiNaProva).length;
+
+      document.getElementById('badge-all-count').textContent = totalMaterials;
+      document.getElementById('badge-exam-count').textContent = examMaterials;
+
+      // Estilo ativo dos botões de Visão Geral
+      const navAll = document.getElementById('nav-all');
+      const navExam = document.getElementById('nav-exam');
+
+      const activeNavClass = 'bg-indigo-50 dark:bg-indigo-500/15 text-indigo-700 dark:text-indigo-300 font-semibold';
+      const inactiveNavClass = 'text-slate-600 dark:text-slate-300 hover:bg-slate-100/80 dark:hover:bg-slate-800/70';
+
+      navAll.className = `w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm transition-all ${state.viewMode === 'overview-all' ? activeNavClass : inactiveNavClass}`;
+      navExam.className = `w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm transition-all ${state.viewMode === 'overview-exam' ? activeNavClass : inactiveNavClass}`;
+
+      // Lista de Períodos ordenados cronologicamente
+      const sortedPeriods = sortPeriodsChronologically(state.periods);
+      const listEl = document.getElementById('periods-list');
+
+      if (sortedPeriods.length === 0) {
+        listEl.innerHTML = `<p class="px-3 py-2 text-xs text-slate-400">Nenhum período cadastrado.</p>`;
+        return;
+      }
+
+      listEl.innerHTML = sortedPeriods.map(p => {
+        const isSelected = (state.viewMode === 'period' || state.viewMode === 'subject') && state.selectedPeriodId === p.id;
+        const subjCount = state.subjects.filter(s => s.periodId === p.id).length;
+
+        return `
+          <div
+            onclick="selectPeriod('${p.id}')"
+            class="group flex items-center justify-between px-3 py-2.5 rounded-xl text-sm cursor-pointer transition-all ${isSelected ? 'bg-indigo-50 dark:bg-indigo-500/15 text-indigo-700 dark:text-indigo-300 font-semibold' : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100/80 dark:hover:bg-slate-800/70'}"
+          >
+            <div class="flex items-center gap-2.5 min-w-0 flex-1">
+              <i data-lucide="folder" class="w-4 h-4 shrink-0 ${isSelected ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-400'}"></i>
+              <span class="truncate">${escapeHtml(p.name)}</span>
+            </div>
+
+            <div class="flex items-center gap-1 shrink-0">
+              <span class="text-[11px] px-1.5 py-0.5 rounded-md ${isSelected ? 'bg-indigo-100 dark:bg-indigo-500/25 text-indigo-700 dark:text-indigo-200' : 'text-slate-400'} group-hover:hidden">${subjCount}</span>
+              <div class="hidden group-hover:flex items-center gap-0.5">
+                <button onclick="event.stopPropagation(); openPeriodModal('${p.id}')" class="p-1 rounded-md hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-500 dark:text-slate-300" title="Renomear período">
+                  <i data-lucide="pencil" class="w-3 h-3"></i>
+                </button>
+                <button onclick="confirmDeletePeriod('${p.id}', event)" class="p-1 rounded-md hover:bg-rose-100 dark:hover:bg-rose-500/20 text-rose-500" title="Excluir período">
+                  <i data-lucide="trash-2" class="w-3 h-3"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderMainContent() {
+      const main = document.getElementById('main-content');
+
+      // Se houver busca global ativa, renderiza resultados em tempo real
+      if (state.searchQuery.length > 0) {
+        renderSearchResultsView(main);
+        return;
+      }
+
+      if (state.viewMode === 'overview-all' || state.viewMode === 'overview-exam') {
+        renderOverviewView(main, state.viewMode === 'overview-exam');
+        return;
+      }
+
+      if (state.viewMode === 'subject' && state.selectedSubjectId) {
+        renderSubjectRepositoryView(main);
+        return;
+      }
+
+      renderPeriodSubjectsView(main);
+    }
+
+    // -------------------------------------------------------------------------
+    // VIEW A: Matérias de um Período Selecionado
+    // -------------------------------------------------------------------------
+    function renderPeriodSubjectsView(container) {
+      const period = state.periods.find(p => p.id === state.selectedPeriodId);
+
+      if (!period) {
+        container.innerHTML = `
+          <div class="text-center py-20 bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl p-8">
+            <div class="w-14 h-14 rounded-2xl bg-indigo-50 dark:bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mx-auto mb-4">
+              <i data-lucide="folder-plus" class="w-7 h-7"></i>
+            </div>
+            <h2 class="text-lg font-bold text-slate-900 dark:text-white">Nenhum período selecionado</h2>
+            <p class="text-sm text-slate-500 dark:text-slate-400 mt-1 max-w-md mx-auto">Crie seu primeiro período acadêmico na barra lateral para começar a organizar suas matérias e materiais de estudo.</p>
+            <button onclick="openPeriodModal()" class="mt-5 px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold inline-flex items-center gap-2 shadow-sm">
+              <i data-lucide="plus" class="w-4 h-4"></i>
+              <span>Criar Período</span>
+            </button>
+          </div>
+        `;
+        refreshIcons();
+        return;
+      }
+
+      const periodSubjects = state.subjects
+        .filter(s => s.periodId === period.id)
+        .sort((a, b) => (a.createdAt || 0) - (b.createdAt || 0));
+
+      const periodMaterials = state.materials.filter(m => m.periodId === period.id);
+      const examCount = periodMaterials.filter(m => m.caiNaProva).length;
+
+      container.innerHTML = `
+        <div class="animate-fade-in space-y-6">
+          
+          <!-- Cabeçalho do Período -->
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-slate-200/80 dark:border-slate-800">
+            <div>
+              <div class="flex items-center gap-2.5">
+                <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">${escapeHtml(period.name)}</h1>
+                <button onclick="openPeriodModal('${period.id}')" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800" title="Renomear período">
+                  <i data-lucide="pencil" class="w-4 h-4"></i>
+                </button>
+              </div>
+              <div class="flex flex-wrap items-center gap-3 mt-2 text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+                <span class="flex items-center gap-1.5"><i data-lucide="book-open" class="w-4 h-4 text-indigo-500"></i> ${periodSubjects.length} ${periodSubjects.length === 1 ? 'matéria' : 'matérias'}</span>
+                <span>•</span>
+                <span class="flex items-center gap-1.5"><i data-lucide="files" class="w-4 h-4 text-emerald-500"></i> ${periodMaterials.length} ${periodMaterials.length === 1 ? 'material salvo' : 'materiais salvos'}</span>
+                ${examCount > 0 ? `<span>•</span><span class="flex items-center gap-1 text-amber-600 dark:text-amber-400 font-medium"><i data-lucide="star" class="w-3.5 h-3.5 fill-amber-500 text-amber-500"></i> ${examCount} cai na prova</span>` : ''}
+              </div>
+            </div>
+
+            <button onclick="openSubjectModal()" class="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold flex items-center justify-center gap-2 shadow-sm transition-all shrink-0">
+              <i data-lucide="plus" class="w-4 h-4"></i>
+              <span>+ Nova Matéria</span>
+            </button>
+          </div>
+
+          <!-- Grid de Cards das Matérias -->
+          ${periodSubjects.length === 0 ? `
+            <div class="text-center py-16 bg-white dark:bg-slate-900 border border-dashed border-slate-300 dark:border-slate-700 rounded-2xl p-6">
+              <div class="w-12 h-12 rounded-xl bg-indigo-50 dark:bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mx-auto mb-3">
+                <i data-lucide="book-plus" class="w-6 h-6"></i>
+              </div>
+              <h3 class="font-semibold text-base text-slate-900 dark:text-white">Nenhuma matéria cadastrada no ${escapeHtml(period.name)}</h3>
+              <p class="text-sm text-slate-500 dark:text-slate-400 mt-1 max-w-md mx-auto">Adicione as disciplinas deste semestre para organizar seus PDFs, slides, links e resumos.</p>
+              <button onclick="openSubjectModal()" class="mt-4 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold inline-flex items-center gap-2">
+                <i data-lucide="plus" class="w-4 h-4"></i>
+                <span>Adicionar Primeira Matéria</span>
+              </button>
+            </div>
+          ` : `
+            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
+              ${periodSubjects.map(subj => {
+                const theme = SUBJECT_COLORS[subj.color] || SUBJECT_COLORS.indigo;
+                const subjMats = periodMaterials.filter(m => m.subjectId === subj.id);
+                const filesCount = subjMats.filter(m => m.type === 'file').length;
+                const linksCount = subjMats.filter(m => m.type === 'link').length;
+                const summariesCount = subjMats.filter(m => m.type === 'summary').length;
+                const subjExamCount = subjMats.filter(m => m.caiNaProva).length;
+
+                return `
+                  <div
+                    onclick="selectSubject('${subj.id}')"
+                    class="group relative bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 hover:border-indigo-300 dark:hover:border-indigo-500/50 rounded-2xl p-5 shadow-soft hover:shadow-card transition-all cursor-pointer flex flex-col justify-between overflow-hidden"
+                  >
+                    <!-- Faixa Superior Colorida -->
+                    <div class="absolute top-0 left-0 right-0 h-1.5 ${theme.bg}"></div>
+
+                    <div>
+                      <div class="flex items-start justify-between gap-3 pt-1">
+                        <div class="w-11 h-11 rounded-xl ${theme.soft} ${theme.text} flex items-center justify-center shrink-0 font-bold text-base">
+                          <i data-lucide="book-marked" class="w-5 h-5"></i>
+                        </div>
+
+                        <div class="flex items-center gap-1">
+                          ${subjExamCount > 0 ? `
+                            <span class="px-2 py-0.5 rounded-full bg-amber-50 dark:bg-amber-500/15 text-amber-600 dark:text-amber-300 text-[11px] font-semibold flex items-center gap-1" title="${subjExamCount} item(ns) marcado(s) como Cai na Prova">
+                              <i data-lucide="star" class="w-3 h-3 fill-amber-500 text-amber-500"></i>
+                              <span>${subjExamCount}</span>
+                            </span>
+                          ` : ''}
+                          <button onclick="event.stopPropagation(); openSubjectModal('${subj.id}')" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity" title="Editar matéria">
+                            <i data-lucide="pencil" class="w-3.5 h-3.5"></i>
+                          </button>
+                          <button onclick="confirmDeleteSubject('${subj.id}', event)" class="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-500/15 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity" title="Excluir matéria">
+                            <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                          </button>
+                        </div>
+                      </div>
+
+                      <h3 class="font-bold text-lg text-slate-900 dark:text-white mt-4 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">${escapeHtml(subj.name)}</h3>
+                      <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2 min-h-[32px]">
+                        ${subj.professor ? escapeHtml(subj.professor) : 'Clique para abrir arquivos, links e resumos'}
+                      </p>
+                    </div>
+
+                    <!-- Rodapé com Contadores -->
+                    <div class="mt-5 pt-3.5 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+                      <div class="flex items-center gap-3">
+                        <span class="flex items-center gap-1" title="Arquivos"><i data-lucide="file-text" class="w-3.5 h-3.5 text-slate-400"></i> ${filesCount}</span>
+                        <span class="flex items-center gap-1" title="Links"><i data-lucide="link-2" class="w-3.5 h-3.5 text-slate-400"></i> ${linksCount}</span>
+                        <span class="flex items-center gap-1" title="Resumos"><i data-lucide="notebook-pen" class="w-3.5 h-3.5 text-slate-400"></i> ${summariesCount}</span>
+                      </div>
+                      <span class="font-semibold text-indigo-600 dark:text-indigo-400 flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
+                        <span>Abrir</span>
+                        <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                      </span>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+
+              <!-- Card Rápido para Adicionar Matéria -->
+              <button
+                onclick="openSubjectModal()"
+                class="min-h-[210px] rounded-2xl border-2 border-dashed border-slate-200 dark:border-slate-800 hover:border-indigo-400 dark:hover:border-indigo-500/60 bg-slate-50/40 dark:bg-slate-900/40 hover:bg-indigo-50/30 dark:hover:bg-indigo-500/5 p-6 flex flex-col items-center justify-center text-center transition-all group"
+              >
+                <div class="w-11 h-11 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-500 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 group-hover:scale-105 transition-all mb-3 shadow-2xs">
+                  <i data-lucide="plus" class="w-5 h-5"></i>
+                </div>
+                <span class="font-semibold text-sm text-slate-700 dark:text-slate-200 group-hover:text-indigo-600 dark:group-hover:text-indigo-400">+ Nova Matéria</span>
+                <span class="text-xs text-slate-400 mt-1">Adicionar disciplina ao ${escapeHtml(period.name)}</span>
+              </button>
+            </div>
+          `}
+        </div>
+      `;
+      refreshIcons();
+    }
+
+    // -------------------------------------------------------------------------
+    // VIEW B: Repositório Interno de uma Matéria
+    // -------------------------------------------------------------------------
+    function renderSubjectRepositoryView(container) {
+      const period = state.periods.find(p => p.id === state.selectedPeriodId);
+      const subject = state.subjects.find(s => s.id === state.selectedSubjectId);
+
+      if (!subject) {
+        renderPeriodSubjectsView(container);
+        return;
+      }
+
+      const theme = SUBJECT_COLORS[subject.color] || SUBJECT_COLORS.indigo;
+      let items = state.materials.filter(m => m.subjectId === subject.id);
+
+      // Filtro por categoria
+      if (state.categoryFilter !== 'Todos') {
+        items = items.filter(m => m.category === state.categoryFilter);
+      }
+
+      // Filtro "Cai na Prova"
+      if (state.onlyExamFilter) {
+        items = items.filter(m => m.caiNaProva);
+      }
+
+      // Ordenação
+      items = sortMaterials(items, state.sortBy);
+
+      container.innerHTML = `
+        <div class="animate-fade-in space-y-6">
+          
+          <!-- Breadcrumb -->
+          <nav class="flex items-center gap-2 text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+            <button onclick="selectPeriod('${period ? period.id : ''}')" class="hover:text-indigo-600 dark:hover:text-indigo-400 font-medium flex items-center gap-1 transition-colors">
+              <i data-lucide="arrow-left" class="w-4 h-4"></i>
+              <span>${period ? escapeHtml(period.name) : 'Período'}</span>
+            </button>
+            <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300 dark:text-slate-600"></i>
+            <span class="font-semibold text-slate-800 dark:text-slate-100 truncate">${escapeHtml(subject.name)}</span>
+          </nav>
+
+          <!-- Banner da Matéria + Botões de Criação -->
+          <div class="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl p-5 sm:p-6 shadow-soft relative overflow-hidden">
+            <div class="absolute top-0 left-0 bottom-0 w-1.5 ${theme.bg}"></div>
+
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pl-2">
+              <div>
+                <div class="flex items-center gap-2.5">
+                  <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold ${theme.soft} ${theme.text}">${period ? escapeHtml(period.name) : ''}</span>
+                  <button onclick="openSubjectModal('${subject.id}')" class="p-1 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800" title="Editar matéria">
+                    <i data-lucide="pencil" class="w-3.5 h-3.5"></i>
+                  </button>
+                </div>
+                <h1 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mt-1.5">${escapeHtml(subject.name)}</h1>
+                ${subject.professor ? `<p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">${escapeHtml(subject.professor)}</p>` : ''}
+              </div>
+
+              <!-- Botões Principais de Ação na Matéria -->
+              <div class="flex flex-wrap items-center gap-2.5">
+                <button onclick="openSummaryEditor()" class="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs sm:text-sm font-semibold flex items-center gap-2 shadow-sm transition-colors">
+                  <i data-lucide="notebook-pen" class="w-4 h-4"></i>
+                  <span>+ Novo Resumo</span>
+                </button>
+                <button onclick="openLinkModal()" class="px-4 py-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs sm:text-sm font-semibold flex items-center gap-2 transition-colors">
+                  <i data-lucide="link-2" class="w-4 h-4 text-sky-500"></i>
+                  <span>+ Adicionar Link</span>
+                </button>
+                <button onclick="triggerFileInput()" class="px-4 py-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs sm:text-sm font-semibold flex items-center gap-2 transition-colors">
+                  <i data-lucide="upload-cloud" class="w-4 h-4 text-emerald-500"></i>
+                  <span>Enviar Arquivo</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Área de Arrastar e Soltar (Drag-and-Drop) para Upload -->
+          <div
+            id="drop-zone"
+            ondragover="handleDragOver(event)"
+            ondragleave="handleDragLeave(event)"
+            ondrop="handleFileDrop(event)"
+            onclick="triggerFileInput()"
+            class="border-2 border-dashed border-slate-300/90 dark:border-slate-700/90 hover:border-indigo-400 dark:hover:border-indigo-500/60 bg-white/60 dark:bg-slate-900/40 hover:bg-indigo-50/40 dark:hover:bg-indigo-500/5 rounded-2xl p-5 text-center cursor-pointer transition-all"
+          >
+            <input id="subject-file-input" type="file" multiple onchange="handleFileSelect(event)" class="hidden" />
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shrink-0">
+                <i data-lucide="cloud-upload" class="w-5 h-5"></i>
+              </div>
+              <div class="text-center sm:text-left">
+                <p class="text-sm font-semibold text-slate-800 dark:text-slate-100">Arraste e solte seus arquivos aqui ou <span class="text-indigo-600 dark:text-indigo-400 underline">clique para selecionar</span></p>
+                <p class="text-xs text-slate-400 mt-0.5">Suporta PDFs, slides (PPTX), imagens, documentos Word e textos</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Barra de Progresso de Uploads Ativos -->
+          <div id="active-uploads-container"></div>
+
+          <!-- Abas de Filtro por Categoria + Filtro Cai na Prova -->
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pt-1">
+            <div class="flex items-center gap-1.5 overflow-x-auto pb-1">
+              ${CATEGORIES.map(cat => {
+                const isActive = state.categoryFilter === cat;
+                return `
+                  <button
+                    onclick="setCategoryFilter('${cat}')"
+                    class="px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${isActive ? 'bg-slate-900 dark:bg-indigo-600 text-white shadow-2xs' : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800'}"
+                  >
+                    ${escapeHtml(cat)}
+                  </button>
+                `;
+              }).join('')}
+            </div>
+
+            <div class="flex items-center gap-2 shrink-0">
+              <button
+                onclick="toggleExamFilter()"
+                class="px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 border transition-all ${state.onlyExamFilter ? 'bg-amber-50 dark:bg-amber-500/20 border-amber-300 dark:border-amber-500/40 text-amber-700 dark:text-amber-300' : 'bg-white dark:bg-slate-900 border-slate-200/80 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'}"
+              >
+                <i data-lucide="star" class="w-3.5 h-3.5 ${state.onlyExamFilter ? 'fill-amber-500 text-amber-500' : 'text-amber-500'}"></i>
+                <span>Cai na Prova</span>
+              </button>
+
+              <select
+                onchange="setSortBy(this.value)"
+                class="px-3 py-1.5 rounded-xl text-xs font-medium bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 text-slate-600 dark:text-slate-300 outline-none"
+              >
+                <option value="recent" ${state.sortBy === 'recent' ? 'selected' : ''}>Mais recentes</option>
+                <option value="exam" ${state.sortBy === 'exam' ? 'selected' : ''}>Prioritários primeiro</option>
+                <option value="alpha" ${state.sortBy === 'alpha' ? 'selected' : ''}>Ordem alfabética</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Lista de Materiais da Matéria -->
+          ${renderMaterialsList(items, false)}
+        </div>
+      `;
+      renderUploadsBar();
+      refreshIcons();
+    }
+
+    // -------------------------------------------------------------------------
+    // VIEW C: Visão Geral ("Todos os Materiais" ou "Cai na Prova")
+    // -------------------------------------------------------------------------
+    function renderOverviewView(container, onlyExam) {
+      let items = [...state.materials];
+      if (onlyExam) {
+        items = items.filter(m => m.caiNaProva);
+      }
+      if (state.overviewPeriodFilter !== 'all') {
+        items = items.filter(m => m.periodId === state.overviewPeriodFilter);
+      }
+      if (state.categoryFilter !== 'Todos') {
+        items = items.filter(m => m.category === state.categoryFilter);
+      }
+      items = sortMaterials(items, 'recent');
+
+      const sortedPeriods = sortPeriodsChronologically(state.periods);
+
+      container.innerHTML = `
+        <div class="animate-fade-in space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-slate-200/80 dark:border-slate-800">
+            <div>
+              <div class="flex items-center gap-2.5">
+                <div class="w-9 h-9 rounded-xl ${onlyExam ? 'bg-amber-50 dark:bg-amber-500/15 text-amber-500' : 'bg-indigo-50 dark:bg-indigo-500/15 text-indigo-600 dark:text-indigo-400'} flex items-center justify-center">
+                  <i data-lucide="${onlyExam ? 'star' : 'layers'}" class="w-5 h-5 ${onlyExam ? 'fill-amber-500' : ''}"></i>
+                </div>
+                <h1 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">
+                  ${onlyExam ? 'Cai na Prova — Revisão Prioritária' : 'Todos os Materiais'}
+                </h1>
+              </div>
+              <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1.5">
+                ${onlyExam
+                  ? 'Materiais marcados com estrela para revisão rápida antes das avaliações.'
+                  : 'Visão consolidada de todos os arquivos, links e resumos de todos os períodos.'}
+              </p>
+            </div>
+
+            <!-- Filtro Rápido por Período -->
+            <div class="flex items-center gap-2">
+              <select
+                onchange="setOverviewPeriodFilter(this.value)"
+                class="px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 outline-none"
+              >
+                <option value="all" ${state.overviewPeriodFilter === 'all' ? 'selected' : ''}>Todos os Períodos</option>
+                ${sortedPeriods.map(p => `<option value="${p.id}" ${state.overviewPeriodFilter === p.id ? 'selected' : ''}>${escapeHtml(p.name)}</option>`).join('')}
+              </select>
+            </div>
+          </div>
+
+          <!-- Abas de Categoria -->
+          <div class="flex items-center gap-1.5 overflow-x-auto pb-1">
+            ${CATEGORIES.map(cat => {
+              const isActive = state.categoryFilter === cat;
+              return `
+                <button
+                  onclick="setCategoryFilter('${cat}')"
+                  class="px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${isActive ? 'bg-slate-900 dark:bg-indigo-600 text-white' : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800'}"
+                >
+                  ${escapeHtml(cat)}
+                </button>
+              `;
+            }).join('')}
+          </div>
+
+          ${renderMaterialsList(items, true)}
+        </div>
+      `;
+      refreshIcons();
+    }
+
+    // -------------------------------------------------------------------------
+    // VIEW D: Resultados da Busca Global Instantânea
+    // -------------------------------------------------------------------------
+    function renderSearchResultsView(container) {
+      const q = state.searchQuery.toLowerCase();
+
+      const matchingSubjects = state.subjects.filter(s =>
+        (s.name || '').toLowerCase().includes(q) ||
+        (s.professor || '').toLowerCase().includes(q)
+      );
+
+      const matchingMaterials = state.materials.filter(m => {
+        const subj = state.subjects.find(s => s.id === m.subjectId);
+        const period = state.periods.find(p => p.id === m.periodId);
+        return (
+          (m.title || '').toLowerCase().includes(q) ||
+          (m.category || '').toLowerCase().includes(q) ||
+          (m.description || '').toLowerCase().includes(q) ||
+          stripHtml(m.content || '').toLowerCase().includes(q) ||
+          (subj && subj.name.toLowerCase().includes(q)) ||
+          (period && period.name.toLowerCase().includes(q))
+        );
+      });
+
+      container.innerHTML = `
+        <div class="animate-fade-in space-y-6">
+          <div class="flex items-center justify-between pb-4 border-b border-slate-200/80 dark:border-slate-800">
+            <div>
+              <h1 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">
+                Resultados para "${escapeHtml(state.searchQuery)}"
+              </h1>
+              <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+                ${matchingMaterials.length} ${matchingMaterials.length === 1 ? 'material encontrado' : 'materiais encontrados'} e ${matchingSubjects.length} ${matchingSubjects.length === 1 ? 'matéria' : 'matérias'}
+              </p>
+            </div>
+            <button onclick="clearGlobalSearch()" class="px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 text-xs font-semibold hover:bg-slate-100 dark:hover:bg-slate-800">
+              Limpar Busca
+            </button>
+          </div>
+
+          ${matchingSubjects.length > 0 ? `
+            <div>
+              <h2 class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-3">Matérias Correspondentes</h2>
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
+                ${matchingSubjects.map(subj => {
+                  const p = state.periods.find(x => x.id === subj.periodId);
+                  const theme = SUBJECT_COLORS[subj.color] || SUBJECT_COLORS.indigo;
+                  return `
+                    <div onclick="selectSubject('${subj.id}')" class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 hover:border-indigo-400 cursor-pointer flex items-center gap-3 transition-all">
+                      <div class="w-10 h-10 rounded-xl ${theme.soft} ${theme.text} flex items-center justify-center shrink-0">
+                        <i data-lucide="book-marked" class="w-5 h-5"></i>
+                      </div>
+                      <div class="min-w-0 flex-1">
+                        <span class="text-[11px] font-semibold text-indigo-600 dark:text-indigo-400">${p ? escapeHtml(p.name) : ''}</span>
+                        <h4 class="font-bold text-sm text-slate-900 dark:text-white truncate">${escapeHtml(subj.name)}</h4>
+                      </div>
+                      <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+          ` : ''}
+
+          <div>
+            <h2 class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-3">Arquivos, Links e Resumos</h2>
+            ${renderMaterialsList(matchingMaterials, true)}
+          </div>
+        </div>
+      `;
+      refreshIcons();
+    }
+
+    // -------------------------------------------------------------------------
+    // Componente Reutilizável de Lista de Materiais
+    // -------------------------------------------------------------------------
+    function sortMaterials(list, sortBy) {
+      return [...list].sort((a, b) => {
+        if (sortBy === 'exam') {
+          if (Boolean(b.caiNaProva) !== Boolean(a.caiNaProva)) {
+            return b.caiNaProva ? 1 : -1;
+          }
+        }
+        if (sortBy === 'alpha') {
+          return (a.title || '').localeCompare(b.title || '', 'pt-BR');
+        }
+        return (b.updatedAt || b.createdAt || 0) - (a.updatedAt || a.createdAt || 0);
+      });
+    }
+
+    function getCategoryBadgeStyle(category) {
+      switch (category) {
+        case 'Resumo / Estudo Dirigido':
+          return 'bg-indigo-50 dark:bg-indigo-500/15 text-indigo-700 dark:text-indigo-300';
+        case 'Slides / Aula':
+          return 'bg-sky-50 dark:bg-sky-500/15 text-sky-700 dark:text-sky-300';
+        case 'Livro / Referência':
+          return 'bg-emerald-50 dark:bg-emerald-500/15 text-emerald-700 dark:text-emerald-300';
+        case 'Provas e Questões':
+          return 'bg-amber-50 dark:bg-amber-500/15 text-amber-700 dark:text-amber-300';
+        case 'Artigo':
+          return 'bg-violet-50 dark:bg-violet-500/15 text-violet-700 dark:text-violet-300';
+        default:
+          return 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300';
+      }
+    }
+
+    function renderMaterialsList(items, showContextBadges) {
+      if (items.length === 0) {
+        return `
+          <div class="text-center py-14 bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl p-6">
+            <div class="w-12 h-12 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-400 flex items-center justify-center mx-auto mb-3">
+              <i data-lucide="inbox" class="w-6 h-6"></i>
+            </div>
+            <h3 class="font-semibold text-base text-slate-800 dark:text-slate-100">Nenhum material encontrado</h3>
+            <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">Adicione arquivos, links ou escreva um resumo acima para preencher este repositório.</p>
+          </div>
+        `;
+      }
+
+      return `
+        <div class="space-y-3">
+          ${items.map(mat => {
+            const period = state.periods.find(p => p.id === mat.periodId);
+            const subject = state.subjects.find(s => s.id === mat.subjectId);
+            const activeUrl = resolveMaterialUrl(mat);
+
+            let typeIcon = 'file-text';
+            let typeIconStyle = 'bg-emerald-50 dark:bg-emerald-500/15 text-emerald-600 dark:text-emerald-400';
+            let snippet = '';
+
+            if (mat.type === 'summary') {
+              typeIcon = 'notebook-pen';
+              typeIconStyle = 'bg-indigo-50 dark:bg-indigo-500/15 text-indigo-600 dark:text-indigo-400';
+              const rawText = stripHtml(mat.content || '');
+              snippet = rawText ? rawText.slice(0, 140) + (rawText.length > 140 ? '...' : '') : 'Resumo vazio — clique para escrever';
+            } else if (mat.type === 'link') {
+              typeIcon = 'link-2';
+              typeIconStyle = 'bg-sky-50 dark:bg-sky-500/15 text-sky-600 dark:text-sky-400';
+              snippet = mat.description || mat.url || '';
+            } else {
+              const fname = (mat.fileName || mat.title || '').toLowerCase();
+              const mime = (mat.mimeType || '').toLowerCase();
+              if (mime.startsWith('image/') || /\.(png|jpe?g|gif|webp)$/i.test(fname)) {
+                typeIcon = 'image';
+                typeIconStyle = 'bg-violet-50 dark:bg-violet-500/15 text-violet-600 dark:text-violet-400';
+              } else if (fname.endsWith('.pdf') || mime.includes('pdf')) {
+                typeIcon = 'file-type-2';
+                typeIconStyle = 'bg-rose-50 dark:bg-rose-500/15 text-rose-600 dark:text-rose-400';
+              }
+              snippet = [formatBytes(mat.fileSize), formatDate(mat.createdAt)].filter(Boolean).join(' • ');
+            }
+
+            return `
+              <div
+                onclick="openMaterialViewer('${mat.id}')"
+                class="group bg-white dark:bg-slate-900 border ${mat.caiNaProva ? 'border-amber-300/80 dark:border-amber-500/35' : 'border-slate-200/80 dark:border-slate-800'} hover:border-indigo-300 dark:hover:border-indigo-500/50 rounded-2xl p-4 shadow-2xs hover:shadow-soft transition-all cursor-pointer flex flex-col sm:flex-row sm:items-center justify-between gap-3.5"
+              >
+                <div class="flex items-start sm:items-center gap-3.5 min-w-0 flex-1">
+                  <div class="w-11 h-11 rounded-xl ${typeIconStyle} flex items-center justify-center shrink-0">
+                    <i data-lucide="${typeIcon}" class="w-5 h-5"></i>
+                  </div>
+
+                  <div class="min-w-0 flex-1">
+                    <div class="flex flex-wrap items-center gap-2 mb-1">
+                      <span class="text-[11px] font-semibold px-2 py-0.5 rounded-md ${getCategoryBadgeStyle(mat.category)}">
+                        ${escapeHtml(mat.category || 'Material')}
+                      </span>
+                      ${showContextBadges && (period || subject) ? `
+                        <button
+                          onclick="event.stopPropagation(); ${subject ? `selectSubject('${subject.id}')` : ''}"
+                          class="text-[11px] font-medium px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+                        >
+                          ${period ? escapeHtml(period.name) : ''}${period && subject ? ' • ' : ''}${subject ? escapeHtml(subject.name) : ''}
+                        </button>
+                      ` : ''}
+                      ${mat.caiNaProva ? `
+                        <span class="text-[11px] font-semibold px-2 py-0.5 rounded-md bg-amber-50 dark:bg-amber-500/15 text-amber-700 dark:text-amber-300 flex items-center gap-1">
+                          <i data-lucide="star" class="w-3 h-3 fill-amber-500 text-amber-500"></i>
+                          <span>Cai na Prova</span>
+                        </span>
+                      ` : ''}
+                    </div>
+
+                    <h4 class="font-semibold text-sm sm:text-base text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors truncate">
+                      ${escapeHtml(mat.title)}
+                    </h4>
+                    ${snippet ? `<p class="text-xs text-slate-500 dark:text-slate-400 truncate mt-0.5">${escapeHtml(snippet)}</p>` : ''}
+                  </div>
+                </div>
+
+                <!-- Botões de Ação Rápida do Item -->
+                <div class="flex items-center justify-end gap-1.5 shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100 dark:border-slate-800">
+                  <!-- Botão Destaque Cai na Prova -->
+                  <button
+                    onclick="toggleCaiNaProva('${mat.id}', event)"
+                    class="p-2 rounded-xl border ${mat.caiNaProva ? 'bg-amber-50 dark:bg-amber-500/15 border-amber-200 dark:border-amber-500/30 text-amber-500' : 'border-transparent hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-amber-500'} transition-colors"
+                    title="${mat.caiNaProva ? 'Remover destaque Cai na Prova' : 'Marcar como Cai na Prova'}"
+                  >
+                    <i data-lucide="star" class="w-4 h-4 ${mat.caiNaProva ? 'fill-amber-500' : ''}"></i>
+                  </button>
+
+                  ${mat.type === 'file' && activeUrl ? `
+                    <a
+                      href="${escapeHtml(activeUrl)}"
+                      download="${escapeHtml(mat.fileName || mat.title)}"
+                      onclick="event.stopPropagation()"
+                      class="p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-300 transition-colors"
+                      title="Baixar arquivo"
+                    >
+                      <i data-lucide="download" class="w-4 h-4"></i>
+                    </a>
+                  ` : ''}
+
+                  ${mat.type === 'link' ? `
+                    <a
+                      href="${escapeHtml(mat.url)}"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onclick="event.stopPropagation()"
+                      class="p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-300 transition-colors"
+                      title="Abrir link externo"
+                    >
+                      <i data-lucide="external-link" class="w-4 h-4"></i>
+                    </a>
+                  ` : ''}
+
+                  <!-- Editar -->
+                  <button
+                    onclick="event.stopPropagation(); ${mat.type === 'summary' ? `openSummaryEditor('${mat.id}')` : mat.type === 'link' ? `openLinkModal('${mat.id}')` : `openEditFileModal('${mat.id}', event)`}"
+                    class="p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-300 transition-colors"
+                    title="Editar"
+                  >
+                    <i data-lucide="pencil" class="w-4 h-4"></i>
+                  </button>
+
+                  <!-- Excluir -->
+                  <button
+                    onclick="confirmDeleteMaterial('${mat.id}', event)"
+                    class="p-2 rounded-xl hover:bg-rose-50 dark:hover:bg-rose-500/15 text-slate-400 hover:text-rose-600 transition-colors"
+                    title="Excluir"
+                  >
+                    <i data-lucide="trash-2" class="w-4 h-4"></i>
+                  </button>
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      `;
+    }
+
+    // -------------------------------------------------------------------------
+    // Helpers de Filtro e Ordenação
+    // -------------------------------------------------------------------------
+    window.setCategoryFilter = function (cat) {
+      state.categoryFilter = cat;
+      renderMainContent();
+    };
+
+    window.toggleExamFilter = function () {
+      state.onlyExamFilter = !state.onlyExamFilter;
+      renderMainContent();
+    };
+
+    window.setSortBy = function (val) {
+      state.sortBy = val;
+      renderMainContent();
+    };
+
+    window.setOverviewPeriodFilter = function (val) {
+      state.overviewPeriodFilter = val;
+      renderMainContent();
+    };
+
+    function renderAll() {
+      renderSidebar();
+      renderMainContent();
+      refreshIcons();
+    }
+
+    // -------------------------------------------------------------------------
+    // Atalhos de Teclado e Inicialização no Carregamento da Janela
+    // -------------------------------------------------------------------------
+    document.addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        const searchInput = document.getElementById('global-search-input');
+        if (searchInput) searchInput.focus();
+      }
+      if (e.key === 'Escape') {
+        ['modal-viewer', 'modal-summary', 'modal-link', 'modal-subject', 'modal-period', 'modal-edit-file', 'modal-confirm'].forEach(closeModal);
+      }
+    });
+
+    window.addEventListener('load', () => {
+      refreshIcons();
+      bootstrapAuth();
+    });
+  </script>
+</body>
+</html>
