@@ -614,111 +614,22 @@
   <!-- ===================================================================== -->
   <!-- 4. LÓGICA COMPLETA E DADOS ESTRUTURADOS                               -->
   <!-- ===================================================================== -->
+  <!-- Banco externo opcional com as fichas completas dos Temas 4 a 28 -->
+  <script>window.FICHAS_EXTERNAS = window.FICHAS_EXTERNAS || {};</script>
+  <script src="fichas.js" onerror="console.info('AcadDrive: fichas.js ainda não encontrado; utilizando fichas locais.')"></script>
+
   <script>
     const STORAGE_KEY = 'acaddrive_unifeso_monitoria_v2';
-
-    const SUBJECT_COLORS = {
-      indigo:  { label: 'Índigo',    bg: 'bg-indigo-500',  soft: 'bg-indigo-50 dark:bg-indigo-500/15',   text: 'text-indigo-600 dark:text-indigo-300' },
-      emerald: { label: 'Esmeralda', bg: 'bg-emerald-500', soft: 'bg-emerald-50 dark:bg-emerald-500/15', text: 'text-emerald-600 dark:text-emerald-300' },
-      rose:    { label: 'Rosa',      bg: 'bg-rose-500',    soft: 'bg-rose-50 dark:bg-rose-500/15',       text: 'text-rose-600 dark:text-rose-300' },
-      amber:   { label: 'Âmbar',     bg: 'bg-amber-500',   soft: 'bg-amber-50 dark:bg-amber-500/15',     text: 'text-amber-600 dark:text-amber-300' },
-      sky:     { label: 'Azul Céu',  bg: 'bg-sky-500',     soft: 'bg-sky-50 dark:bg-sky-500/15',         text: 'text-sky-600 dark:text-sky-300' },
-      violet:  { label: 'Violeta',   bg: 'bg-violet-500',  soft: 'bg-violet-50 dark:bg-violet-500/15',   text: 'text-violet-600 dark:text-violet-300' },
-      teal:    { label: 'Turquesa',  bg: 'bg-teal-500',    soft: 'bg-teal-50 dark:bg-teal-500/15',       text: 'text-teal-600 dark:text-teal-300' },
-      orange:  { label: 'Laranja',   bg: 'bg-orange-500',  soft: 'bg-orange-50 dark:bg-orange-500/15',   text: 'text-orange-600 dark:text-orange-300' }
-    };
-
-    const CATEGORIES = [
-      'Todos',
-      'Estudo Dirigido',
-      'Slides / Aula',
-      'Livro / Referência',
-      'Provas e Questões',
-      'Artigo'
-    ];
-
-    const MONITORIA_BLOCKS = [
-      'Todos os Blocos',
-      'Geral',
-      'Muscular',
-      'Neurofisiológico',
-      'Cardiovascular',
-      'Respiratório',
-      'Renal',
-      'Gastrointestinal',
-      'Endócrino/Metabólico'
-    ];
-
-    // -------------------------------------------------------------------------
-    // Dados Iniciais dos 28 Temas do Edital (com os 3 primeiros 100% completos)
-    // -------------------------------------------------------------------------
-    function getInitialMonitoriaTopics() {
-      const topicsMeta = [
-        // GERAL (3)
-        {
-          id: 'top-homeostase',
-          number: 1,
-          title: 'Homeostase e meio interno',
-          block: 'Geral',
-          priority: 'baixa',
-          mastery: 2,
-          caiNaProva: false,
-          sections: {
-            conceito: 'Homeostase é a manutenção de condições físico-químicas relativamente constantes no líquido extracelular (LEC) — denominado por Claude Bernard de milieu intérieur (meio interno) e sistematizado por Walter Cannon. Como o LEC banha todas as células do organismo, a estabilidade de sua composição (osmolaridade, pH, temperatura, concentrações de O₂, CO₂, glicose, Na⁺, K⁺ e Ca²⁺) permite que as células sobrevivam e desempenhem suas funções especializadas independentemente das flutuações do ambiente externo.',
-            mecanismo: 'A estabilidade do meio interno é mantida por sistemas de controle fisiológico compostos por sensor (receptor), via aferente, centro integrador, via eferente e efetor, operando sob três estratégias principais:\n• Retroalimentação negativa (feedback negativo): Mecanismo predominante da homeostase. Quando uma variável se desvia do ponto de ajuste (set point), o sistema desencadeia resposta na direção oposta à perturbação inicial. Sua eficácia é medida pelo Ganho = Correção / Erro residual (sistemas de altíssimo ganho, como o controle renal de volume/pressão, reduzem o erro residual quase a zero).\n• Retroalimentação positiva (feedback positivo): O estímulo inicial amplifica o próprio estímulo na mesma direção. Na fisiologia, ocorre em processos autolimitados que exigem conclusão rápida (potencial de ação via influxo de Na⁺, pico pré-ovulatório de LH, contrações uterinas mediadas por ocitocina no parto e cascata de coagulação).\n• Controle antecipatório (feed-forward): O sistema nervoso antecipa uma perturbação antes mesmo que a variável regulada se altere no meio interno (ex.: elevação da ventilação e da frequência cardíaca no início do exercício físico por comando central, antes de alteração na PaO₂ ou PaCO₂).',
-            variacoes: '• Diminuição do ganho de um sistema de feedback negativo: Maior oscilação da variável regulada diante de perturbações (ex.: na disautonomia ou envelhecimento, a perda de sensibilidade dos barorreceptores reduz o ganho do reflexo, causando hipotensão ortostática).\n• Perda do limite fisiológico no feedback positivo: Transforma um mecanismo adaptativo em ciclo vicioso patológico (ex.: na hemorragia aguda > 2 litros, a queda da PA reduz o fluxo coronariano, enfraquecendo o miocárdio e reduzindo ainda mais o débito cardíaco até o óbito).\n• Elevação controlada vs. falha do set point: Na febre, pirogênios endógenos (via PGE₂ no hipotálamo anterior) elevam o set point termorregulador; na hipertermia (intermação), o set point permanece normal, mas a dissipação de calor é superada.',
-            integracao: 'A homeostase depende da cooperação contínua entre todos os sistemas: respiratório, gastrointestinal e tegumentar realizam trocas com o meio externo; o sistema cardiovascular transporta o LEC entre capilares e interstício; o sistema renal regula a composição iônica, hídrica e ácido-básica; e os sistemas nervoso (respostas rápidas em milissegundos a segundos) e endócrino (respostas sustentadas em minutos a dias) coordenam os efetores.',
-            clinica: 'Choque hipovolêmico compensado vs. descompensado: Na perda volêmica moderada, mecanismos de feedback negativo (barorreceptores arteriais, descarga simpática, ativação do SRAA e liberação de ADH) sustentam a PA e a perfusão cerebral/coronariana. Se a perda ultrapassa a capacidade compensatória, instala-se o feedback positivo de hipóxia tecidual, acidose lática e falência miocárdica.',
-            discursiva: 'A homeostase consiste na manutenção de condições físico-químicas relativamente constantes no líquido extracelular (LEC), o qual constitui o meio interno que envolve e nutre todas as células do organismo. Essa estabilidade representa um equilíbrio dinâmico sustentado por sistemas de controle neuroendócrinos que monitoram variáveis reguladas em torno de um ponto de ajuste (set point). O principal mecanismo operacional é a retroalimentação negativa, na qual o desvio de uma variável ativa efetores que geram uma resposta oposta à perturbação inicial, sendo sua eficácia expressa pelo ganho do sistema — razão entre a correção promovida e o erro residual. Complementarmente, o organismo utiliza o controle antecipatório (feed-forward) para minimizar perturbações previsíveis antes que alterem o meio interno, e reserva a retroalimentação positiva para eventos autolimitados que exigem amplificação rápida, como o potencial de ação e o parto, visto que sua ativação descontrolada gera ciclos viciosos letais, como ocorre no choque descompensado.',
-            perguntas: '1. Diferencie conceitualmente meio interno, líquido extracelular e homeostase, explicando por que o estado estacionário fisiológico não equivale ao equilíbrio químico.\n2. Compare os mecanismos de retroalimentação negativa, retroalimentação positiva e controle antecipatório (feed-forward), exemplificando cada um na fisiologia humana.\n3. Como o conceito de "ganho" de um sistema de controle explica a diferença entre a regulação rápida e a regulação a longo prazo da pressão arterial?',
-            checklist: [
-              { text: 'Definir meio interno = líquido extracelular (LEC) — Claude Bernard / Walter Cannon', done: true },
-              { text: 'Explicar feedback negativo + equação do Ganho (Correção / Erro residual)', done: true },
-              { text: 'Diferenciar feedback positivo fisiológico autolimitado vs. ciclo vicioso patológico', done: false },
-              { text: 'Citar controle antecipatório (feed-forward) e integração nervosa (rápida) + endócrina (lenta)', done: false }
-            ]
-          }
-        },
-        {
-          id: 'top-transporte-membrana',
-          number: 2,
-          title: 'Transporte através da membrana',
-          block: 'Geral',
-          priority: 'media',
-          mastery: 2,
-          caiNaProva: false,
-          sections: {
-            conceito: 'A membrana plasmática atua como uma barreira lipídica seletivamente permeável que separa os compartimentos intracelular (LIC) e extracelular (LEC). Os mecanismos de transporte transmembrana controlam o fluxo de solutos e água, estabelecendo e mantendo os gradientes químicos e elétricos indispensáveis para a homeostase do volume celular, a sinalização elétrica e a absorção/secreção epitelial.',
-            mecanismo: '• Transporte Passivo (a favor do gradiente eletroquímico, sem gasto direto de ATP):\n  1) Difusão simples: Passagem direta pela bicamada lipídica (O₂, CO₂, N₂, esteroides) ou por canais iônicos seletivos. Obedece à Lei de Fick (J = -D · A · ΔC / Δx), aumentando linearmente com o gradiente de concentração sem apresentar saturação.\n  2) Difusão facilitada: Mediada por proteínas carreadoras (como transportadores GLUT) que sofrem mudança conformacional. Exibe estereoespecificidade, competição e saturação (Tm ou Vmáx, cinética de Michaelis-Menten).\n  3) Osmose: Fluxo líquido de água através de membrana semipermeável (e via aquaporinas) para o meio de maior concentração de solutos osmoticamente ativos. A pressão osmótica efetiva depende do coeficiente de reflexão (σ) da membrana para cada soluto (σ = 1 para impermeantes; σ = 0 para livremente permeantes como a ureia).\n• Transporte Ativo (contra o gradiente eletroquímico, saturável e dependente de energia):\n  1) Transporte ativo primário: Acoplado diretamente à hidrólise de ATP. Destaca-se a Na⁺/K⁺-ATPase, que extrui 3 Na⁺ e internaliza 2 K⁺ por ATP hidrolisado — sendo eletrogênica (contribui com ~ -4 mV diretos ao potencial de repouso) e geradora do gradiente de Na⁺. Outros: SERCA/PMCA e H⁺/K⁺-ATPase.\n  2) Transporte ativo secundário: Utiliza a energia potencial do gradiente eletroquímico de Na⁺ gerado pela Na⁺/K⁺-ATPase para mover outro soluto contra seu gradiente: por simporte/cotransporte (SGLT1 no enterócito, SGLT2 no túbulo proximal, NKCC2 na alça de Henle) ou antiporte/contratransporte (trocador Na⁺/Ca²⁺ [NCX] no miocárdio e Na⁺/H⁺ [NHE] no túbulo proximal).',
-            variacoes: '• Inibição da Na⁺/K⁺-ATPase (por digitálicos como ouabaína/digoxina ou hipóxia): Acúmulo intracelular de Na⁺ e redução de seu gradiente transmembrana. Nos cardiomiócitos, reduz a extrusão de Ca²⁺ pelo antiporte Na⁺/Ca²⁺ (NCX), elevando o Ca²⁺ citosólico e aumentando a contratilidade (inotropismo positivo). Na isquemia prolongada, causa retenção de Na⁺ e Cl⁻ com entrada osmótica de água e edema celular (tumefação hidrópica).\n• Redução da tonicidade do LEC (hiponatremia hipotônica): Entrada osmótica de água no LIC, gerando edema celular (crítico no encéfalo). O oposto ocorre em estados hiperosmóticos hipertônicos.',
-            integracao: 'A Na⁺/K⁺-ATPase da membrana basolateral dos epitélios é o motor energético que sustenta simultaneamente a bioeletrogênese (ao manter o gradiente de K⁺ para o potencial de repouso), a absorção intestinal de glicose e aminoácidos (SGLT1), a reabsorção tubular renal (SGLT2, NKCC2, NCC) e a regulação da contratilidade cardíaca via trocador NCX.',
-            clinica: '• Terapia de Reidratação Oral (TRO) na cólera: A toxina colérica hiperestimula a secreção de Cl⁻ nas criptas via AMPc/CFTR, mas preserva o cotransportador SGLT1 nas vilosidades. A oferta conjunta de glicose e Na⁺ ativa o simporte SGLT1, promovendo absorção de Na⁺ seguida passivamente por Cl⁻ e água.\n• Inibidores de SGLT2 (gliflozinas): Bloqueiam o simporte tubular proximal de glicose e Na⁺, causando glicosúria e natriurese.',
-            discursiva: 'O transporte através da membrana plasmática regula o trânsito de solutos e solventes entre os meios intra e extracelular, dividindo-se em passivo e ativo conforme o gasto energético e a relação com o gradiente eletroquímico. No transporte passivo, os solutos movem-se a favor de seu gradiente sem consumo direto de ATP: na difusão simples, o fluxo é proporcional ao gradiente de concentração e à área (Lei de Fick), não sofrendo saturação; já na difusão facilitada, proteínas carreadoras conferem especificidade e exibem cinética saturável (Tm). No transporte ativo, solutos são movidos contra seu gradiente eletroquímico. O transporte ativo primário utiliza diretamente a hidrólise de ATP, tendo como principal exemplo a Na⁺/K⁺-ATPase, uma bomba eletrogênica (3 Na⁺ efluxo / 2 K⁺ influxo) que mantém baixa a concentração intracelular de sódio. Esse gradiente de Na⁺ fornece a energia potencial para o transporte ativo secundário, tanto por simporte (como o cotransportador SGLT1/SGLT2) quanto por antiporte (como o trocador Na⁺/Ca²⁺). Por fim, a osmose governa o movimento da água conforme a tonicidade efetiva do meio, de modo que falhas na Na⁺/K⁺-ATPase comprometem tanto a excitabilidade quanto o volume celular.',
-            perguntas: '1. Diferencie difusão simples, difusão facilitada e transporte ativo primário quanto à dependência de energia, relação com o gradiente eletroquímico e cinética de saturação.\n2. Explique o papel central da Na⁺/K⁺-ATPase na manutenção do volume celular e no funcionamento do transporte ativo secundário.\n3. Distinga osmolaridade de tonicidade, explicando por que uma solução isosmótica de ureia comporta-se como hipotônica frente à membrana de uma hemácia.',
-            checklist: [
-              { text: 'Diferenciar difusão simples (Lei de Fick, linear) vs. difusão facilitada (carreador, saturável Tm)', done: true },
-              { text: 'Detalhar estequiometria da Na⁺/K⁺-ATPase (3 Na⁺ fora / 2 K⁺ dentro) e seu caráter eletrogênico', done: true },
-              { text: 'Explicar transporte ativo secundário: simporte (SGLT1/2, NKCC2) e antiporte (NCX, NHE)', done: false },
-              { text: 'Relacionar osmose, tonicidade e coeficiente de reflexão (σ)', done: false }
-            ]
-          }
-        },
+// ... existing code ... -->
         {
           id: 'top-receptores-transducao',
           number: 3,
           title: 'Modelos de receptores celulares e transdução de sinais químicos',
-          block: 'Geral',
+          block: 'Neurofisiológico',
           priority: 'media',
           mastery: 2,
           caiNaProva: false,
-          sections: {
-            conceito: 'A comunicação intercelular depende da conversão de um sinal químico extracelular (primeiro mensageiro — neurotransmissor, hormônio ou mediador parácrino) em uma cascata bioquímica intracelular específica. Esse processo de transdução de sinal permite amplificação de resposta, integração de múltiplos estímulos e regulação temporal (de milissegundos a dias), variando conforme a solubilidade do ligante e a localização do receptor.',
-            mecanismo: '• Receptores de Membrana (ligantes hidrofílicos — peptídeos, catecolaminas, ACh):\n  1) Ionotrópicos (canais ligante-dependentes): Abertura/fechamento direto de poro iônico em milissegundos (ex.: receptor nicotínico de ACh, GABAA).\n  2) Metabotrópicos acoplados à proteína G (GPCRs — 7 domínios transmembrana): Troca de GDP por GTP na subunidade α, dissociando α-GTP de βγ:\n     - Via Gs: Ativa adenilil ciclase → ↑ AMPc → ativa PKA (ex.: β₁, β₂, V₂).\n     - Via Gi: Inibe adenilil ciclase (↓ AMPc) e abre canais de K⁺ via subunidades βγ (ex.: α₂, M₂ cardíaco).\n     - Via Gq: Ativa fosfolipase C (PLC) → hidrolisa PIP₂ em IP₃ (libera Ca²⁺ do retículo endo/sarcoplasmático) e DAG (ativa PKC em sinergia com Ca²⁺) (ex.: α₁, M₁/M₃, AT₁, V₁).\n  3) Catalíticos / Ligados a enzimas: Tirosina-quinase intrínseca (RTK — dimerização e autofosforilação, vias Ras/MAPK e PI3K/Akt, como no receptor de insulina); associados a tirosina-quinases (via JAK/STAT — GH, prolactina, eritropoetina); e guanilil ciclase (converte GTP em GMPc → ativa PKG, como receptor de ANP na membrana ou guanilil ciclase solúvel ativada por NO).\n• Receptores Intracelulares (ligantes lipofílicos — esteroides, T₃, calcitriol, ácido retinoico): Atravessam a bicamada lipídica, ligam-se a receptores citoplasmáticos ou nucleares (dissociando chaperonas como HSP90) e o complexo liga-se a Elementos Responsivos a Hormônios (HRE) no DNA, modulando a transcrição gênica e a síntese proteica em escala de horas a dias.',
-            variacoes: '• Exposição crônica a concentrações elevadas de agonista: Ocorre inicialmente dessensibilização (fosforilação do receptor por quinases GRKs e recrutamento de β-arrestina, desacoplando a proteína G) seguida de down-regulation (endocitose e degradação lisossomal dos receptores), reduzindo a responsividade tecidual.\n• Redução crônica do agonista ou bloqueio prolongado por antagonista: Ocorre up-regulation (aumento da síntese e inserção de receptores na membrana), gerando hipersensibilidade caso o antagonista seja suspenso abruptamente.',
-            integracao: 'A diversidade de subtipos de receptores explica a especificidade tecidual do Sistema Nervoso Autônomo e do Sistema Endócrino: a adrenalina circulante promove vasoconstrição cutânea/esplâncnica via receptores α₁ (Gq → ↑ Ca²⁺), vasodilatação na musculatura esquelética via β₂ (Gs → ↑ AMPc → inibição da MLCK) e cronotropismo/inotropismo positivos no coração via β₁ (Gs → ↑ AMPc/PKA).',
-            clinica: '• Efeito rebote na suspensão abrupta de betabloqueadores: O bloqueio crônico de receptores β₁ cardíacos induz up-regulation; a retirada súbita expõe a densidade aumentada de receptores à noradrenalina endógena, desencadeando taquicardia intensa, hipertensão e risco de isquemia miocárdica.\n• Toxina colérica vs. Toxina pertússis: A toxina colérica ribosila o ADP em Gsα inibindo sua atividade GTPásica (adenilil ciclase continuamente ativa); a toxina pertússis inativa Giα.',
-            discursiva: 'A transdução de sinais químicos permite que mensageiros extracelulares modulem a função celular com especificidade e amplificação, variando conforme a solubilidade do ligante. Mensageiros hidrofílicos atuam em receptores de membrana: os ionotrópicos abrem canais iônicos diretamente, gerando respostas elétricas em milissegundos; os metabotrópicos acoplados à proteína G (GPCRs) modulam enzimas efetoras por meio de segundos mensageiros — a via Gs ativa a adenilil ciclase e eleva o AMPc/PKA, a via Gi inibe essa enzima, e a via Gq ativa a fosfolipase C, gerando IP₃ (mobilizador de Ca²⁺ reticular) e DAG (ativador de PKC); já os receptores catalíticos ativam cascatas de fosforilação como tirosina-quinase (RTK, caso da insulina) ou JAK/STAT. Em contraste, ligantes lipofílicos, como esteroides e hormônios tireoidianos, atravessam a membrana e ativam receptores intracelulares que se ligam a elementos responsivos no DNA, regulando a transcrição gênica e a síntese proteica em escala de horas a dias. Finalmente, a responsividade celular é dinamicamente ajustada pela concentração do ligante por meio de dessensibilização, down-regulation e up-regulation.',
-            perguntas: '1. Compare as vias de sinalização intracelular desencadeadas pela ativação dos receptores adrenérgicos α₁, β₁ e α₂, detalhando proteínas G, enzimas efetoras e segundos mensageiros.\n2. Por que os hormônios peptídicos apresentam início de ação rápido e duração curta, enquanto os hormônios esteroides e tireoidianos têm latência prolongada e efeito sustentado?\n3. Explique os mecanismos moleculares envolvidos na dessensibilização e na down-regulation de receptores acoplados à proteína G frente à estimulação crônica por um agonista.',
+// ... existing code ... -->
             checklist: [
               { text: 'Distinguir ligantes hidrofílicos (membrana) vs. lipofílicos (intracelulares / DNA-HRE)', done: true },
               { text: 'Dominar as 3 vias GPCR: Gs (↑AMPc/PKA), Gi (↓AMPc / abre K⁺) e Gq (PLC → IP₃/Ca²⁺ + DAG/PKC)', done: true },
@@ -727,195 +638,17 @@
             ]
           }
         },
-        // MUSCULAR (2)
+        // EXCITABILIDADE, MÚSCULO E NEUROFISIOLOGIA (4 a 11)
         { id: 'top-bioeletrogenese', number: 4, title: 'Bioeletrogênese', block: 'Muscular', priority: 'alta', mastery: 0, caiNaProva: true },
-        { id: 'top-contracao-esqueletica', number: 5, title: 'Contração muscular esquelética', block: 'Muscular', priority: 'media', mastery: 0, caiNaProva: false },
-        // NEUROFISIOLÓGICO (6)
-        { id: 'top-transmissao-sinaptica', number: 6, title: 'Transmissão sináptica', block: 'Neurofisiológico', priority: 'media', mastery: 0, caiNaProva: false },
+        { id: 'top-transmissao-sinaptica', number: 5, title: 'Transmissão sináptica', block: 'Neurofisiológico', priority: 'media', mastery: 0, caiNaProva: false },
+        { id: 'top-contracao-esqueletica', number: 6, title: 'Contração muscular esquelética', block: 'Muscular', priority: 'media', mastery: 0, caiNaProva: false },
         { id: 'top-sna', number: 7, title: 'Sistema nervoso autônomo', block: 'Neurofisiológico', priority: 'alta', mastery: 0, caiNaProva: true },
         { id: 'top-reflexos-medulares', number: 8, title: 'Reflexos medulares', block: 'Neurofisiológico', priority: 'baixa', mastery: 0, caiNaProva: false },
         { id: 'top-controle-movimento', number: 9, title: 'Controle encefálico do movimento', block: 'Neurofisiológico', priority: 'baixa', mastery: 0, caiNaProva: false },
         { id: 'top-sistema-sensorial', number: 10, title: 'Sistema sensorial', block: 'Neurofisiológico', priority: 'baixa', mastery: 0, caiNaProva: false },
         { id: 'top-fisiologia-dor', number: 11, title: 'Fisiologia da dor', block: 'Neurofisiológico', priority: 'media', mastery: 0, caiNaProva: false },
         // CARDIOVASCULAR (6)
-        { id: 'top-eletrofisiologia-cardiaca', number: 12, title: 'Eletrofisiologia cardíaca', block: 'Cardiovascular', priority: 'media', mastery: 0, caiNaProva: false },
-        { id: 'top-hemodinamica', number: 13, title: 'Hemodinâmica', block: 'Cardiovascular', priority: 'media', mastery: 0, caiNaProva: false },
-        { id: 'top-ciclo-cardiaco', number: 14, title: 'Ciclo cardíaco e coração como bomba', block: 'Cardiovascular', priority: 'alta', mastery: 0, caiNaProva: true },
-        { id: 'top-microcirculacao', number: 15, title: 'Microcirculação', block: 'Cardiovascular', priority: 'media', mastery: 0, caiNaProva: false },
-        { id: 'top-debito-retorno-venoso', number: 16, title: 'Débito cardíaco e retorno venoso', block: 'Cardiovascular', priority: 'alta', mastery: 0, caiNaProva: true },
-        { id: 'top-controle-pa', number: 17, title: 'Controle da pressão arterial', block: 'Cardiovascular', priority: 'alta', mastery: 0, caiNaProva: true },
-        // RESPIRATÓRIO (4)
-        { id: 'top-mecanica-respiratoria', number: 18, title: 'Mecânica respiratória', block: 'Respiratório', priority: 'alta', mastery: 0, caiNaProva: true },
-        { id: 'top-difusao-transporte-gases', number: 19, title: 'Difusão e transporte de gases', block: 'Respiratório', priority: 'alta', mastery: 0, caiNaProva: true },
-        { id: 'top-ventilacao-perfusao', number: 20, title: 'Ventilação e perfusão', block: 'Respiratório', priority: 'alta', mastery: 0, caiNaProva: true },
-        { id: 'top-controle-ventilacao', number: 21, title: 'Controle da ventilação', block: 'Respiratório', priority: 'media', mastery: 0, caiNaProva: false },
-        // RENAL (4)
-        { id: 'top-filtracao-glomerular', number: 22, title: 'Filtração glomerular', block: 'Renal', priority: 'alta', mastery: 0, caiNaProva: true },
-        { id: 'top-transporte-tubular', number: 23, title: 'Transporte tubular', block: 'Renal', priority: 'alta', mastery: 0, caiNaProva: true },
-        { id: 'top-equilibrio-hidroeletrolitico', number: 24, title: 'Equilíbrio hidroeletrolítico', block: 'Renal', priority: 'alta', mastery: 0, caiNaProva: true },
-        { id: 'top-equilibrio-acido-base', number: 25, title: 'Equilíbrio ácido-base', block: 'Renal', priority: 'alta', mastery: 0, caiNaProva: true },
-        // GASTROINTESTINAL (1)
-        { id: 'top-digestao', number: 26, title: 'Fisiologia da digestão', block: 'Gastrointestinal', priority: 'media', mastery: 0, caiNaProva: false },
-        // ENDÓCRINO/METABÓLICO (2)
-        { id: 'top-tireoide', number: 27, title: 'Fisiologia da tireoide', block: 'Endócrino/Metabólico', priority: 'media', mastery: 0, caiNaProva: false },
-        { id: 'top-metabolismo-osseo', number: 28, title: 'Regulação do metabolismo ósseo', block: 'Endócrino/Metabólico', priority: 'media', mastery: 0, caiNaProva: false }
-      ];
-
-      return topicsMeta.map(t => ({
-        ...t,
-        sections: t.sections || {
-          conceito: '',
-          mecanismo: '',
-          variacoes: '',
-          integracao: '',
-          clinica: '',
-          discursiva: '',
-          perguntas: '',
-          checklist: [
-            { text: 'Definir o conceito central com precisão fisiológica (Guyton / Costanzo)', done: false },
-            { text: 'Descrever a sequência causal completa do mecanismo (estímulo → via → resposta)', done: false },
-            { text: 'Explicar o que ocorre quando a variável principal aumenta ou diminui', done: false },
-            { text: 'Conectar com integração entre sistemas e uma aplicação clínica', done: false }
-          ]
-        }
-      }));
-    }
-
-    // -------------------------------------------------------------------------
-    // Cronograma Reverso (20/11/2026 a 06/12/2026)
-    // -------------------------------------------------------------------------
-    function getInitialSchedule() {
-      return [
-        { id: 'sch-20-11', date: '20/11 (Sex)', phase: 'Fase 1: Geral & Sinalização', isLight: false, completed: false, note: 'Montar e revisar as 3 fichas de base celular e receptores.', topicIds: ['top-homeostase', 'top-transporte-membrana', 'top-receptores-transducao'] },
-        { id: 'sch-21-11', date: '21/11 (Sáb)', phase: 'Fase 1: Excitabilidade & Músculo', isLight: false, completed: false, note: 'Dominar Nernst, fases do PA e acoplamento excitação-contração.', topicIds: ['top-bioeletrogenese', 'top-transmissao-sinaptica', 'top-contracao-esqueletica'] },
-        { id: 'sch-22-11', date: '22/11 (Dom)', phase: 'Fase 1: Neurofisiologia', isLight: false, completed: false, note: 'Receptores adrenérgicos/colinérgicos e circuitos motores/medulares.', topicIds: ['top-sna', 'top-reflexos-medulares', 'top-controle-movimento'] },
-        { id: 'sch-23-11', date: '23/11 (Seg)', phase: 'Fase 1: Sensorial & Revisão Oral', isLight: false, completed: false, note: 'Fechar Bloco 1 + recuperação ativa oral das fichas 🔴 da semana.', topicIds: ['top-sistema-sensorial', 'top-fisiologia-dor'] },
-        { id: 'sch-24-11', date: '24/11 (Ter)', phase: 'Fase 2: Cardiovascular', isLight: true, completed: false, note: 'Dia leve (treino de handebol à noite): PA rápido vs. lento (nó SA).', topicIds: ['top-eletrofisiologia-cardiaca'] },
-        { id: 'sch-25-11', date: '25/11 (Qua)', phase: 'Fase 2: Cardiovascular', isLight: true, completed: false, note: 'Dia leve (treino de handebol à noite): Poiseuille e resistência.', topicIds: ['top-hemodinamica'] },
-        { id: 'sch-26-11', date: '26/11 (Qui)', phase: 'Fase 2: Cardiovascular', isLight: false, completed: false, note: 'Diagrama de Wiggers, pré/pós-carga e forças de Starling capilares.', topicIds: ['top-ciclo-cardiaco', 'top-microcirculacao'] },
-        { id: 'sch-27-11', date: '27/11 (Sex)', phase: 'Fase 2: Cardiovascular', isLight: false, completed: false, note: 'Curvas de Guyton (DC x RV) e regulação rápida/renal da PA.', topicIds: ['top-debito-retorno-venoso', 'top-controle-pa'] },
-        { id: 'sch-28-11', date: '28/11 (Sáb)', phase: 'Fase 2: Respiratório', isLight: false, completed: false, note: 'Complacência, surfactante, leis dos gases e curva da Hb.', topicIds: ['top-mecanica-respiratoria', 'top-difusao-transporte-gases'] },
-        { id: 'sch-29-11', date: '29/11 (Dom)', phase: 'Fase 2: Respiratório', isLight: false, completed: false, note: 'Relação V/Q (espaço morto vs. shunt) e quimiorreceptores.', topicIds: ['top-ventilacao-perfusao', 'top-controle-ventilacao'] },
-        { id: 'sch-30-11', date: '30/11 (Seg)', phase: 'Fase 3: Renal', isLight: false, completed: false, note: 'Autorregulação renal (miogênica + feedback TG) e néfron.', topicIds: ['top-filtracao-glomerular', 'top-transporte-tubular'] },
-        { id: 'sch-01-12', date: '01/12 (Ter)', phase: 'Fase 3: Renal', isLight: true, completed: false, note: 'Dia leve (treino de handebol à noite): Multiplicador contracorrente e ADH.', topicIds: ['top-equilibrio-hidroeletrolitico'] },
-        { id: 'sch-02-12', date: '02/12 (Qua)', phase: 'Fase 3: Renal', isLight: true, completed: false, note: 'Dia leve (treino de handebol à noite): Tampão HCO₃⁻ e compensações.', topicIds: ['top-equilibrio-acido-base'] },
-        { id: 'sch-03-12', date: '03/12 (Qui)', phase: 'Fase 3: Digestório & Endócrino', isLight: false, completed: false, note: 'Secreções GI, eixo HHT e homeostase do Ca²⁺/PO₄³⁻.', topicIds: ['top-digestao', 'top-tireoide', 'top-metabolismo-osseo'] },
-        { id: 'sch-04-12', date: '04/12 (Sex)', phase: '🔥 Fase 4: Modo Prova — Simulado 1', isLight: false, completed: false, note: 'Sortear 2 temas aleatórios com tempo cronometrado e corrigir na rubrica.', topicIds: [] },
-        { id: 'sch-05-12', date: '05/12 (Sáb)', phase: '🔥 Fase 4: Modo Prova — Simulado 2', isLight: false, completed: false, note: 'Sortear 2 temas SEM CONSULTA + revisar apenas checklists dos temas 🔴.', topicIds: [] },
-        { id: 'sch-06-12', date: '06/12 (Dom)', phase: '🔥 Fase 4: Modo Prova — Simulado Final', isLight: false, completed: false, note: 'Simulado final em condição real de prova + revisão cirúrgica.', topicIds: [] }
-      ];
-    }
-
-    // -------------------------------------------------------------------------
-    // Dados Iniciais de Períodos, Matérias e Estudos Dirigidos
-    // -------------------------------------------------------------------------
-    function getInitialAcademicData(topics) {
-      const now = Date.now();
-      const periods = [
-        { id: 'period-1', name: '1º Período', order: 1, createdAt: now - 4000 },
-        { id: 'period-2', name: '2º Período', order: 2, createdAt: now - 3000 },
-        { id: 'period-3', name: '3º Período', order: 3, createdAt: now - 2000 },
-        { id: 'period-4', name: '4º Período', order: 4, createdAt: now - 1000 }
-      ];
-
-      const subjects = [
-        { id: 'subj-fisiologia', periodId: 'period-4', name: 'Fisiologia', professor: 'UNIFESO • Seleção Monitoria (07/12) • Guyton, Costanzo e Berne & Levy', color: 'emerald', createdAt: now - 900 },
-        { id: 'subj-neuroanatomia', periodId: 'period-4', name: 'Neuroanatomia', professor: 'Vias Nervosas, Tronco Encefálico e Telencéfalo', color: 'indigo', createdAt: now - 800 },
-        { id: 'subj-patologia', periodId: 'period-4', name: 'Patologia', professor: 'Processos Patológicos Gerais e Inflamação', color: 'rose', createdAt: now - 700 },
-        { id: 'subj-ietc', periodId: 'period-4', name: 'IETC', professor: 'Integração Ensino, Trabalho e Comunidade IV', color: 'amber', createdAt: now - 600 },
-        { id: 'subj-biocel', periodId: 'period-1', name: 'Biologia Celular e Molecular', professor: 'Bases Moleculares da Célula', color: 'sky', createdAt: now - 500 },
-        { id: 'subj-histologia', periodId: 'period-2', name: 'Histologia e Embriologia', professor: 'Tecidos Fundamentais', color: 'violet', createdAt: now - 400 },
-        { id: 'subj-farmaco', periodId: 'period-3', name: 'Farmacologia Básica', professor: 'Farmacocinética e Farmacodinâmica', color: 'teal', createdAt: now - 300 }
-      ];
-
-      // Converte os 3 primeiros temas completos em Estudos Dirigidos pré-salvos na matéria Fisiologia
-      const firstThree = topics.slice(0, 3);
-      const materials = firstThree.map((t, idx) => ({
-        id: `mat-ed-${t.id}`,
-        periodId: 'period-4',
-        subjectId: 'subj-fisiologia',
-        type: 'summary',
-        title: `Estudo Dirigido ${idx + 1}: ${t.title}`,
-        category: 'Estudo Dirigido',
-        caiNaProva: idx === 1,
-        content: buildHtmlFromTopicSections(t),
-        createdAt: now - (300 - idx * 50),
-        updatedAt: now - (300 - idx * 50)
-      }));
-
-      return { periods, subjects, materials };
-    }
-
-    function buildHtmlFromTopicSections(topic) {
-      const s = topic.sections;
-      const formatLines = (txt) => escapeHtml(txt || '').replace(/\n/g, '<br/>');
-      return `
-        <h1>1. Conceito Central</h1>
-        <p>${formatLines(s.conceito)}</p>
-        <h1>2. Mecanismo Fisiológico</h1>
-        <p>${formatLines(s.mecanismo)}</p>
-        <h1>3. O que acontece quando aumenta / diminui</h1>
-        <p>${formatLines(s.variacoes)}</p>
-        <h1>4. Integração entre Sistemas</h1>
-        <p>${formatLines(s.integracao)}</p>
-        <h1>5. Aplicação Clínica</h1>
-        <p>${formatLines(s.clinica)}</p>
-        <h1>6. Resposta Discursiva Padrão Monitoria (Nível 3)</h1>
-        <blockquote>${formatLines(s.discursiva)}</blockquote>
-        <h2>7. Perguntas Sorteáveis</h2>
-        <p>${formatLines(s.perguntas)}</p>
-      `;
-    }
-
-    // -------------------------------------------------------------------------
-    // Estado Global & Persistência LocalStorage
-    // -------------------------------------------------------------------------
-    let appData = {
-      darkMode: false,
-      periods: [],
-      subjects: [],
-      materials: [],
-      monitoriaTopics: [],
-      schedule: [],
-      simHistory: []
-    };
-
-    const uiState = {
-      viewMode: 'monitoria', // 'monitoria' | 'period' | 'subject' | 'overview-all' | 'overview-exam'
-      monitoriaTab: 'matriz', // 'matriz' | 'cronograma' | 'simulador'
-      selectedPeriodId: 'period-4',
-      selectedSubjectId: null,
-      // Filtros da Matriz Monitoria
-      priorityFilter: 'all', // 'all' | 'alta' | 'media' | 'baixa'
-      blockFilter: 'Todos os Blocos',
-      masteryFilter: 'all', // 'all' | '0' | '1' | '2' | '3'
-      // Modal Ficha da Monitoria
-      activeTopicId: null,
-      fichaEditMode: false,
-      // Filtros de Materiais
-      categoryFilter: 'Todos',
-      onlyExamFilter: false,
-      sortBy: 'recent',
-      overviewPeriodFilter: 'all',
-      searchQuery: '',
-      // Simulador de Sorteio
-      simPoolFilter: 'all', // 'all' | 'alta' | 'filled'
-      simDurationMinutes: 30,
-      simSecondsLeft: 30 * 60,
-      simRunning: false,
-      simTimerInterval: null,
-      simDrawnTopicIds: [],
-      simResponses: ['', ''],
-      simNoConsultMode: true,
-      simFinished: false,
-      simRubric: [
-        { conhecimento: 4, mecanismo: 3, organizacao: 2, clinica: 1 },
-        { conhecimento: 4, mecanismo: 3, organizacao: 2, clinica: 1 }
-      ],
-      // Blobs temporários de sessão para arquivos grandes
-      sessionBlobs: {}
-    };
-
+// ... existing code ... -->
     function loadAppState() {
       try {
         const raw = localStorage.getItem(STORAGE_KEY);
@@ -931,6 +664,7 @@
               schedule: parsed.schedule && parsed.schedule.length ? parsed.schedule : getInitialSchedule(),
               simHistory: parsed.simHistory || []
             };
+            mergeExternalFichasIntoState();
             applyThemeClass();
             return;
           }
@@ -953,385 +687,79 @@
         schedule: getInitialSchedule(),
         simHistory: []
       };
+      mergeExternalFichasIntoState();
       applyThemeClass();
       saveAppState();
     }
 
-    function saveAppState() {
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
-      } catch (e) {
-        console.warn('Espaço do localStorage atingido:', e);
-        showToast('Aviso: Limite de armazenamento local atingido. Exporte um backup .json!', 'error');
-      }
-    }
+    // Mescla automaticamente fichas externas (window.FICHAS_EXTERNAS[4..28]) preservando progresso
+    function mergeExternalFichasIntoState() {
+      const canonicalTopics = getInitialMonitoriaTopics();
+      const externalBank = (window.FICHAS_EXTERNAS && typeof window.FICHAS_EXTERNAS === 'object') ? window.FICHAS_EXTERNAS : {};
+      let hasChanges = false;
 
-    function applyThemeClass() {
-      document.documentElement.classList.toggle('dark', Boolean(appData.darkMode));
-    }
-
-    window.toggleDarkMode = function () {
-      appData.darkMode = !appData.darkMode;
-      applyThemeClass();
-      saveAppState();
-      refreshIcons();
-    };
-
-    // -------------------------------------------------------------------------
-    // Exportar & Importar Backup (.json)
-    // -------------------------------------------------------------------------
-    window.exportBackupJson = function () {
-      const payload = {
-        app: 'AcadDrive',
-        exportedAt: new Date().toISOString(),
-        data: appData
-      };
-      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json;charset=utf-8' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      const dateStr = new Date().toISOString().slice(0, 10);
-      a.href = url;
-      a.download = `AcadDrive_Backup_${dateStr}.json`;
-      a.click();
-      URL.revokeObjectURL(url);
-      showToast('Backup .json exportado com sucesso!');
-    };
-
-    window.triggerImportJson = function () {
-      document.getElementById('import-json-input').click();
-    };
-
-    window.handleImportJson = function (event) {
-      const file = event.target.files && event.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        try {
-          const parsed = JSON.parse(e.target.result);
-          const incoming = parsed.data ? parsed.data : parsed;
-          if (!incoming.periods || !incoming.monitoriaTopics) {
-            throw new Error('Formato de backup inválido.');
+      // Garante alinhamento exato dos 28 temas (1 a 28) preservando nível de domínio e marcações
+      appData.monitoriaTopics = canonicalTopics.map(canon => {
+        const existing = appData.monitoriaTopics.find(t => t.id === canon.id) || canon;
+        const mergedTopic = {
+          ...canon,
+          mastery: typeof existing.mastery === 'number' ? existing.mastery : canon.mastery,
+          caiNaProva: typeof existing.caiNaProva === 'boolean' ? existing.caiNaProva : canon.caiNaProva,
+          sections: {
+            ...canon.sections,
+            ...(existing.sections || {})
           }
-          appData = {
-            darkMode: Boolean(incoming.darkMode),
-            periods: incoming.periods || [],
-            subjects: incoming.subjects || [],
-            materials: incoming.materials || [],
-            monitoriaTopics: incoming.monitoriaTopics || getInitialMonitoriaTopics(),
-            schedule: incoming.schedule || getInitialSchedule(),
-            simHistory: incoming.simHistory || []
-          };
-          applyThemeClass();
-          saveAppState();
-          renderAll();
-          showToast('Backup restaurado com sucesso!');
-        } catch (err) {
-          console.error(err);
-          showToast('Arquivo .json inválido ou corrompido.', 'error');
+        };
+
+        const ext = externalBank[mergedTopic.number] || externalBank[String(mergedTopic.number)];
+        if (ext && typeof ext === 'object') {
+          const textFields = ['conceito', 'mecanismo', 'variacoes', 'integracao', 'clinica', 'discursiva', 'perguntas'];
+          textFields.forEach(field => {
+            if (typeof ext[field] === 'string' && ext[field].trim()) {
+              if (mergedTopic.sections[field] !== ext[field].trim()) {
+                mergedTopic.sections[field] = ext[field].trim();
+                hasChanges = true;
+              }
+            }
+          });
+
+          if (Array.isArray(ext.checklist) && ext.checklist.length > 0) {
+            const oldChecklist = Array.isArray(mergedTopic.sections.checklist) ? mergedTopic.sections.checklist : [];
+            mergedTopic.sections.checklist = ext.checklist
+              .map(item => {
+                const text = typeof item === 'string' ? item.trim() : (item && item.text ? String(item.text).trim() : '');
+                if (!text) return null;
+                const prev = oldChecklist.find(c => c.text === text);
+                return { text, done: prev ? Boolean(prev.done) : Boolean(item && item.done) };
+              })
+              .filter(Boolean);
+            hasChanges = true;
+          }
+
+          if (isTopicFilled(mergedTopic)) {
+            syncTopicToFisiologiaRepository(mergedTopic);
+          }
         }
-      };
-      reader.readAsText(file);
-      event.target.value = '';
-    };
 
-    // -------------------------------------------------------------------------
-    // Utilitários
-    // -------------------------------------------------------------------------
-    function refreshIcons() {
-      if (window.lucide && typeof window.lucide.createIcons === 'function') {
-        window.lucide.createIcons();
-      }
-    }
-
-    function escapeHtml(str) {
-      if (!str) return '';
-      return String(str)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#39;');
-    }
-
-    function stripHtml(html) {
-      const tmp = document.createElement('div');
-      tmp.innerHTML = html || '';
-      return (tmp.textContent || tmp.innerText || '').trim();
-    }
-
-    function formatBytes(bytes) {
-      if (!bytes) return '';
-      const k = 1024;
-      const sizes = ['B', 'KB', 'MB', 'GB'];
-      const i = Math.floor(Math.log(bytes) / Math.log(k));
-      return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
-    }
-
-    function formatDate(ts) {
-      if (!ts) return 'Hoje';
-      return new Date(ts).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' });
-    }
-
-    function extractNumber(text) {
-      const match = String(text || '').match(/(\d+)/);
-      return match ? parseInt(match[1], 10) : 999;
-    }
-
-    function sortPeriodsChronologically(periods) {
-      return [...periods].sort((a, b) => {
-        const orderA = typeof a.order === 'number' ? a.order : extractNumber(a.name);
-        const orderB = typeof b.order === 'number' ? b.order : extractNumber(b.name);
-        if (orderA !== orderB) return orderA - orderB;
-        return (a.name || '').localeCompare(b.name || '', 'pt-BR', { numeric: true });
+        return mergedTopic;
       });
-    }
 
-    function showToast(message, type = 'success') {
-      const container = document.getElementById('toast-container');
-      const colors = {
-        success: 'bg-slate-900 dark:bg-slate-800 text-white border-slate-700',
-        error: 'bg-rose-600 text-white border-rose-500',
-        info: 'bg-indigo-600 text-white border-indigo-500'
-      };
-      const icons = { success: 'check-circle-2', error: 'alert-circle', info: 'info' };
-      const el = document.createElement('div');
-      el.className = `pointer-events-auto flex items-center gap-2.5 px-4 py-3 rounded-xl border shadow-lg text-xs sm:text-sm font-medium animate-fade-in ${colors[type] || colors.success}`;
-      el.innerHTML = `<i data-lucide="${icons[type] || 'check-circle-2'}" class="w-4 h-4 shrink-0"></i><span class="flex-1">${escapeHtml(message)}</span>`;
-      container.appendChild(el);
-      refreshIcons();
-      setTimeout(() => {
-        el.style.opacity = '0';
-        el.style.transition = 'opacity 0.2s ease';
-        setTimeout(() => el.remove(), 220);
-      }, 3200);
-    }
-
-    window.toggleSidebar = function (open) {
-      const sidebar = document.getElementById('sidebar');
-      const backdrop = document.getElementById('sidebar-backdrop');
-      if (open) {
-        sidebar.classList.remove('-translate-x-full');
-        backdrop.classList.remove('hidden');
-      } else {
-        sidebar.classList.add('-translate-x-full');
-        backdrop.classList.add('hidden');
+      if (hasChanges) {
+        saveAppState();
       }
-    };
-
-    window.openModal = function (id) {
-      const m = document.getElementById(id);
-      if (!m) return;
-      m.classList.remove('hidden');
-      m.classList.add('flex');
-      refreshIcons();
-    };
-
-    window.closeModal = function (id) {
-      const m = document.getElementById(id);
-      if (!m) return;
-      m.classList.add('hidden');
-      m.classList.remove('flex');
-    };
-
-    function openConfirmModal(title, message, onConfirm) {
-      document.getElementById('confirm-title').textContent = title;
-      document.getElementById('confirm-message').textContent = message;
-      document.getElementById('confirm-yes-btn').onclick = () => {
-        closeModal('modal-confirm');
-        onConfirm();
-      };
-      openModal('modal-confirm');
     }
-
-    // -------------------------------------------------------------------------
-    // Navegação Principal
-    // -------------------------------------------------------------------------
-    window.navigateToMonitoria = function (tab = 'matriz') {
-      uiState.viewMode = 'monitoria';
-      uiState.monitoriaTab = tab;
-      clearSearchSilent();
-      toggleSidebar(false);
-      renderAll();
-    };
-
-    window.navigateToOverview = function (mode) {
-      uiState.viewMode = mode === 'exam' ? 'overview-exam' : 'overview-all';
-      uiState.selectedSubjectId = null;
-      uiState.overviewPeriodFilter = 'all';
-      uiState.categoryFilter = 'Todos';
-      clearSearchSilent();
-      toggleSidebar(false);
-      renderAll();
-    };
-
-    window.selectPeriod = function (periodId) {
-      uiState.selectedPeriodId = periodId;
-      uiState.selectedSubjectId = null;
-      uiState.viewMode = 'period';
-      clearSearchSilent();
-      toggleSidebar(false);
-      renderAll();
-    };
-
-    window.selectSubject = function (subjectId) {
-      const subj = appData.subjects.find(s => s.id === subjectId);
-      if (!subj) return;
-      uiState.selectedPeriodId = subj.periodId;
-      uiState.selectedSubjectId = subjectId;
-      uiState.viewMode = 'subject';
-      uiState.categoryFilter = 'Todos';
-      uiState.onlyExamFilter = false;
-      clearSearchSilent();
-      toggleSidebar(false);
-      renderAll();
-    };
-
-    function clearSearchSilent() {
-      uiState.searchQuery = '';
-      const input = document.getElementById('global-search-input');
-      if (input) input.value = '';
-      document.getElementById('clear-search-btn')?.classList.add('hidden');
-      document.getElementById('search-shortcut-hint')?.classList.remove('hidden');
-    }
-
-    window.handleGlobalSearch = function (val) {
-      uiState.searchQuery = val.trim();
-      const hasQuery = uiState.searchQuery.length > 0;
-      document.getElementById('clear-search-btn').classList.toggle('hidden', !hasQuery);
-      document.getElementById('search-shortcut-hint').classList.toggle('hidden', hasQuery);
-      renderMainContent();
-    };
-
-    window.clearGlobalSearch = function () {
-      clearSearchSilent();
-      renderMainContent();
-    };
-
-    // -------------------------------------------------------------------------
-    // Renderização da Barra Lateral
-    // -------------------------------------------------------------------------
-    function renderSidebar() {
-      const totalMaterials = appData.materials.length;
-      const starredTopicsCount = appData.monitoriaTopics.filter(t => t.caiNaProva).length;
-      const starredMaterialsCount = appData.materials.filter(m => m.caiNaProva).length;
-
-      document.getElementById('badge-all-count').textContent = totalMaterials;
-      document.getElementById('badge-exam-count').textContent = starredTopicsCount + starredMaterialsCount;
-
-      // Estilo ativo dos botões do topo
-      const navMon = document.getElementById('nav-monitoria');
-      const navAll = document.getElementById('nav-all');
-      const navExam = document.getElementById('nav-exam');
-
-      if (uiState.viewMode === 'monitoria') {
-        navMon.className = 'w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-semibold transition-all bg-indigo-600 text-white border-indigo-600 shadow-sm';
-      } else {
-        navMon.className = 'w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-semibold transition-all bg-indigo-50/80 dark:bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 border-indigo-200/80 dark:border-indigo-500/30 hover:bg-indigo-100/80 dark:hover:bg-indigo-500/20';
-      }
-
-      const activeStandard = 'bg-slate-900 dark:bg-slate-800 text-white font-semibold';
-      const inactiveStandard = 'text-slate-600 dark:text-slate-300 hover:bg-slate-100/80 dark:hover:bg-slate-800/70';
-
-      navAll.className = `w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm transition-all ${uiState.viewMode === 'overview-all' ? activeStandard : inactiveStandard}`;
-      navExam.className = `w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm transition-all ${uiState.viewMode === 'overview-exam' ? activeStandard : inactiveStandard}`;
-
-      // Lista de períodos
-      const sortedPeriods = sortPeriodsChronologically(appData.periods);
-      const listEl = document.getElementById('periods-list');
-
-      listEl.innerHTML = sortedPeriods.map(p => {
-        const isSelected = (uiState.viewMode === 'period' || uiState.viewMode === 'subject') && uiState.selectedPeriodId === p.id;
-        const subjCount = appData.subjects.filter(s => s.periodId === p.id).length;
-
-        return `
-          <div
-            onclick="selectPeriod('${p.id}')"
-            class="group flex items-center justify-between px-3 py-2.5 rounded-xl text-sm cursor-pointer transition-all ${isSelected ? 'bg-indigo-50 dark:bg-indigo-500/15 text-indigo-700 dark:text-indigo-300 font-semibold' : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100/80 dark:hover:bg-slate-800/70'}"
-          >
-            <div class="flex items-center gap-2.5 min-w-0 flex-1">
-              <i data-lucide="folder" class="w-4 h-4 shrink-0 ${isSelected ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-400'}"></i>
-              <span class="truncate">${escapeHtml(p.name)}</span>
-            </div>
-            <div class="flex items-center gap-1 shrink-0">
-              <span class="text-[11px] px-1.5 py-0.5 rounded-md ${isSelected ? 'bg-indigo-100 dark:bg-indigo-500/25 text-indigo-700 dark:text-indigo-200' : 'text-slate-400'} group-hover:hidden">${subjCount}</span>
-              <div class="hidden group-hover:flex items-center gap-0.5">
-                <button onclick="event.stopPropagation(); openPeriodModal('${p.id}')" class="p-1 rounded-md hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-500 dark:text-slate-300" title="Renomear">
-                  <i data-lucide="pencil" class="w-3 h-3"></i>
-                </button>
-                <button onclick="confirmDeletePeriod('${p.id}', event)" class="p-1 rounded-md hover:bg-rose-100 dark:hover:bg-rose-500/20 text-rose-500" title="Excluir">
-                  <i data-lucide="trash-2" class="w-3 h-3"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-        `;
-      }).join('');
-    }
-
-    // -------------------------------------------------------------------------
-    // Roteador da Área Principal
-    // -------------------------------------------------------------------------
-    function renderMainContent() {
-      const main = document.getElementById('main-content');
-
-      if (uiState.searchQuery.length > 0) {
-        renderSearchResultsView(main);
-        return;
-      }
-
-      if (uiState.viewMode === 'monitoria') {
-        renderMonitoriaModule(main);
-        return;
-      }
-
-      if (uiState.viewMode === 'overview-all' || uiState.viewMode === 'overview-exam') {
-        renderOverviewView(main, uiState.viewMode === 'overview-exam');
-        return;
-      }
-
-      if (uiState.viewMode === 'subject' && uiState.selectedSubjectId) {
-        renderSubjectRepositoryView(main);
-        return;
-      }
-
-      renderPeriodSubjectsView(main);
-    }
-
-    // =========================================================================
-    // MÓDULO ESPECIAL: 🎯 MONITORIA FISIOLOGIA (PROVA 07/12/2026)
-    // =========================================================================
-    function getDaysUntilExam() {
-      const examDate = new Date('2026-12-07T08:00:00-03:00');
-      const now = new Date();
-      const diffMs = examDate.getTime() - now.getTime();
-      const days = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
-      return Math.max(0, days);
-    }
-
-    function isTopicFilled(topic) {
-      const s = topic.sections || {};
-      return Boolean((s.conceito && s.conceito.trim()) || (s.mecanismo && s.mecanismo.trim()) || (s.discursiva && s.discursiva.trim()));
-    }
-
-    function renderMonitoriaModule(container) {
-      const daysLeft = getDaysUntilExam();
-      const totalTopics = appData.monitoriaTopics.length;
-      const filledCount = appData.monitoriaTopics.filter(isTopicFilled).length;
-      const level3Count = appData.monitoriaTopics.filter(t => Number(t.mastery) === 3).length;
-      const level2Count = appData.monitoriaTopics.filter(t => Number(t.mastery) === 2).length;
-      const progressPct = Math.round((filledCount / totalTopics) * 100);
-      const level3Pct = Math.round((level3Count / totalTopics) * 100);
-
-      container.innerHTML = `
-        <div class="animate-fade-in space-y-6">
-          
-          <!-- Banner Estratégico da Monitoria -->
-          <div class="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white rounded-2xl p-5 sm:p-7 shadow-card border border-indigo-500/20 relative overflow-hidden">
+// ... existing code ... -->
             <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
               <div class="space-y-2 max-w-2xl">
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/20 border border-indigo-400/30 text-indigo-200 text-xs font-semibold">
-                  <span>🎯</span>
-                  <span>UNIFESO • Seleção de Monitoria de Fisiologia</span>
+                <div class="flex flex-wrap items-center gap-2">
+                  <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/20 border border-indigo-400/30 text-indigo-200 text-xs font-semibold">
+                    <span>🎯</span>
+                    <span>UNIFESO • Seleção de Monitoria de Fisiologia</span>
+                  </div>
+                  <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold border ${filledCount === totalTopics ? 'bg-emerald-500/20 border-emerald-400/40 text-emerald-200' : 'bg-amber-500/20 border-amber-400/35 text-amber-200'}">
+                    <span>${filledCount === totalTopics ? '✅' : '📄'}</span>
+                    <span>${filledCount}/${totalTopics} Fichas Prontas</span>
+                  </span>
                 </div>
                 <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Central Estratégica — Prova 07/12/2026</h1>
                 <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
