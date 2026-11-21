@@ -614,13 +614,615 @@
   <!-- ===================================================================== -->
   <!-- 4. LÓGICA COMPLETA E DADOS ESTRUTURADOS                               -->
   <!-- ===================================================================== -->
-  <!-- Banco externo opcional com as fichas completas dos Temas 4 a 28 -->
-  <script>window.FICHAS_EXTERNAS = window.FICHAS_EXTERNAS || {};</script>
-  <script src="fichas.js" onerror="console.info('AcadDrive: fichas.js ainda não encontrado; utilizando fichas locais.')"></script>
+  <!-- Banco completo das fichas dos Temas 4 a 28 integrado diretamente no portal -->
+  <script>
+    window.FICHAS_EXTERNAS = {
+      4: {
+        conceito: "Bioeletrogênese é a capacidade de células excitáveis (neurônios e fibras musculares) gerarem e propagarem sinais elétricos a partir de gradientes iônicos transmembrana e da permeabilidade seletiva da membrana. O potencial de repouso (cerca de -70 a -90 mV) aproxima-se do potencial de equilíbrio do K⁺ (calculado pela Equação de Nernst) devido à alta condutância basal ao K⁺ via canais de vazamento e à manutenção dos gradientes pela Na⁺/K⁺-ATPase.",
+        mecanismo: "• Potencial de Repouso: determinado pela equação de Goldman-Hodgkin-Katz (ponderando Na⁺, K⁺ e Cl⁻ conforme suas permeabilidades), com predomínio do efluxo de K⁺ e contribuição eletrogênica direta (-4 mV) da Na⁺/K⁺-ATPase.\n• Potencial de Ação (PA — resposta tudo-ou-nada):\n  1. Despolarização: estímulo atinge o limiar (~ -55 mV), abrindo rapidamente canais de Na⁺ dependentes de voltagem (comporta de ativação m) por retroalimentação positiva.\n  2. Repolarização: inativação rápida dos canais de Na⁺ (comporta h) associada à abertura tardia de canais de K⁺ dependentes de voltagem (efluxo de K⁺).\n  3. Hiperpolarização pós-potencial: canais de K⁺ fecham-se lentamente, aproximando Vm de EK (-90 mV).\n• Períodos Refratários: Absoluto (canais de Na⁺ inativados; nenhum estímulo gera novo PA) e Relativo (parte dos canais de Na⁺ recuperada, mas condutância ao K⁺ elevada; exige estímulo supralimiar).\n• Condução: contínua em fibras amielínicas e saltatória nos nódulos de Ranvier em fibras mielinizadas (alta resistência de membrana e baixa capacitância).",
+        variacoes: "• Hipercalemia aguda moderada: torna EK menos negativo, despolarizando parcialmente o repouso e aproximando-o do limiar (hiperexcitabilidade inicial); hipercalemia grave inativa cronicamente as comportas h de Na⁺, bloqueando a excitabilidade.\n• Hipocalcemia: reduz a blindagem de cargas negativas externas dos canais de Na⁺, deslocando o limiar para valores mais negativos e causando hiperexcitabilidade neuromuscular (tetania / sinais de Chvostek e Trousseau).",
+        integracao: "A bioeletrogênese sustenta a condução axonal no sistema nervoso, a transmissão sináptica, o acoplamento excitação-contração nos músculos esquelético, cardíaco e liso, e a secreção endócrina (como a liberação de insulina nas células β pancreáticas mediada pelo fechamento de canais KATP).",
+        clinica: "Anestésicos locais (lidocaína, bupivacaína) bloqueiam o poro intracelular dos canais de Na⁺ dependentes de voltagem no estado inativado/aberto, impedindo a despolarização e interrompendo a condução nociceptiva aferente.",
+        discursiva: "A bioeletrogênese fundamenta-se na existência de gradientes iônicos transmembrana mantidos pela Na⁺/K⁺-ATPase e na permeabilidade seletiva da membrana plasmática. No repouso, a elevada condutância ao K⁺ através de canais de vazamento mantém o potencial intracelular negativo, próximo ao potencial de equilíbrio do potássio definido pela equação de Nernst. Quando um estímulo despolarizante atinge o potencial limiar, ocorre abertura rápida e regenerativa de canais de Na⁺ dependentes de voltagem (retroalimentação positiva), deflagrando o potencial de ação segundo a lei do tudo-ou-nada. A repolarização decorre da subsequente inativação desses canais de sódio somada ao efluxo tardio de K⁺ por canais de potássio voltagem-dependentes, o que também estabelece os períodos refratários absoluto e relativo e garante a propagação unidirecional. Em axônios mielinizados, a condução saltatória nos nódulos de Ranvier acelera drasticamente a velocidade de condução com menor gasto energético.",
+        perguntas: "1. Explique por que o potencial de repouso neuronal é próximo, mas não idêntico, ao potencial de equilíbrio do K⁺.\n2. Diferencie período refratário absoluto e relativo quanto ao estado das comportas dos canais de Na⁺ e K⁺.\n3. Como a hipercalemia grave e a hipocalcemia alteram o limiar de excitabilidade neuronal?",
+        checklist: [
+          { text: "Relacionar potencial de repouso à permeabilidade ao K⁺ (Nernst/Goldman) e à Na⁺/K⁺-ATPase", done: false },
+          { text: "Descrever fases do PA: despolarização (influxo Na⁺) e repolarização (inativação Na⁺ + efluxo K⁺)", done: false },
+          { text: "Distinguir período refratário absoluto vs. relativo e condução saltatória", done: false },
+          { text: "Explicar efeito da hipercalemia e hipocalcemia sobre a excitabilidade", done: false }
+        ]
+      },
+      5: {
+        conceito: "Transmissão sináptica é o processo de comunicação funcional entre um neurônio pré-sináptico e uma célula pós-sináptica (neurônio, fibra muscular ou glândula). Divide-se em sinapses elétricas (junções comunicantes/gap junctions, bidirecionais e sem retardo) e sinapses químicas (unidirecionais, mediadas por neurotransmissores, com retardo sináptico de ~0,5 ms e alta capacidade de integração).",
+        mecanismo: "• Etapa Pré-Sináptica: chegada do potencial de ação ao terminal axonal → abertura de canais de Ca²⁺ dependentes de voltagem (tipo P/Q e N) → influxo de Ca²⁺ → ligação do Ca²⁺ à sinaptotagmina e montagem do complexo SNARE → exocitose das vesículas na fenda sináptica.\n• Etapa Pós-Sináptica:\n  - PEPS (Potencial Excitatório Pós-Sináptico): ativação de receptores ionotrópicos permeáveis a cátions (ex.: glutamato AMPA/NMDA, ACh nicotínico), gerando influxo de Na⁺/Ca²⁺ e despolarização.\n  - PIPS (Potencial Inibitório Pós-Sináptico): abertura de canais de Cl⁻ (GABAA, glicina) ou de K⁺ (GABAB via Gi), hiperpolarizando a membrana ou promovendo inibição por derivação (shunting).\n• Integração e Término: somação temporal (estímulos sucessivos no mesmo terminal) e somação espacial (estímulos simultâneos em múltiplos terminais) no cone de implantação axonal; término do sinal por recaptação (SERT, DAT, EAAT), degradação enzimática (acetilcolinesterase, MAO, COMT) ou difusão.",
+        variacoes: "• Redução do Ca²⁺ extracelular ou bloqueio de canais de Ca²⁺ pré-sinápticos: reduz a probabilidade de fusão vesicular e o conteúdo quântico liberado, deprimindo a transmissão sináptica.\n• Inibição da degradação ou recaptação do neurotransmissor: prolonga a permanência do ligante na fenda, amplificando a resposta pós-sináptica (ou induzindo dessensibilização/bloqueio despolarizante em excesso).",
+        integracao: "A integração entre PEPS e PIPS nos circuitos interneuronais governa os reflexos medulares, a modulação descendente da dor, a plasticidade sináptica (LTP via receptor NMDA e inserção de AMPA na memória) e a sinalização autonômica e somatomotora.",
+        clinica: "Miastenia gravis: autoanticorpos contra receptores nicotínicos de ACh na placa motora reduzem a amplitude do potencial da placa terminal (EPP), causando fadiga muscular progressiva; tratada com anticolinesterásicos (piridostigmina) para aumentar a disponibilidade de ACh na fenda.",
+        discursiva: "Na sinapse química, a informação é transmitida unidirecionalmente mediante a conversão de um sinal elétrico pré-sináptico em um sinal químico na fenda sináptica. A chegada do potencial de ação ao botão terminal promove a abertura de canais de Ca²⁺ dependentes de voltagem, cujo influxo desencadeia a exocitose vesicular mediada pelas proteínas SNARE. Na membrana pós-sináptica, neurotransmissores excitatórios como o glutamato abrem canais catiônicos e geram potenciais excitatórios pós-sinápticos (PEPS), ao passo que mediadores inibitórios como o GABA abrem canais de Cl⁻ ou K⁺, produzindo potenciais inibitórios pós-sinápticos (PIPS). O neurônio pós-sináptico integra esses sinais graduados por meio de somação temporal e espacial no cone axonal; caso o limiar seja atingido, um novo potencial de ação é deflagrado, encerrando-se a sinalização pela recaptação, difusão ou degradação enzimática do neurotransmissor.",
+        perguntas: "1. Explique o papel indispensável do Ca²⁺ no acoplamento excitação-secreção do terminal pré-sináptico.\n2. Diferencie somação temporal de somação espacial e explique como PEPS e PIPS são integrados no cone axonal.\n3. Compare sinapses elétricas e químicas quanto à velocidade, direcionalidade e plasticidade.",
+        checklist: [
+          { text: "Detalhar sequência pré-sináptica: PA → canais de Ca²⁺ voltagem-dependentes → SNARE → exocitose", done: false },
+          { text: "Diferenciar PEPS (influxo Na⁺/Ca²⁺ — glutamato) e PIPS (influxo Cl⁻ / efluxo K⁺ — GABA/glicina)", done: false },
+          { text: "Explicar somação temporal e somação espacial no cone de implantação axonal", done: false },
+          { text: "Citar mecanismos de término do sinal e correlação clínica (Miastenia gravis / anticolinesterásicos)", done: false }
+        ]
+      },
+      6: {
+        conceito: "A contração muscular esquelética resulta do deslizamento dos filamentos finos de actina sobre os filamentos grossos de miosina no interior do sarcômero, desencadeado pela despolarização da fibra muscular pelo motoneurônio α (acoplamento excitação-contração) e alimentado pela hidrólise de ATP.",
+        mecanismo: "• Acoplamento Excitação-Contração:\n  1. Liberação de ACh na junção neuromuscular → abertura de receptores nicotínicos (Nm) → potencial de placa terminal → PA propagado pelo sarcolema e túbulos T.\n  2. Mudança conformacional do receptor diidropiridina (DHPR — sensor de voltagem no túbulo T), acoplado mecanicamente ao receptor de rianodina (RyR1) da cisterna terminal do retículo sarcoplasmático (RS), liberando Ca²⁺ para o sarcoplasma.\n• Ciclo das Pontes Cruzadas:\n  3. Ca²⁺ liga-se à troponina C, deslocando a tropomiosina e expondo os sítios de ligação da actina para a cabeça da miosina (já energizada com ADP + Pi).\n  4. Ligação actina-miosina e liberação de Pi → golpe de força (power stroke), tracionando a actina em direção à linha M, seguida da liberação de ADP.\n  5. Ligação de nova molécula de ATP dissocia a miosina da actina; hidrólise do ATP pela ATPase da miosina reenergiza a cabeça para novo ciclo.\n• Relaxamento: recaptação ativa de Ca²⁺ para o RS pela bomba SERCA (Ca²⁺-ATPase), desligamento do Ca²⁺ da troponina C e recobrimento dos sítios ativos pela tropomiosina.",
+        variacoes: "• Aumento da frequência de disparos do motoneurônio α: causa somação temporal dos abalos musculares até a tetania (fusão completa das contrações por manutenção de Ca²⁺ citosólico elevado), além do recrutamento de unidades motoras maiores (princípio do tamanho de Henneman).\n• Alteração do comprimento inicial do sarcômero (relação tensão-comprimento): o comprimento ótimo (2,0–2,2 μm) maximiza a sobreposição actina-miosina; estiramento excessivo reduz a formação de pontes cruzadas e reduz a força ativa.",
+        integracao: "A contração muscular esquelética é comandada pelos circuitos motores somáticos (motoneurônios α e γ) e exige aumento coordenado do débito cardíaco, redistribuição do fluxo sanguíneo (vasodilatação metabólica local) e incremento da ventilação alveolar para suprir ATP aeróbico.",
+        clinica: "• Rigor mortis: a depleção post-mortem de ATP impede tanto a dissociação das pontes cruzadas (etapa 5) quanto o bombeamento de Ca²⁺ pela SERCA, mantendo os músculos rígidos até a autólise proteica.\n• Hipertermia maligna: mutação no canal RyR1 desencadeia liberação maciça de Ca²⁺ durante anestesia com halotano/succinilcolina, gerando contratura sustentada, hipermetabolismo e hipertermia grave (tratada com dantrolene, bloqueador de RyR1).",
+        discursiva: "Na fibra muscular esquelética, o acoplamento excitação-contração inicia-se quando o potencial de ação propagado pelos túbulos T ativa mecanicamente os receptores diidropiridina (DHPR), que abrem os canais de rianodina (RyR1) do retículo sarcoplasmático e elevam o Ca²⁺ citosólico. O Ca²⁺ liga-se à troponina C, promovendo o deslocamento da tropomiosina e expondo os sítios ativos da actina às cabeças de miosina energizadas. A formação das pontes cruzadas e a liberação de fosfato inorgânico desencadeiam o golpe de força, encurtando o sarcômero. A ligação de um novo ATP é indispensável para desligar a miosina da actina e reiniciar o ciclo, enquanto o relaxamento depende da recaptação ativa de Ca²⁺ pela bomba SERCA. A graduação fisiológica da força resulta do recrutamento progressivo de unidades motoras e da somação de frequência de disparos.",
+        perguntas: "1. Explique o papel duplo do ATP na contração muscular esquelética e como a sua ausência explica o rigor mortis.\n2. Descreva a interação molecular entre túbulo T (DHPR), retículo sarcoplasmático (RyR1), troponina e tropomiosina.\n3. Como o sistema nervoso gradua a força de contração de um músculo esquelético?",
+        checklist: [
+          { text: "Detalhar acoplamento DHPR (túbulo T) → RyR1 (retículo sarcoplasmático) → liberação de Ca²⁺", done: false },
+          { text: "Explicar complexo troponina C–tropomiosina e o ciclo das pontes cruzadas (power stroke)", done: false },
+          { text: "Destacar papel do ATP na dissociação actina-miosina e da SERCA no relaxamento", done: false },
+          { text: "Citar relação tensão-comprimento, somação de frequência e recrutamento de unidades motoras", done: false }
+        ]
+      },
+      7: {
+        conceito: "O Sistema Nervoso Autônomo (SNA) regula involuntariamente a homeostase visceral (frequência cardíaca, pressão arterial, motilidade e secreção gastrointestinal, diâmetro pupilar e termorregulação) por meio de duas divisões antagônicas e complementares — Simpática (toracolombar, T1–L2) e Parassimpática (craniossacral, NC III, VII, IX, X e S2–S4) — organizadas em vias de dois neurônios (pré e pós-ganglionar).",
+        mecanismo: "• Organização Neuroquímica:\n  - Todos os neurônios pré-ganglionares (simpáticos e parassimpáticos) liberam Acetilcolina (ACh), atuando em receptores nicotínicos neuronais (Nn) nos gânglios autonômicos.\n  - Pós-ganglionar Parassimpático: libera ACh sobre receptores muscarínicos (M1–M5) nos órgãos-alvo (gânglios próximos ou intramurais aos efetores).\n  - Pós-ganglionar Simpático: libera majoritariamente Noradrenalina (NA) sobre receptores adrenérgicos (α1, α2, β1, β2, β3); exceção para glândulas sudoríparas écrinas (ACh → M3). A medula adrenal funciona como gânglio simpático modificado, secretando ~80% adrenalina e ~20% noradrenalina no sangue.\n• Transdução nos Órgãos-Alvo:\n  - α1 (Gq → IP₃/DAG): vasoconstrição arteriolar, contração do esfíncter vesical interno e midríase (músculo radial da íris).\n  - α2 (Gi → ↓ AMPc): autorreceptor pré-sináptico que inibe a liberação adicional de noradrenalina.\n  - β1 (Gs → ↑ AMPc): cronotropismo, inotropismo e dromotropismo positivos no coração + secreção de renina nas células justaglomerulares.\n  - β2 (Gs → ↑ AMPc): broncodilatação, vasodilatação na musculatura esquelética, glicogenólise hepática e relaxamento uterino.\n  - M2 (Gi + abertura canais K⁺): bradicardia (reduz despolarização diastólica no nó SA) e retardo na condução AV.\n  - M3 (Gq → IP₃/DAG): broncoconstrição, aumento de motilidade/secreção GI, miose e contração do detrusor.",
+        variacoes: "• Descarga Simpática Generalizada ('luta ou fuga'): eleva DC e RVP (PA), dilata brônquios e pupilas, mobiliza glicose e ácidos graxos e inibe funções digestivas/urinárias.\n• Predomínio Parassimpático ('repouso e digestão'): reduz FC e consumo energético miocárdico, estimula secreções e peristaltismo GI e promove esvaziamento vesical.",
+        integracao: "O hipotálamo e o tronco encefálico (núcleo do trato solitário e bulbo ventrolateral rostral) integram aferências viscerais (barorreceptores, quimiorreceptores, osmorreceptores) para ajustar continuamente o tônus simpático e parassimpático sobre os sistemas cardiovascular, respiratório, renal e endócrino.",
+        clinica: "Intoxicação por organofosforados: inibição irreversível da acetilcolinesterase provoca acúmulo de ACh nas sinapses muscarínicas e nicotínicas (miose puntiforme, broncorreia, broncoespasmo, bradicardia, sialorreia e fasciculações); tratada com atropina (antagonista muscarínico) e pralidoxima.",
+        discursiva: "O sistema nervoso autônomo mantém a homeostase visceral por meio das divisões simpática (toracolombar) e parassimpática (craniossacral), estruturadas em cadeias de neurônios pré e pós-ganglionares. Em ambas as divisões, a sinapse ganglionar é colinérgica e mediada por receptores nicotínicos (Nn). No efetor periférico, o parassimpático libera acetilcolina sobre receptores muscarínicos — como M2 (Gi), que promove bradicardia, e M3 (Gq), que estimula a secreção e motilidade gastrointestinal — enquanto o simpático libera noradrenalina (e adrenalina via medula adrenal) sobre receptores adrenérgicos: α1 (Gq) induz vasoconstrição, β1 (Gs) eleva a frequência e a contratilidade cardíaca, e β2 (Gs) promove broncodilatação e vasodilatação muscular. O equilíbrio dinâmico entre esses dois braços, coordenado pelo hipotálamo e tronco encefálico, permite ajustes imediatos frente a variações hemodinâmicas, metabólicas e ambientais.",
+        perguntas: "1. Compare a organização anatômica e neuroquímica das vias simpática e parassimpática, incluindo a medula adrenal.\n2. Explique como a adrenalina pode causar vasoconstrição em um leito vascular e vasodilatação em outro simultaneamente.\n3. Diferencie os efeitos e mecanismos de sinalização dos receptores M2, M3, α1, β1 e β2.",
+        checklist: [
+          { text: "Comparar origem anatômica (toracolombar vs. craniossacral) e neurotransmissores pré/pós-ganglionares", done: false },
+          { text: "Detalhar receptores adrenérgicos (α1, α2, β1, β2) e vias Gs, Gi e Gq", done: false },
+          { text: "Detalhar receptores colinérgicos (Nn ganglionar, M2 cardíaco e M3 visceral)", done: false },
+          { text: "Explicar o papel da medula adrenal e a integração hipotalâmica/tronco encefálico", done: false }
+        ]
+      },
+      8: {
+        conceito: "Reflexos medulares são respostas motoras estereotipadas, rápidas e involuntárias integradas diretamente na substância cinzenta da medula espinal mediante um arco reflexo completo (receptor sensorial → fibra aferente → centro integrador medular → motoneurônio eferente → músculo efetor), moduladas continuamente por vias descendentes encefálicas.",
+        mecanismo: "• Reflexo Miotático (de Estiramento — monossináptico):\n  1. Estiramento muscular ativa as terminações anuloespirais do fuso neuromuscular (fibras intrafusais).\n  2. Fibras aferentes Ia conduzem o impulso à medula e fazem sinapse excitatória direta com o motoneurônio α do mesmo músculo (contração homônima) e, via interneurônio inibitório Ia, promovem inibição recíproca do músculo antagonista.\n  3. Coativação α-γ: motoneurônios γ contraem as extremidades das fibras intrafusais para manter a sensibilidade do fuso durante o encurtamento muscular.\n• Reflexo Miotático Inverso (Órgão Tendinoso de Golgi — bissináptico):\n  - Tensão excessiva no tendão ativa o OTG → fibras aferentes Ib excitam um interneurônio inibitório Ib na medula → inibição do motoneurônio α homônimo e relaxamento muscular protetor.\n• Reflexo de Retirada (Flexor) e Extensão Cruzada (polissináptico):\n  - Estímulo nociceptivo cutâneo (fibras Aδ/C) ativa interneurônios medulares que excitam flexores e inibem extensores ipsilaterais (retirada), enquanto cruzam a linha média para excitar extensores e inibir flexores contralaterais (suporte postural).",
+        variacoes: "• Secção medular aguda (Choque Medular): perda súbita da facilitação descendente supraespinal causa arreflexia e paralisia flácida abaixo da lesão.\n• Fase crônica após lesão do trato corticoespinal (neurônio motor superior): perda da inibição descendente sobre circuitos medulares gera hiperreflexia miotática, espasticidade (sinal do canivete) e sinal de Babinski positivo.",
+        integracao: "Os reflexos medulares constituem os blocos básicos utilizados pelos centros motores do tronco encefálico e do córtex motor para manter o tônus postural antigravitacional e coordenar a locomoção.",
+        clinica: "Avaliação dos reflexos tendinosos profundos (patelar L2–L4, aquileu S1) no exame neurológico permite localizar lesões de neurônio motor inferior (hiporreflexia/arreflexia por interrupção do arco) versus neurônio motor superior (hiperreflexia).",
+        discursiva: "Os reflexos medulares são respostas motoras automáticas integradas na medula espinal por meio de arcos reflexos compostos por sensor, via aferente, sinapse central e motoneurônio eferente. O reflexo miotático é o único arco monossináptico e responde ao estiramento do fuso neuromuscular conduzido por fibras Ia, promovendo contração imediata do músculo homônimo e inibição recíproca do antagonista, com sensibilidade preservada pela coativação α-γ. Já o reflexo miotático inverso origina-se no órgão tendinoso de Golgi diante de tensão excessiva, enviando sinais por fibras Ib que, via interneurônio inibitório, relaxam o músculo para evitar avulsão tendinosa. Por fim, o reflexo flexor polissináptico afasta o membro de estímulos nociceptivos enquanto a extensão cruzada sustenta a postura contralateral, sendo todos esses circuitos modulados tonicamente por vias descendentes encefálicas.",
+        perguntas: "1. Compare o fuso neuromuscular e o órgão tendinoso de Golgi quanto à localização, estímulo adequado, fibra aferente e resposta motora.\n2. Explique a função fisiológica da coativação α-γ e da inibição recíproca.\n3. Por que uma lesão crônica do neurônio motor superior provoca hiperreflexia e espasticidade?",
+        checklist: [
+          { text: "Diferenciar fuso neuromuscular (estiramento / fibras Ia / monossináptico) vs. OTG (tensão / fibras Ib / bissináptico)", done: false },
+          { text: "Explicar inibição recíproca e coativação α-γ", done: false },
+          { text: "Descrever reflexo flexor de retirada e extensão cruzada (polissináptico)", done: false },
+          { text: "Correlacionar lesão de neurônio motor superior (hiperreflexia) vs. inferior (arreflexia)", done: false }
+        ]
+      },
+      9: {
+        conceito: "O controle encefálico do movimento organiza a motricidade voluntária, postural e automática por meio da hierarquia integrada entre o córtex motor (primário M1, pré-motor e área motora suplementar), os núcleos da base, o cerebelo e os tratos descendentes do tronco encefálico e medula espinal.",
+        mecanismo: "• Vias Descendentes:\n  - Sistema Lateral (trato corticoespinal lateral e rubroespinal): controla movimentos distais finos e fracionados dos membros (especialmente mãos e dedos).\n  - Sistema Ventromedial (tratos vestibuloespinal, reticuloespinal e tectoespinal): regula a musculatura axial e proximal para postura, equilíbrio e locomoção.\n• Alça dos Núcleos da Base (seleção e iniciação motora):\n  - Via Direta (estriado D1 → inibe GPi/SNr → desinibe tálamo VL/VA → excita córtex motor): facilita movimentos desejados.\n  - Via Indireta (estriado D2 → inibe GPe → desinibe núcleo subtalâmico → excita GPi/SNr → inibe tálamo): suprime movimentos indesejados. A dopamina da substância negra compacta (SNc) estimula a via direta (D1) e inibe a indireta (D2).\n• Circuito do Cerebelo (coordenação e correção de erro):\n  - Compara a intenção motora (cópia eferente cortical) com a execução real (propriocepção espinocerebelar), corrigindo em tempo real direção, força e temporalidade (células de Purkinje inibitórias sobre núcleos profundos).",
+        variacoes: "• Degeneração dopaminérgica da SNc (Doença de Parkinson): hipoatividade da via direta e hiperatividade da via indireta aumentam a inibição talâmica sobre o córtex, gerando bradicinesia, rigidez em roda denteada e tremor de repouso.\n• Lesão cerebelar hemisférica: provoca ataxia ipsilateral, dismetria, disdiadococinesia e tremor intencional.",
+        integracao: "O planejamento motor depende de informações visuais, vestibulares e somatossensoriais convergindo para o córtex parietal posterior, que alimenta as áreas pré-motoras antes da execução via neurônios motores superiores e inferiores.",
+        clinica: "Acidente vascular encefálico (AVE) na cápsula interna interrompe fibras corticoespinais e corticobulbares, causando hemiparesia contralateral espástica após a fase aguda.",
+        discursiva: "O controle encefálico do movimento baseia-se na cooperação entre córtex motor, núcleos da base, cerebelo e vias descendentes medulares. Enquanto o trato corticoespinal lateral executa movimentos distais finos e precisos, as vias ventromediais do tronco encefálico sustentam a postura e o equilíbrio axial. Os núcleos da base atuam na seleção e iniciação dos programas motores por meio do balanço entre a via direta (facilitadora do movimento) e a via indireta (inibitória de padrões motores competitivos), moduladas pela dopamina nigroestriatal. Simultaneamente, o cerebelo atua como comparador sensório-motor, confrontando o comando cortical com a retroalimentação proprioceptiva para ajustar a coordenação, o ritmo e a precisão da execução motora em tempo real.",
+        perguntas: "1. Compare as funções das vias descendentes laterais e ventromediais no controle motor.\n2. Explique o funcionamento das vias direta e indireta dos núcleos da base e o papel modulador da dopamina.\n3. Como o cerebelo corrige erros motores durante a execução de um movimento voluntário?",
+        checklist: [
+          { text: "Distinguir sistema lateral (corticoespinal — movimentos finos) vs. ventromedial (postura/equilíbrio)", done: false },
+          { text: "Explicar via direta (facilita) e via indireta (inibe) dos núcleos da base + ação da dopamina (D1/D2)", done: false },
+          { text: "Descrever função comparadora do cerebelo (intenções motoras vs. propriocepção)", done: false },
+          { text: "Correlacionar Parkinson (bradicinesia/rigidez) e lesão cerebelar (ataxia/dismetria)", done: false }
+        ]
+      },
+      10: {
+        conceito: "O sistema sensorial converte estímulos físicos e químicos dos ambientes externo e interno em potenciais de ação codificados pelo sistema nervoso central, discriminando modalidade, intensidade, localização e duração do estímulo (lei das energias nervosas específicas).",
+        mecanismo: "• Transdução Sensorial: estímulo adequado altera a permeabilidade iônica do receptor sensorial, gerando um potencial receptor (graduado). Quando atinge o limiar na zona de disparo (primeiro nódulo de Ranvier), deflagra potenciais de ação.\n• Codificação Neural:\n  - Modalidade: determinada pela via anatômica ativada (linha marcada).\n  - Intensidade: codificada pela frequência de disparos (código de frequência) e pelo número de receptores recrutados (código populacional).\n  - Duração e Adaptação: receptores fásicos (adaptação rápida, ex.: corpúsculo de Pacini) sinalizam mudanças e vibração; receptores tônicos (adaptação lenta, ex.: discos de Merkel, fusos musculares) sinalizam estímulos contínuos.\n  - Localização: depende do tamanho do campo receptivo (menor na polpa digital, maior no dorso) e é refinada por inibição lateral na via ascendente.\n• Vias Somatossensoriais:\n  - Coluna Dorsal–Lemnisco Medial (fibras grossas mielinizadas Aβ): tato epicrítico, vibração e propriocepção consciente; decussa no bulbo.\n  - Sistema Anterolateral / Espinotalâmico (fibras finas Aδ e C): dor, temperatura e tato protopático; decussa na medula espinal (comissura branca anterior).",
+        variacoes: "• Aumento da inibição lateral pelos interneurônios do núcleo grácil/cuneiforme ou tálamo: aumenta o contraste espacial e reduz o limiar de discriminação de dois pontos.\n• Lesão de hemimedula (Síndrome de Brown-Séquard): perda ipsilateral de tato epicrítico e propriocepção (coluna dorsal) e perda contralateral de dor e temperatura 1–2 segmentos abaixo da lesão (trato espinotalâmico).",
+        integracao: "Todas as vias sensoriais (exceto a olfação inicial) fazem relé nos núcleos específicos do tálamo (como o VPL/VPM para somatossensibilidade) antes de projetarem-se ao córtex somatossensorial primário (S1, giro pós-central), onde formam o homúnculo sensorial proporcional à densidade de inervação.",
+        clinica: "Neuropatia diabética periférica compromete inicialmente fibras sensoriais distais (padrão 'em bota e luva'), abolindo a sensibilidade protetora e a propriocepção, predispondo a úlceras plantares indolores e ataxia sensitiva.",
+        discursiva: "O sistema sensorial transforma estímulos específicos em sinais elétricos por meio da transdução sensorial, na qual a abertura ou fechamento de canais iônicos gera um potencial receptor graduado que, ao atingir o limiar, dispara potenciais de ação. A intensidade do estímulo é codificada tanto pela frequência de disparos quanto pelo recrutamento populacional de receptores, enquanto a localização espacial é refinada por campos receptivos pequenos e mecanismos de inibição lateral. Na medula espinal, as informações somatossensoriais segregam-se em duas vias principais: o sistema coluna dorsal–lemnisco medial, que conduz tato discriminativo e propriocepção por fibras Aβ e decussa no bulbo, e o trato espinotalâmico anterior/lateral, que conduz dor e temperatura por fibras Aδ e C e decussa na própria medula, convergindo ambos para o tálamo (VPL) e o córtex somatossensorial primário.",
+        perguntas: "1. Explique os mecanismos de codificação da intensidade, duração e localização de um estímulo sensorial.\n2. Compare as vias coluna dorsal–lemnisco medial e espinotalâmica quanto às modalidades conduzidas, tipos de fibras e nível de decussação.\n3. Como a inibição lateral melhora a discriminação de dois pontos na pele?",
+        checklist: [
+          { text: "Definir transdução sensorial, potencial receptor graduado e lei da linha marcada", done: false },
+          { text: "Explicar codificação de intensidade (frequência/recrutamento), adaptação (fásicos vs. tônicos) e inibição lateral", done: false },
+          { text: "Comparar via Coluna Dorsal–Lemnisco Medial vs. Trato Espinotalâmico (decussação e modalidades)", done: false },
+          { text: "Correlacionar Síndrome de Brown-Séquard (hemissecção medular)", done: false }
+        ]
+      },
+      11: {
+        conceito: "A fisiologia da dor envolve a detecção de estímulos lesivos ou potencialmente lesivos por nociceptores periféricos (nocicepção) e seu processamento complexo em circuitos medulares, tronco encefálico e córtex (percepção dolorosa), sujeito a intensa modulação endógena facilitatória (sensibilização) e inibitória (analgesia).",
+        mecanismo: "• Nociceptores e Fibras Aferentes:\n  - Fibras Aδ (pouco mielinizadas, condução rápida): dor aguda, bem localizada ('primeira dor').\n  - Fibras C (amielínicas, condução lenta): dor em queimação, difusa e persistente ('segunda dor').\n• Transmissão Central: sinapse no corno dorsal da medula (lâminas I, II e V) liberando glutamato e substância P → ascensão pelo trato neoespinotalâmico (discriminativo, VPL → S1) e paleoespinotalâmico (afetivo-motivacional, formação reticular, tálamo intralaminar, ínsula e cíngulo anterior).\n• Modulação Endógena:\n  - Teoria do Comporta (Melzack e Wall): fibras mecanorreceptoras grossas Aβ ativam interneurônios inibitórios encefalinérgicos na substância gelatinosa (lâmina II), que inibem pré e pós-sinapticamente a transmissão das fibras nociceptivas Aδ/C.\n  - Via Descendente Analgésica: substância cinzenta periaquedutal (PAG) → núcleo magno da rafe (serotoninérgico) e locus coeruleus (noradrenérgico) → corno dorsal medular, liberando encefalinas/endorfinas (receptores opioides μ/δ/κ) que fecham canais de Ca²⁺ pré-sinápticos e abrem canais de K⁺ pós-sinápticos.",
+        variacoes: "• Sensibilização Periférica: mediadores inflamatórios (prostaglandinas PGE₂, bradicinina, histamina, H⁺, K⁺) reduzem o limiar de ativação dos nociceptores (hiperalgesia primária).\n• Sensibilização Central (fenômeno wind-up): estimulação repetitiva de fibras C remove o bloqueio de Mg²⁺ dos receptores NMDA no corno dorsal, gerando alodinia (dor a estímulos táteis não nocivos) e hiperalgesia secundária.",
+        integracao: "A dor aguda ativa o sistema nervoso autônomo simpático (taquicardia, elevação da PA, midríase) e o eixo hipotálamo-hipófise-adrenal (cortisol), enquanto a dor referida (ex.: dor precordial irradiada para membro superior esquerdo na isquemia miocárdica) decorre da convergência de aferentes viscerais e somáticos nos mesmos neurônios de segunda ordem do corno dorsal.",
+        clinica: "Mecanismo de ação dos analgésicos: AINEs inibem a COX e reduzem prostaglandinas (combatendo sensibilização periférica); opioides (morfina) mimetizam endorfinas nos receptores μ da PAG e corno dorsal; antidepressivos duais (duloxetina) potencializam as vias descendentes serotoninérgicas e noradrenérgicas.",
+        discursiva: "A fisiologia da dor compreende a transdução de estímulos nocivos por nociceptores periféricos conectados a fibras Aδ (dor rápida e localizada) e fibras C (dor lenta e difusa), que fazem sinapse no corno dorsal da medula liberando glutamato e substância P para ascender pelo sistema anterolateral. Essa transmissão é dinamicamente regulada em dois níveis principais: segmentarmente, pela teoria do comporta, na qual aferentes táteis Aβ estimulam interneurônios inibitórios da lâmina II para atenuar o sinal nociceptivo; e supraespinalmente, pela via descendente analgésica originada na substância cinzenta periaquedutal e núcleos da rafe, que libera opioides endógenos, serotonina e noradrenalina para hiperpolarizar os neurônios de segunda ordem. Em processos inflamatórios persistentes, mediadores químicos e a ativação de receptores NMDA induzem sensibilização periférica e central, explicando quadros de hiperalgesia e alodinia.",
+        perguntas: "1. Diferencie as fibras Aδ e C quanto às características de condução e qualidade da dor percebida.\n2. Explique a Teoria do Comporta medular e a via descendente endógena de analgesia.\n3. Defina sensibilização periférica, sensibilização central, hiperalgesia e alodinia, e explique o mecanismo da dor referida.",
+        checklist: [
+          { text: "Comparar fibras Aδ (rápida/localizada) vs. fibras C (lenta/difusa) e neurotransmissores (glutamato/substância P)", done: false },
+          { text: "Explicar Teoria do Comporta (fibras Aβ ativando interneurônios inibitórios na lâmina II)", done: false },
+          { text: "Descrever via descendente analgésica (PAG → núcleo magno da rafe → encefalinas/opioides)", done: false },
+          { text: "Explicar sensibilização periférica/central (NMDA), alodinia e dor referida (convergência viscero-somática)", done: false }
+        ]
+      },
+      12: {
+        conceito: "A eletrofisiologia cardíaca estuda a geração espontânea do impulso elétrico no sistema excitocondutor (automatismo) e sua propagação ordenada pelo sincício miocárdico. Distingue dois tipos de potenciais de ação: resposta rápida (cardiomiócitos atriais, ventriculares e fibras de Purkinje) e resposta lenta (nó sinoatrial [SA] e nó atrioventricular [AV]).",
+        mecanismo: "• Potencial de Ação de Resposta Rápida (Ventrículo — repouso ~ -90 mV):\n  - Fase 0 (despolarização rápida): abertura de canais rápidos de Na⁺ voltagem-dependentes.\n  - Fase 1 (repolarização inicial): fechamento dos canais de Na⁺ e efluxo transitório de K⁺ (corrente Ito).\n  - Fase 2 (platô): equilíbrio entre influxo lento de Ca²⁺ (canais tipo L) e efluxo de K⁺ (canais retificadores tardios); garante contração sustentada e período refratário longo.\n  - Fase 3 (repolarização rápida): fechamento dos canais de Ca²⁺ tipo L e aumento do efluxo de K⁺ (IKr, IKs).\n  - Fase 4 (repouso): alta permeabilidade ao K⁺ via canais IK1.\n• Potencial de Ação de Resposta Lenta (Nó SA — marca-passo fisiológico):\n  - Não possui repouso estável: na Fase 4 (despolarização diastólica espontânea), ocorre influxo lento de Na⁺ pelos canais funny (If, ativados pela hiperpolarização), seguido de influxo de Ca²⁺ tipo T e tipo L até atingir o limiar (-40 mV).\n  - Fase 0 lenta mediada por canais de Ca²⁺ tipo L (sem canais rápidos de Na⁺); Fase 3 por efluxo de K⁺.\n• Sequência de Condução: Nó SA → vias internodais → Nó AV (retardo fisiológico de ~0,1 s permitindo enchimento ventricular antes da sístole) → Feixe de His → ramos direito/esquerdo → fibras de Purkinje (condução ultrarrápida para contração sincrônica).",
+        variacoes: "• Estimulação Simpática (β1 → ↑ AMPc/PKA): aumenta a corrente If e o influxo de Ca²⁺ tipo L no nó SA, aumentando a inclinação da Fase 4 e elevando a frequência cardíaca (cronotropismo positivo), além de acelerar a condução no nó AV (dromotropismo positivo).\n• Estimulação Parassimpática (vagal — M2): reduz AMPc (diminuindo If e ICaL) e abre canais de K⁺ (IKACh), hiperpolarizando o nó SA e reduzindo a inclinação da Fase 4 (cronotropismo negativo e retardo AV).",
+        integracao: "O platô (Fase 2) do potencial de ação ventricular permite o influxo de Ca²⁺ gatilho que ativa a liberação de Ca²⁺ induzida por Ca²⁺ (CICR) via RyR2 no retículo sarcoplasmático, acoplando diretamente a atividade elétrica à contração mecânica e impedindo a tetania do miocárdio.",
+        clinica: "Síndrome do QT longo (congênita ou por fármacos bloqueadores de canais de K⁺ IKr): prolonga a Fase 2/3 da repolarização ventricular, predispondo a pós-despolarizações precoces e à arritmia ventricular polimórfica Torsades de Pointes.",
+        discursiva: "A eletrofisiologia cardíaca coordena a contração sincrônica do coração por meio de potenciais de ação distintos no sistema marca-passo e no miocárdio contrátil. No nó sinoatrial, que possui maior frequência intrínseca de disparo, o automatismo resulta da despolarização diastólica espontânea (Fase 4) mediada pela corrente funny (If) de Na⁺ e pelo influxo de Ca²⁺, seguida por uma Fase 0 lenta dependente de canais de Ca²⁺ tipo L. O impulso propaga-se pelos átrios e sofre retardo fisiológico no nó AV, otimizando o enchimento ventricular antes de percorrer rapidamente o sistema His-Purkinje. Nos cardiomiócitos ventriculares, o potencial de ação de resposta rápida apresenta Fase 0 mediada por influxo rápido de Na⁺ e um platô prolongado (Fase 2) mantido pelo influxo de Ca²⁺ tipo L contrabalançado pelo efluxo de K⁺; esse platô sustenta um longo período refratário absoluto que previne a tetania miocárdica e permite o relaxamento diastólico adequado.",
+        perguntas: "1. Compare as bases iônicas do potencial de ação do nó sinoatrial (resposta lenta) e do cardiomiócito ventricular (resposta rápida).\n2. Qual a importância fisiológica do platô (Fase 2) e do longo período refratário absoluto no miocárdio ventricular?\n3. Explique os mecanismos iônicos pelos quais os sistemas simpático e parassimpático modulam a frequência cardíaca.",
+        checklist: [
+          { text: "Detalhar fases 0 a 4 do cardiomiócito ventricular (destaque para Fase 0 Na⁺ e Fase 2 platô Ca²⁺/K⁺)", done: false },
+          { text: "Explicar automatismo do nó SA (Fase 4: corrente funny If + Ca²⁺; Fase 0 lenta por Ca²⁺ tipo L)", done: false },
+          { text: "Justificar o retardo fisiológico no nó AV e a função protetora do período refratário longo contra tetania", done: false },
+          { text: "Explicar modulação autonômica (β1 aumenta inclinação Fase 4; M2 reduz If e abre canais K⁺)", done: false }
+        ]
+      },
+      13: {
+        conceito: "Hemodinâmica estuda os princípios físicos que governam o fluxo sanguíneo nos vasos, relacionando fluxo (Q), gradiente de pressão (ΔP) e resistência vascular (R) pela Lei de Ohm hidrodinâmica (Q = ΔP / R) e definindo os determinantes geométricos e reológicos da resistência pela Lei de Poiseuille.",
+        mecanismo: "• Lei de Poiseuille: R = (8 · η · L) / (π · r⁴), onde η é a viscosidade sanguínea, L o comprimento do vaso e r o raio interno. Como a resistência é inversamente proporcional à quarta potência do raio (r⁴), pequenas variações no tônus arteriolar produzem grandes alterações no fluxo regional e na resistência vascular periférica.\n• Arranjos Vasculares:\n  - Resistência em Série (artérias → arteríolas → capilares → vênulas → veias): Rtotal = R1 + R2 + ... + Rn (a maior queda de pressão ocorre nas arteríolas, principal sítio de resistência).\n  - Resistência em Paralelo (circulações cerebral, coronariana, renal, esplâncnica e muscular): 1/Rtotal = 1/R1 + 1/R2 + ... + 1/Rn, fazendo com que a resistência sistêmica total seja menor que a de qualquer órgão isolado e permitindo redistribuição independente de fluxo.\n• Velocidade vs. Fluxo: v = Q / A (velocidade linear é inversamente proporcional à área de secção transversa total; máxima na aorta e mínima nos capilares, favorecendo as trocas).\n• Fluxo Laminar vs. Turbulento: previsto pelo Número de Reynolds (Re = ρ · v · d / η); acima de ~2000 ocorre turbulência (gerando sopros cardíacos e frêmitos).",
+        variacoes: "• Redução de 50% no raio de uma arteríola: aumenta a resistência vascular local em 16 vezes (2⁴) e reduz o fluxo para 1/16 se ΔP permanecer constante.\n• Aumento do hematócrito (policitemia) ou queda acentuada da temperatura: eleva exponencialmente a viscosidade sanguínea (η), aumentando a resistência vascular e a pós-carga cardíaca.\n• Anemia grave: reduz a viscosidade sanguínea (η) e aumenta a velocidade do fluxo, elevando o número de Reynolds e podendo gerar sopros sistólicos funcionais (inocentes).",
+        integracao: "A hemodinâmica fundamenta tanto a regulação local do fluxo sanguíneo (hiperemia ativa, hiperemia reativa e autorregulação miogênica/metabólica) quanto o controle sistêmico da pressão arterial média (PAM ≈ DC × RVP).",
+        clinica: "Estenose aterosclerótica coronariana ou carotídea reduz o raio luminal (elevando R por r⁴) e eleva a velocidade no ponto estreitado, gerando fluxo turbulento audível como sopro vascular e limitando a reserva de fluxo coronariano durante o exercício.",
+        discursiva: "Na circulação sanguínea, o fluxo através de qualquer segmento vascular é diretamente proporcional ao gradiente de pressão (ΔP) e inversamente proporcional à resistência vascular (Q = ΔP/R). De acordo com a Lei de Poiseuille, a resistência depende diretamente da viscosidade sanguínea e do comprimento do vaso, mas é inversamente proporcional à quarta potência de seu raio (r⁴), razão pela qual as arteríolas — dotadas de espessa camada muscular lisa — constituem o principal ponto de controle da resistência periférica e da distribuição regional do fluxo. Os leitos orgânicos dispõem-se em paralelo, o que reduz a resistência sistêmica total e permite ajustar o fluxo de um órgão sem comprometer os demais. Ademais, como a área de secção transversa total atinge seu máximo nos capilares, a velocidade linear do sangue torna-se mínima nesse território, otimizando o tempo de difusão transcapilar.",
+        perguntas: "1. Aplique a Lei de Poiseuille para explicar por que as arteríolas são os principais vasos de resistência da circulação sistêmica.\n2. Por que a velocidade do fluxo sanguíneo é muito menor nos capilares do que na aorta, embora o fluxo volumétrico total seja o mesmo?\n3. Compare os efeitos hemodinâmicos dos arranjos vasculares em série e em paralelo.",
+        checklist: [
+          { text: "Enunciar Lei de Ohm hidrodinâmica (Q = ΔP / R) e Lei de Poiseuille (destaque para r⁴ e viscosidade η)", done: false },
+          { text: "Justificar por que as arteríolas representam a maior queda de pressão do sistema", done: false },
+          { text: "Relacionar velocidade linear e área de secção transversa (v = Q / A — aorta vs. capilares)", done: false },
+          { text: "Explicar arranjos em série vs. paralelo e fluxo laminar vs. turbulento (Número de Reynolds)", done: false }
+        ]
+      },
+      14: {
+        conceito: "O ciclo cardíaco corresponde à sequência coordenada de eventos elétricos, mecânicos e hemodinâmicos que ocorrem entre o início de um batimento cardíaco e o início do seguinte (~0,8 s a 75 bpm), governados pelos gradientes de pressão entre átrios, ventrículos e grandes artérias que determinam a abertura e o fechamento passivo das valvas cardíacas.",
+        mecanismo: "• 7 Fases do Ciclo Cardíaco (Diagrama de Wiggers):\n  1. Sístole Atrial (onda a do pulso venoso; 4ª bulha se patológica): completa os últimos ~20% do enchimento ventricular (volume diastólico final — VDF ~120 mL).\n  2. Contração Ventricular Isovolumétrica: despolarização ventricular (complexo QRS) eleva a pressão ventricular acima da atrial → fechamento das valvas AV (1ª bulha cardíaca — B1); todas as valvas fechadas, volume constante (VDF) e subida abrupta da pressão.\n  3. Ejeção Ventricular Rápida: pressão ventricular supera a aórtica (~80 mmHg) / pulmonar (~8 mmHg) → abertura das valvas semilunares; ejeção rápida com pressão ventricular e aórtica atingindo o pico (~120 mmHg).\n  4. Ejeção Ventricular Reduzida: início da repolarização (onda T); pressão ventricular cai discretamente abaixo da aórtica, mas o sangue continua saindo por inércia cinética.\n  5. Relaxamento Ventricular Isovolumétrico: refluxo momentâneo fecha as valvas semilunares (2ª bulha — B2 e incisura dicrótica na curva aórtica); todas as valvas fechadas, volume mínimo (volume sistólico final — VSF ~50 mL) e queda rápida da pressão.\n  6. Enchimento Ventricular Rápido: pressão ventricular cai abaixo da atrial → abertura das valvas AV; fluxo rápido passivo (3ª bulha fisiológica em jovens ou patológica na sobrecarga de volume).\n  7. Diástase (Enchimento Lento): fluxo contínuo do retorno venoso diretamente pelos átrios para os ventrículos.\n• Alça Pressão-Volume Ventricular: largura = Volume Sistólico (VS = VDF - VSF ~70 mL); área interna = trabalho sistólico; Fração de Ejeção = VS / VDF (~55–65%).",
+        variacoes: "• Aumento da Pré-Carga (maior VDF): desloca o ponto diastólico final para a direita na alça pressão-volume, aumentando o volume sistólico pelo mecanismo de Frank-Starling.\n• Aumento da Pós-Carga (maior pressão aórtica diastólica): exige maior pressão na contração isovolumétrica antes de abrir a valva aórtica, aumentando o VSF e reduzindo o VS se a contratilidade for constante.\n• Aumento da Contratilidade (inotropismo positivo): aumenta a inclinação da relação pressão-volume sistólica final (ESPVR), reduzindo o VSF e elevando o VS.",
+        integracao: "A taquicardia acentuada (>160–180 bpm) encurta proporcionalmente muito mais a diástole do que a sístole, comprometendo o tempo de enchimento ventricular (VDF) e o fluxo coronariano esquerdo (que ocorre predominantemente na diástole).",
+        clinica: "Estenose aórtica gera um gradiente sistólico significativo entre o ventrículo esquerdo e a aorta durante a ejeção, provocando hipertrofia ventricular concêntrica compensatória e sopro sistólico ejetivo em crescendo-decrescendo.",
+        discursiva: "O ciclo cardíaco compreende a alternância rítmica entre diástole e sístole, na qual a abertura e o fechamento das valvas cardíacas ocorrem passivamente em resposta a gradientes pressóricos. Após a sístole atrial completar o enchimento ventricular até o volume diastólico final, a despolarização ventricular inicia a contração isovolumétrica, fechando as valvas atrioventriculares (primeira bulha cardíaca). Quando a pressão ventricular ultrapassa a pressão diastólica aórtica e pulmonar, abrem-se as valvas semilunares, ocorrendo as fases de ejeção rápida e reduzida até o volume sistólico final. O relaxamento miocárdico reduz a pressão ventricular abaixo da arterial, fechando as valvas semilunares (segunda bulha e incisura dicrótica) e iniciando o relaxamento isovolumétrico, que termina quando a queda da pressão ventricular abaixo da atrial reabre as valvas atrioventriculares para o enchimento rápido e a diástase.",
+        perguntas: "1. Descreva as sete fases do ciclo cardíaco correlacionando os eventos valvares, as bulhas cardíacas e o eletrocardiograma.\n2. Represente e interprete as alterações da alça pressão-volume do ventrículo esquerdo frente ao aumento isolado de pré-carga, pós-carga e contratilidade.\n3. Por que a taquicardia extrema reduz o volume sistólico e prejudica a perfusão do miocárdio ventricular esquerdo?",
+        checklist: [
+          { text: "Sequenciar as 7 fases do ciclo cardíaco com abertura/fechamento valvar e bulhas B1 e B2", done: false },
+          { text: "Definir VDF, VSF, Volume Sistólico (VS = VDF - VSF) e Fração de Ejeção", done: false },
+          { text: "Interpretar a alça pressão-volume frente a variações de pré-carga, pós-carga e contratilidade", done: false },
+          { text: "Explicar o impacto da frequência cardíaca sobre o tempo diastólico e perfusão coronariana", done: false }
+        ]
+      },
+      15: {
+        conceito: "A microcirculação (arteríolas terminais, metarteríolas, esfíncteres pré-capilares, capilares e vênulas pós-capilares) é o sítio funcional onde ocorrem as trocas de gases, nutrientes e metabólitos entre o sangue e o líquido intersticial por difusão, bem como a distribuição de volume entre os compartimentos intravascular e intersticial por filtração e reabsorção.",
+        mecanismo: "• Troca de Solutos (Difusão): principal mecanismo de troca de O₂, CO₂, glicose e aminoácidos, seguindo a Lei de Fick em função da área capilar recrutada e do gradiente de concentração.\n• Troca de Líquidos — Equação de Starling: Jv = Kf · [(Pc - Pi) - σ · (πc - πi)], onde:\n  - Pc (pressão hidrostática capilar): favorece filtração (~30–35 mmHg na extremidade arteriolar; cai para ~10–15 mmHg na venular).\n  - Pi (pressão hidrostática intersticial): levemente negativa (-2 a -3 mmHg) em tecidos frouxos, favorecendo filtração.\n  - πc (pressão coloidosmótica/oncótica plasmática): determinada principalmente pela albumina (~25–28 mmHg), favorece reabsorção.\n  - πi (pressão oncótica intersticial): baixa (~3–8 mmHg), favorece filtração; σ é o coeficiente de reflexão proteica (~0,9–1,0 em capilares contínuos).\n• Balanço Líquido e Drenagem Linfática: na extremidade arteriolar predomina a filtração líquida; na venular predomina a reabsorção; o pequeno excesso filtrado (~2–4 L/dia no organismo) é drenado continuamente pelos capilares linfáticos de volta à circulação venosa.",
+        variacoes: "• Aumento da pressão venosa (ex.: insuficiência cardíaca direita ou trombose venosa profunda): eleva a pressão hidrostática capilar (Pc) retrógrada, deslocando o equilíbrio de Starling para filtração excessiva.\n• Redução da albumina plasmática (hipoalbuminemia por síndrome nefrótica, cirrose ou desnutrição): reduz πc, diminuindo a força de reabsorção e provocando edema generalizado (anasarca).\n• Inflamação aguda (histamina, bradicinina): aumenta a condutância hidráulica (Kf) e reduz o coeficiente de reflexão (σ), permitindo extravasamento de proteínas para o interstício (exsudato) e elevando πi.",
+        integracao: "A vasomotricidade dos esfíncteres pré-capilares, controlada localmente pelo metabolismo tecidual (adenosina, K⁺, H⁺, CO₂, ↓ PO₂), ajusta a densidade de capilares perfundidos (recrutamento capilar) durante o exercício ou digestão.",
+        clinica: "Edema clínico instala-se sempre que a taxa de filtração capilar excede a capacidade máxima de drenagem do sistema linfático — seja por ↑ Pc (insuficiência cardíaca), ↓ πc (cirrose/síndrome nefrótica), ↑ Kf/↓ σ (sepse/anafilaxia) ou obstrução linfática (filariose/linfedema pós-mastectomia).",
+        discursiva: "Na microcirculação, as trocas metabólicas entre o plasma e o interstício ocorrem fundamentalmente por difusão, enquanto a distribuição de volume hídrico entre os compartimentos intravascular e intersticial é governada pelo balanço das quatro forças de Starling. A pressão hidrostática capilar (Pc) e a pressão oncótica intersticial (πi) impulsionam a filtração de líquido para fora do capilar, ao passo que a pressão oncótica plasmática (πc), exercida sobretudo pela albumina, e a pressão hidrostática intersticial (Pi) favorecem a reabsorção. Devido à queda progressiva de Pc ao longo do leito capilar, predomina a filtração na extremidade arteriolar e a reabsorção na extremidade venular, sendo o excedente filtrado removido continuamente pelo sistema linfático. Alterações que elevem Pc, reduzam πc, aumentem a permeabilidade capilar ou obstruam a drenagem linfática rompem esse equilíbrio e originam edema.",
+        perguntas: "1. Escreva e explique cada termo da equação de Starling para o movimento transcapilar de fluidos.\n2. Diferencie fisiopatologicamente os mecanismos de formação de edema na insuficiência cardíaca, na síndrome nefrótica e na reação anafilática.\n3. Qual é o papel do sistema linfático na homeostase do volume intersticial e na remoção de proteínas extravasadas?",
+        checklist: [
+          { text: "Enunciar equação de Starling: Pc e πi (filtração) vs. πc e Pi (reabsorção) + Kf e σ", done: false },
+          { text: "Explicar gradiente arteriolar (filtração) vs. venular (reabsorção) e papel da drenagem linfática", done: false },
+          { text: "Diferenciar difusão de solutos (Lei de Fick) de fluxo convectivo de água (Starling)", done: false },
+          { text: "Relacionar as 4 causas fisiopatológicas de edema (↑Pc, ↓πc, ↑permeabilidade e obstrução linfática)", done: false }
+        ]
+      },
+      16: {
+        conceito: "O débito cardíaco (DC = FC × VS, ~5 L/min em repouso) é o volume de sangue bombeado por cada ventrículo por minuto, devendo igualar-se em estado estacionário ao retorno venoso (RV), que é o fluxo sanguíneo que retorna das veias sistêmicas ao átrio direito. O acoplamento entre ambos é explicado pelo modelo gráfico de Guyton.",
+        mecanismo: "• Determinantes do Débito Cardíaco:\n  - Frequência Cardíaca (FC): modulada pelo balanço simpático (β1) e parassimpático (M2) sobre o nó SA.\n  - Volume Sistólico (VS): determinado por Pré-Carga (Mecanismo de Frank-Starling — o estiramento das fibras miocárdicas otimiza a sobreposição actina-miosina e aumenta a sensibilidade da troponina C ao Ca²⁺), Contratilidade (inotropismo independente de pré-carga, mediado por Ca²⁺ intracelular/PKA) e Pós-Carga (tensão parietal sistólica pela Lei de Laplace: T = P · r / 2h).\n• Determinantes do Retorno Venoso (Equação de Guyton): RV = (Pmsf - PAD) / Rrv, onde:\n  - Pmsf (Pressão Média de Enchimento Sistêmico, ~7 mmHg): determinada pelo volume sanguíneo estressado e pela capacitância venosa (venoconstrição simpática eleva Pmsf).\n  - PAD (Pressão Atrial Direita, ~0–2 mmHg): atua como força retrógrada que se opõe ao retorno venoso (quando PAD = Pmsf, RV = 0).\n  - Rrv (Resistência ao Retorno Venoso): influenciada principalmente pela resistência venosa e arteriolar.\n• Ponto de Equilíbrio de Guyton: interseção entre a curva de função cardíaca (Frank-Starling) e a curva de função vascular (retorno venoso), definindo simultaneamente o DC e a PAD.",
+        variacoes: "• Exercício físico dinâmico: eleva a curva cardíaca (↑ FC e contratilidade simpática) e desloca a curva de retorno venoso para cima/direita (venoconstrição simpática + bomba muscular esquelética + bomba respiratória elevam Pmsf e reduzem Rrv), elevando o DC para 20–25 L/min com mínima alteração da PAD.\n• Hemorragia aguda: reduz a volemia e a Pmsf, deslocando a curva de retorno venoso para a esquerda e reduzindo o ponto de equilíbrio (queda de PAD e DC).\n• Insuficiência cardíaca sistólica: deprime a inclinação da curva de função cardíaca, deslocando o ponto de equilíbrio para menor DC e maior PAD (congestão venosa).",
+        integracao: "A bomba muscular esquelética (válvulas venosas unidirecionais), a bomba respiratória (queda da pressão intratorácica na inspiração) e a regulação renal de volume (volemia) trabalham em sinergia com o tônus venoso simpático para sustentar o retorno venoso.",
+        clinica: "Tamponamento cardíaco: o acúmulo de líquido no saco pericárdico restringe o enchimento diastólico e eleva acentuadamente a PAD, reduzindo o gradiente (Pmsf - PAD) e derrubando o retorno venoso e o débito cardíaco (choque obstrutivo).",
+        discursiva: "Em regime estacionário, o débito cardíaco — produto da frequência cardíaca pelo volume sistólico — iguala-se ao retorno venoso ao átrio direito. O volume sistólico é regulado intrinsecamente pela pré-carga, segundo o mecanismo de Frank-Starling, e extrinsecamente pela contratilidade miocárdica e pela pós-carga. Por sua vez, o retorno venoso é diretamente proporcional ao gradiente entre a pressão média de enchimento sistêmico (Pmsf) e a pressão atrial direita (PAD), e inversamente proporcional à resistência ao retorno venoso (RV = [Pmsf - PAD]/Rrv). No diagrama de Guyton, a interseção entre a curva de função cardíaca e a curva vascular define o ponto de equilíbrio hemodinâmico: durante o exercício físico, por exemplo, a estimulação simpática eleva simultaneamente a contratilidade cardíaca e a Pmsf (via venoconstrição e bombas muscular e respiratória), multiplicando o débito cardíaco enquanto mantém a PAD próxima aos valores basais.",
+        perguntas: "1. Explique o mecanismo celular e fisiológico da Lei de Frank-Starling e diferencie seu efeito de um aumento real da contratilidade.\n2. Enuncie a equação do retorno venoso de Guyton e explique o significado fisiológico da pressão média de enchimento sistêmico (Pmsf).\n3. Analise no gráfico de Guyton o que ocorre com o débito cardíaco e a PAD na insuficiência cardíaca e no exercício físico.",
+        checklist: [
+          { text: "Definir DC = FC × VS e os determinantes do VS (pré-carga/Frank-Starling, contratilidade, pós-carga)", done: false },
+          { text: "Enunciar equação do retorno venoso RV = (Pmsf - PAD) / Rrv e explicar Pmsf", done: false },
+          { text: "Interpretar o acoplamento das curvas cardíaca e vascular de Guyton", done: false },
+          { text: "Explicar ajustes integrados no exercício, hemorragia e insuficiência cardíaca", done: false }
+        ]
+      },
+      17: {
+        conceito: "A pressão arterial média (PAM ≈ DC × RVP, ~93 mmHg) é a força motriz que assegura a perfusão contínua dos órgãos vitais. Sua homeostase é mantida por um sistema hierárquico que combina mecanismos neurais ultrarrápidos (segundos), mecanismos humorais intermediários (minutos a horas) e o controle renal de volume a longo prazo (horas a dias, ganho infinito).",
+        mecanismo: "• Regulação Rápida (Reflexo Barorreceptor Arterial):\n  1. Mecanorreceptores de estiramento no seio carotídeo (nervo glossofaríngeo — NC IX) e arco aórtico (nervo vago — NC X) disparam proporcionalmente à PAM e à pressão de pulso para o Núcleo do Trato Solitário (NTS) no bulbo.\n  2. O NTS excita o núcleo ambíguo/motor dorsal do vago (tônus parassimpático) e, via bulbo ventrolateral caudal (CVLM), inibe o bulbo ventrolateral rostral (RVLM, centro vasomotor simpático).\n  3. Na queda da PAM: ↓ estiramento → ↓ disparo aferente ao NTS → ↓ atividade vagal (M2) e ↑ descarga simpática (β1 e α1) → ↑ FC, ↑ contratilidade, vasoconstrição arteriolar (↑ RVP) e venoconstrição (↑ Pmsf/RV).\n  - Quimiorreceptores periféricos: ativados quando PAM < 60 mmHg (hipoperfusão), reforçando a descarga simpática; resposta isquêmica do SNC atua como linha de defesa extrema quando PAM < 40 mmHg.\n• Regulação Intermediária e de Longo Prazo:\n  - Sistema Renina-Angiotensina-Aldosterona (SRAA): queda da pressão de perfusão renal, baixa carga de NaCl na mácula densa ou estímulo simpático β1 liberam renina → angiotensinogênio → Angiotensina I → (ECA pulmonar) → Angiotensina II (vasoconstrição potente via AT1, estímulo à sede, ADH, reabsorção proximal de Na⁺ e secreção de aldosterona, que aumenta canais ENaC e Na⁺/K⁺-ATPase no túbulo coletor).\n  - Vasopressina (ADH): liberada por hiperosmolaridade ou hipovolemia acentuada, promove vasoconstrição (V1) e reabsorção de água livre (V2/aquaporina-2).\n  - Peptídeo Natriurético Atrial (ANP): secretado pelo estiramento atrial, promove natriurese, vasodilatação e inibição do SRAA.\n  - Natriurese Pressórica Renal (Guyton): elevações da PAM aumentam a excreção renal de Na⁺ e água até restaurar exatamente o equilíbrio volêmico e a PAM basal.",
+        variacoes: "• Transição do decúbito para ortostatismo: represamento venoso nos membros inferiores reduz retorno venoso e PAM → reflexo barorreceptor corrige imediatamente elevando FC e RVP.\n• Hipertensão arterial crônica: os barorreceptores sofrem adaptação (resetting) para o novo patamar pressórico em 1–2 dias, mantendo-se eficientes para amortecer flutuações agudas, mas incapazes de corrigir a hipertensão crônica (papel exclusivo do rim).",
+        integracao: "Integra diretamente o sistema nervoso autônomo, o aparelho justaglomerular renal, a neuro-hipófise (ADH) e o córtex adrenal (aldosterona) para harmonizar perfusão tecidual com equilíbrio hidroeletrolítico.",
+        clinica: "Inibidores da ECA (enalapril) e bloqueadores do receptor AT1 (losartana) reduzem a vasoconstrição mediada pela angiotensina II e a retenção de sódio induzida pela aldosterona, reduzindo tanto a RVP quanto a pré-carga.",
+        discursiva: "A pressão arterial média é determinada pelo produto entre o débito cardíaco e a resistência vascular periférica (PAM ≈ DC × RVP), sendo regulada por mecanismos integrados em distintas escalas temporais. A regulação rápida ocorre em segundos por meio do reflexo barorreceptor: mecanorreceptores localizados no seio carotídeo e no arco aórtico detectam variações da tensão parietal e enviam aferências pelos nervos glossofaríngeo e vago ao núcleo do trato solitário. Diante de uma queda pressórica, reduz-se a descarga dos barorreceptores, resultando em inibição parassimpática e desinibição do tônus simpático, o que eleva a frequência cardíaca, a contratilidade (β1), a resistência arteriolar (α1) e o retorno venoso. A médio e longo prazo, o controle definitivo da pressão depende do rim e do eixo neuro-humoral: a hipoperfusão renal ativa o sistema renina-angiotensina-aldosterona e a liberação de ADH, promovendo vasoconstrição e retenção hidrossalina até restaurar a volemia e a natriurese pressórica de equilíbrio.",
+        perguntas: "1. Descreva o arco neural completo do reflexo barorreceptor (receptores, nervos aferentes, núcleos bulbares e respostas efetoras) frente a uma queda aguda da pressão arterial.\n2. Por que os barorreceptores arteriais não conseguem corrigir a hipertensão arterial crônica, cabendo esse papel aos rins?\n3. Explique os três estímulos fisiológicos para secreção de renina e as múltiplas ações da Angiotensina II na elevação da pressão arterial.",
+        checklist: [
+          { text: "Enunciar PAM ≈ DC × RVP e detalhar reflexo barorreceptor (seio carotídeo/IX e arco aórtico/X → NTS)", done: false },
+          { text: "Explicar resposta simpática (β1/α1) e parassimpática (M2) frente à hipotensão vs. hipertensão", done: false },
+          { text: "Detalhar SRAA (3 estímulos da renina + efeitos de Ang II e Aldosterona) e ADH (V1/V2)", done: false },
+          { text: "Explicar adaptação (resetting) dos barorreceptores vs. natriurese pressórica renal a longo prazo", done: false }
+        ]
+      },
+      18: {
+        conceito: "A mecânica respiratória estuda as forças musculares, elásticas e resistivas que geram gradientes de pressão entre a atmosfera e os alvéolos para promover a ventilação pulmonar, governed pela complacência pulmonar e torácica, pela tensão superficial alveolar e pela resistência das vias aéreas.",
+        mecanismo: "• Ciclo Pressórico da Ventilação:\n  - Repouso (CRF): pressão alveolar (Palv) = 0 cmH₂O (atmosférica); pressão intrapleural (Pip) = -5 cmH₂O (equilíbrio entre retração elástica pulmonar para dentro e expansão da parede torácica para fora); pressão transpulmonar (Ptp = Palv - Pip) = +5 cmH₂O.\n  - Inspiração (processo ativo): contração do diafragma e intercostais externos expande a caixa torácica → Pip torna-se mais negativa (-7,5 cmH₂O) → ↑ Ptp expande os alvéolos → Palv cai para -1 cmH₂O → influxo de ar.\n  - Expiração basal (processo passivo): relaxamento inspiratório permite a retração elástica pulmonar → Palv sobe para +1 cmH₂O → efluxo de ar.\n• Complacência e Surfactante:\n  - Complacência (C = ΔV / ΔP): distensibilidade pulmonar; dependente das fibras de elastina/colágeno e, principalmente, da tensão superficial da interface ar-líquido.\n  - Surfactante pulmonar (secretado pelos pneumócitos tipo II, rico em dipalmitoilfosfatidilcolina): reduz a tensão superficial e estabiliza alvéolos de diferentes raios pela Lei de Laplace (P = 2T / r), prevenindo o colapso dos alvéolos menores para dentro dos maiores.\n• Resistência das Vias Aéreas: maior nos brônquios de médio calibre (baixa área total comparada aos bronquíolos terminais em paralelo), modulada pelo SNA (β2 broncodilata; M3 broncoconstringe).",
+        variacoes: "• Fibrose pulmonar: reduz a complacência pulmonar (curva pressão-volume deslocada para baixo/direita), aumentando o trabalho elástico da inspiração.\n• Enfisema pulmonar: destruição dos septos alveolares e da elastina aumenta a complacência, mas reduz a retração elástica, causando aprisionamento aéreo e colapso dinâmico das pequenas vias aéreas na expiração.\n• Pneumotórax: entrada de ar na cavidade pleural iguala Pip à pressão atmosférica (Ptp = 0), causando colapso pulmonar ipsilateral e expansão da caixa torácica.",
+        integracao: "A negatividade da pressão intrapleural durante a inspiração também reduz a pressão atrial direita, funcionando como 'bomba respiratória' que facilita o retorno venoso sistêmico ao coração direito.",
+        clinica: "Síndrome do Desconforto Respiratório Neonatal (doença da membrana hialina): prematuros com imaturidade dos pneumócitos tipo II apresentam deficiência de surfactante, elevada tensão superficial, baixa complacência e atelectasia difusa.",
+        discursiva: "A ventilação pulmonar resulta da criação de gradientes pressóricos entre a atmosfera e os alvéolos impulsionados pela musculatura respiratória. Na inspiração, a contração do diafragma reduz a pressão intrapleural, elevando a pressão transpulmonar (Palv - Pip) e expandindo os alvéolos, o que torna a pressão intra-alveolar subatmosférica e promove o influxo de ar; na expiração basal, o retorno ocorre passivamente pela retração elástica do parênquima. A facilidade de expansão pulmonar expressa-se pela complacência (ΔV/ΔP), fortemente dependente da ação do surfactante pulmonar secretado pelos pneumócitos tipo II, o qual reduz a tensão superficial e evita o colapso dos alvéolos menores previsto pela Lei de Laplace (P = 2T/r). Por sua vez, a resistência ao fluxo aéreo é controlada principalmente pelo calibre dos brônquios de médio porte sob modulação autonômica.",
+        perguntas: "1. Descreva as variações das pressões alveolar, intrapleural e transpulmonar durante um ciclo respiratório normal e explique o que ocorre no pneumotórax.\n2. Como o surfactante pulmonar atua na Lei de Laplace para estabilizar alvéolos de diferentes tamanhos e aumentar a complacência?\n3. Compare as alterações mecânicas da fibrose pulmonar e do enfisema pulmonar.",
+        checklist: [
+          { text: "Explicar gradientes de pressão (Palv, Pip e Ptp = Palv - Pip) na inspiração ativa e expiração passiva", done: false },
+          { text: "Definir complacência pulmonar (ΔV/ΔP) e ação do surfactante (pneumócitos II) na Lei de Laplace (P = 2T/r)", done: false },
+          { text: "Localizar o principal sítio de resistência das vias aéreas (brônquios médios) e modulação β2 vs. M3", done: false },
+          { text: "Comparar fibrose (↓ complacência), enfisema (↑ complacência / ↓ retração) e pneumotórax", done: false }
+        ]
+      },
+      19: {
+        conceito: "A troca gasosa hematoalveolar ocorre por difusão passiva através da membrana respiratória segundo a Lei de Fick, enquanto o transporte sanguíneo de O₂ depende fundamentalmente da ligação reversível à hemoglobina (98,5%) e o transporte de CO₂ realiza-se majoritariamente sob a forma de íons bicarbonato (HCO₃⁻, ~70%).",
+        mecanismo: "• Difusão Alvéolo-Capilar (Lei de Fick): Vgas = (D · A · ΔP) / T. O CO₂ difunde-se cerca de 20 vezes mais rápido que o O₂ pela membrana respiratória devido à sua solubilidade muito superior. Em repouso, a equilibração do O₂ completa-se no primeiro terço do capilar pulmonar (perfusão-limitada).\n• Transporte de Oxigênio e Curva de Dissociação da Oxi-hemoglobina:\n  - Conteúdo arterial de O₂ (CaO₂) = (1,34 × [Hb] × SaO₂) + (0,003 × PaO₂).\n  - Curva sigmoide (cooperatividade alostérica entre as 4 subunidades da Hb): o platô superior (PaO₂ 60–100 mmHg → SaO₂ 90–98%) protege a saturação frente a quedas moderadas da PaO₂ alveolar; a porção íngreme (PaO₂ 20–40 mmHg) facilita a descarga rápida de O₂ nos capilares teciduais.\n  - Desvio para a Direita (↑ P50 — menor afinidade, facilita entrega tecidual de O₂): ↑ H⁺ / ↓ pH (Efeito Bohr), ↑ PCO₂, ↑ temperatura e ↑ 2,3-BPG.\n  - Desvio para a Esquerda (↓ P50 — maior afinidade): ↓ H⁺ / ↑ pH, ↓ PCO₂, ↓ temperatura, Hb fetal (HbF) e monóxido de carbono (CO).\n• Transporte de Dióxido de Carbono:\n  - ~7% dissolvido no plasma; ~23% ligado a grupamentos amino da Hb (carbamino-hemoglobina); ~70% convertido dentro da hemácia pela anidrase carbônica (CO₂ + H₂O ⇌ H₂CO₃ ⇌ H⁺ + HCO₃⁻), com efluxo de HCO₃⁻ para o plasma trocado por Cl⁻ (desvio do cloreto / efeito Hamburger) e tamponamento do H⁺ pela desoxi-hemoglobina (Efeito Haldane).",
+        variacoes: "• Intoxicação por Monóxido de Carbono (CO): o CO possui afinidade ~240 vezes maior pela Hb que o O₂, reduzindo o número de sítios disponíveis e desviando a curva da Hb restante para a esquerda, o que impede a liberação de O₂ aos tecidos mantendo PaO₂ arterial normal.\n• Anemia grave: mantém PaO₂ e SaO₂ normais, mas reduz drasticamente o conteúdo total de O₂ transportado (CaO₂) devido à queda de [Hb].",
+        integracao: "Os efeitos Bohr e Haldane atuam de forma recíproca: nos tecidos metabolicamente ativos, a entrada de CO₂ e H⁺ desvia a curva da Hb para a direita liberando mais O₂ (Bohr), enquanto a desoxigenação da Hb aumenta sua capacidade de tamponar H⁺ e carregar CO₂ (Haldane); nos pulmões ocorre o inverso.",
+        clinica: "Doença pulmonar intersticial (fibrose) espessa a membrana respiratória (↑ T na Lei de Fick), reduzindo a capacidade de difusão (DLCO) e provocando hipoxemia induzida pelo exercício, quando o tempo de trânsito capilar cai abaixo de 0,25 s.",
+        discursiva: "A transferência de O₂ e CO₂ através da membrana alvéolo-capilar ocorre por difusão passiva regida pela Lei de Fick, sendo diretamente proporcional à área e ao gradiente de pressão parcial e inversamente proporcional à espessura da barreira. No sangue, o O₂ é transportado quase integralmente ligado à hemoglobina, cuja curva de dissociação sigmoide assegura alta saturação mesmo diante de quedas moderadas da PaO₂ e intensa liberação nos tecidos periféricos. Fatores metabólicos locais como elevação de H⁺, PCO₂, temperatura e 2,3-BPG deslocam essa curva para a direita (Efeito Bohr), reduzindo a afinidade da hemoglobina e otimizando a oferta tecidual de oxigênio. Já o CO₂ é transportado predominantemente na forma de bicarbonato plasmático, formado no interior das hemácias pela anidrase carbônica com saída acoplada ao influxo de cloreto, processo facilitado pela oxigenação da hemoglobina nos capilares pulmonares (Efeito Haldane).",
+        perguntas: "1. Explique o significado fisiológico do platô e da porção íngreme da curva de dissociação da oxi-hemoglobina, bem como os fatores que a desviam para a direita.\n2. Detalhe as três formas de transporte do CO₂ no sangue, incluindo o papel da anidrase carbônica e o desvio do cloreto.\n3. Explique por que a intoxicação por monóxido de carbono (CO) causa hipóxia tecidual grave mesmo com PaO₂ arterial normal.",
+        checklist: [
+          { text: "Aplicar Lei de Fick à membrana respiratória e comparar difusibilidade do CO₂ vs. O₂", done: false },
+          { text: "Interpretar curva sigmoide da Hb, P50 e fatores que desviam para direita (Efeito Bohr) vs. esquerda", done: false },
+          { text: "Detalhar transporte de CO₂ (~70% HCO₃⁻ via anidrase carbônica + desvio de Cl⁻ + Efeito Haldane)", done: false },
+          { text: "Diferenciar PaO₂, SaO₂ e Conteúdo Arterial de O₂ (CaO₂ — anemia e intoxicação por CO)", done: false }
+        ]
+      },
+      20: {
+        conceito: "A eficiência das trocas gasosas pulmonares exige o acoplamento adequado entre a ventilação alveolar (V̇A ≈ 4 L/min) e a perfusão capilar pulmonar (Q̇ ≈ 5 L/min), resultando em uma relação ventilação-perfusão média (V̇/Q̇) de aproximadamente 0,8, que varia regionalmente devido à gravidade.",
+        mecanismo: "• Gradiente Gravitacional (Zonas de West em ortostatismo):\n  - Tanto a ventilação quanto a perfusão aumentam do ápice para a base pulmonar, mas o gradiente hidrostático faz a perfusão crescer muito mais rapidamente que a ventilação.\n  - Ápice pulmonar (Zona 1/2): V̇/Q̇ elevado (~3,0) → alta PAO₂ (~132 mmHg) e baixa PACO₂ (~28 mmHg).\n  - Base pulmonar (Zona 3): V̇/Q̇ reduzido (~0,6) → menor PAO₂ (~89 mmHg) e maior PACO₂ (~42 mmHg).\n• Extremos da Relação V̇/Q̇:\n  - Espaço Morto Fisiológico (V̇/Q̇ → ∞): alvéolos ventilados, mas não perfundidos (ex.: tromboembolismo pulmonar); o gás alveolar iguala-se ao ar umidificado inspirado (PAO₂ = 150 mmHg; PACO₂ = 0 mmHg).\n  - Shunt Direito-Esquerdo (V̇/Q̇ = 0): alvéolos perfundidos, mas não ventilados (ex.: obstrução brônquica, edema agudo de pulmão, atelectasia); o sangue venoso misto (PvO₂ = 40 mmHg) atravessa o capilar sem oxigenar-se.\n• Mecanismo Compensatório Local: Vasoconstrição Pulmonar Hipóxica (VPH) — ao contrário da circulação sistêmica, a hipóxia alveolar local contrai as arteríolas pulmonares adjacentes, desviando o sangue de alvéolos mal ventilados para regiões bem ventiladas.",
+        variacoes: "• Administração de O₂ a 100% em hipoxemia por baixa V̇/Q̇ vs. Shunt verdadeiro: na desigualdade V̇/Q̇ moderada, o O₂ a 100% eleva a PAO₂ nos alvéolos hipoventilados e corrige a hipoxemia; no shunt verdadeiro (V̇/Q̇ = 0), o O₂ não alcança o alvéolo colabado e o sangue bem ventilado já está ~100% saturado, tornando a hipoxemia refratária ao O₂ suplementar.\n• Hipóxia alveolar generalizada (ex.: grandes altitudes): desencadeia vasoconstrição pulmonar hipóxica difusa, elevando a resistência vascular pulmonar e podendo causar hipertensão pulmonar e cor pulmonale.",
+        integracao: "O desequilíbrio V̇/Q̇ é a causa mais frequente de hipoxemia clínica e aumenta o gradiente alvéolo-arterial de oxigênio (P[A-a]O₂), exigindo ajustes ventilatórios mediados pelos quimiorreceptores arteriais.",
+        clinica: "Tromboembolismo pulmonar (TEP) oclui ramos da artéria pulmonar, criando áreas extensas de espaço morto alveolar (V̇/Q̇ → ∞) e redirecionando todo o débito cardíaco para as áreas remanescentes (reduzindo sua relação V̇/Q̇ e gerando hipoxemia).",
+        discursiva: "A oxigenação arterial eficaz depende da proporcionalidade entre a ventilação alveolar e a perfusão capilar pulmonar, cuja relação média (V̇/Q̇) situa-se em torno de 0,8. Em posição ortostática, a gravidade promove maior perfusão nas bases do que nos ápices pulmonares, tornando a relação V̇/Q̇ maior no ápice e menor na base. Nos extremos patológicos desse espectro, unidades ventiladas porém não perfundidas constituem espaço morto fisiológico (V̇/Q̇ → ∞), como no tromboembolismo pulmonar, enquanto unidades perfundidas mas não ventiladas configuram shunt intrapulmonar (V̇/Q̇ = 0), como na atelectasia ou consolidação pneumônica, causando hipoxemia refratária à oxigenoterapia. Para minimizar o desequilíbrio regional, os vasos pulmonares respondem à hipóxia alveolar por meio da vasoconstrição pulmonar hipóxica, redirecionando o fluxo sanguíneo para alvéolos adequadamente ventilados.",
+        perguntas: "1. Explique por que a relação V̇/Q̇ varia do ápice para a base pulmonar e como isso afeta as pressões parciais de O₂ e CO₂.\n2. Diferencie espaço morto alveolar (V̇/Q̇ → ∞) de shunt intrapulmonar (V̇/Q̇ = 0), explicando por que a hipoxemia por shunt não responde bem ao O₂ a 100%.\n3. Qual é a importância fisiológica da vasoconstrição pulmonar hipóxica e qual o seu risco quando ocorre de forma generalizada?",
+        checklist: [
+          { text: "Explicar variação ápice-base (Zonas de West) e valores de V̇/Q̇ (~0,8 média; >1 ápice; <1 base)", done: false },
+          { text: "Contrastar Espaço Morto (V̇/Q̇ → ∞) vs. Shunt (V̇/Q̇ = 0) e resposta ao O₂ 100%", done: false },
+          { text: "Descrever a vasoconstrição pulmonar hipóxica (mecanismo compensatório local vs. hipertensão pulmonar)", done: false },
+          { text: "Correlacionar tromboembolismo pulmonar e atelectasia/edema pulmonar", done: false }
+        ]
+      },
+      21: {
+        conceito: "O controle da ventilação ajusta automaticamente a frequência e a profundidade respiratórias para manter constantes a PaCO₂ (~40 mmHg), a PaO₂ (~95–100 mmHg) e o pH arterial (~7,40), integrando geradores rítmicos no tronco encefálico com quimiorreceptores centrais e periféricos e mecanorreceptores pulmonares.",
+        mecanismo: "• Centros Respiratórios do Tronco Encefálico:\n  - Grupo Respiratório Dorsal (GRD — bulbo, associado ao NTS): gera o ritmo inspiratório básico (sinal em rampa para o nervo frênico C3–C5) e recebe aferências vagais e glossofaríngeas.\n  - Complexo Pré-Bötzinger: marca-passo gerador do ritmo respiratório.\n  - Grupo Respiratório Ventral (GRV — bulbo): inativo na respiração calma; recrutado na ventilação aumentada para inspiração forçada e expiração ativa.\n  - Centro Pneumotáxico (ponte superior): inibe a inspiração, limitando o volume corrente e aumentando a frequência respiratória.\n• Controle Químico:\n  - Quimiorreceptores Centrais (superfície ventral do bulbo): principais responsáveis pelo ajuste fino minuto a minuto da ventilação; respondem indiretamente às variações da PaCO₂. Como o CO₂ atravessa livremente a barreira hematoencefálica (ao contrário do H⁺), no líquor reage com a água (CO₂ + H₂O ⇌ H⁺ + HCO₃⁻), estimulando os quimiorreceptores via aumento de H⁺ liquórico.\n  - Quimiorreceptores Periféricos (corpos carotídeos — NC IX — e corpos aórticos — NC X): únicos sensores da hipóxia arterial (respondem significativamente quando PaO₂ < 60 mmHg por fechamento de canais de K⁺ sensíveis ao O₂ nas células glômicas), além de responderem rapidamente ao aumento de H⁺ (acidose metabólica) e de PaCO₂.",
+        variacoes: "• Hipercapnia aguda: eleva fortemente a ventilação alveolar (estímulo mais potente em condições normais).\n• Hipercapnia crônica (ex.: DPOC avançada): o transporte ativo de HCO₃⁻ para o líquor normaliza o pH liquórico, dessensibilizando os quimiorreceptores centrais; a ventilação passa a depender do estímulo hipóxico periférico (PaO₂ < 60 mmHg).\n• Acidose metabólica (ex.: cetoacidose diabética): o aumento de H⁺ arterial estimula diretamente os quimiorreceptores periféricos carotídeos, induzindo hiperventilação compensatória (respiração de Kussmaul) que reduz a PaCO₂.",
+        integracao: "Durante o exercício físico intenso, a ventilação aumenta proporcionalmente ao consumo de O₂ e produção de CO₂ sem alteração expressiva da PaCO₂ ou PaO₂ médias, graças ao comando central antecipatório (feed-forward) e às aferências proprioceptivas musculares/articulares.",
+        clinica: "Administração indiscriminada de altas frações de O₂ em pacientes retentores crônicos de CO₂ (DPOC grave) pode abolir o drive hipóxico periférico e agravar a desigualdade V̇/Q̇, precipitando narcose por CO₂ e acidose respiratória aguda.",
+        discursiva: "O ritmo ventilatório basal origina-se em redes neurais do tronco encefálico — destacando-se o complexo pré-Bötzinger, o grupo respiratório dorsal e os centros pontinos — que modulam os motoneurônios frênicos e intercostais. A regulação química da ventilação visa manter a homeostase dos gases arteriais e do pH por meio de dois sistemas sensoriais complementares: os quimiorreceptores centrais, situados na superfície ventral do bulbo, respondem primariamente à elevação da PaCO₂ porque o CO₂ difunde-se pela barreira hematoencefálica e acidifica o líquido cefalorraquidiano; já os quimiorreceptores periféricos dos corpos carotídeos e aórticos são os únicos responsáveis pela resposta ventilatória à hipoxemia (sobretudo quando PaO₂ cai abaixo de 60 mmHg), além de detectarem rapidamente acidemias metabólicas agudas.",
+        perguntas: "1. Explique por que os quimiorreceptores centrais respondem à PaCO₂ arterial, mas não diretamente ao H⁺ plasmático.\n2. Compare os estímulos e as vias aferentes dos quimiorreceptores centrais e periféricos.\n3. Como o sistema respiratório compensa uma acidose metabólica aguda e por que pacientes com DPOC grave podem reter CO₂ ao receberem O₂ em excesso?",
+        checklist: [
+          { text: "Identificar centros bulbares (GRD, GRV, pré-Bötzinger) e pontinos (pneumotáxico)", done: false },
+          { text: "Explicar mecanismo dos quimiorreceptores centrais (CO₂ cruza BHE → ↓ pH do líquor)", done: false },
+          { text: "Detalhar quimiorreceptores periféricos (corpos carotídeos/IX — única resposta à hipóxia PaO₂ < 60 mmHg + acidose)", done: false },
+          { text: "Correlacionar hiperventilação na acidose metabólica e retenção de CO₂ na DPOC", done: false }
+        ]
+      },
+      22: {
+        conceito: "A filtração glomerular é a primeira etapa da formação da urina, na qual cerca de 20% do fluxo plasmático renal (~125 mL/min ou 180 L/dia) é ultrafiltrado através da barreira de filtração glomerular para a cápsula de Bowman, gerando um filtrado isosmótico praticamente isento de proteínas e elementos celulares.",
+        mecanismo: "• Barreira de Filtração Glomerular: endotélio fenestrado, membrana basal glomerular (colágeno IV e proteoglicanos de heparan-sulfato carregados negativamente) e fendas de filtração entre os pedicelos dos podócitos (nefrina/podocina). Restringe moléculas por tamanho (> 70 kDa) e por carga elétrica (repele poliânions como a albumina).\n• Forças de Starling Glomerulares: TFG = Kf · [(Pcg - Pcb) - πcg], onde:\n  - Pcg (pressão hidrostática capilar glomerular, ~55–60 mmHg): principal força promotora da filtração.\n  - Pcb (pressão hidrostática na cápsula de Bowman, ~15 mmHg): opõe-se à filtração.\n  - πcg (pressão oncótica capilar glomerular, média ~30 mmHg): aumenta ao longo do capilar glomerular à medida que água é filtrada sem proteínas, opondo-se à filtração.\n• Autorregulação Renal (mantém TFG e FPR constantes entre PAM de 80 e 180 mmHg):\n  1. Mecanismo Miogênico: aumento da pressão arterial estira a arteríola aferente, abrindo canais catiônicos mecanossensíveis que despolarizam o músculo liso e promovem vasoconstrição aferente.\n  2. Feedback Tubuloglomerular: aumento da TFG eleva a carga de NaCl que chega à mácula densa (ramo ascendente espesso final); o cotransporte NKCC2 estimula a liberação de adenosina e ATP, que contraem a arteríola aferente adjacente (receptores A1) e reduzem a secreção de renina.",
+        variacoes: "• Vasoconstrição seletiva da arteríola aferente (ex.: descarga simpática intensa α1 ou AINEs que bloqueiam prostaglandinas vasodilatadoras): reduz Pcg, FPR e TFG.\n• Vasoconstrição moderada da arteríola eferente (ex.: Angiotensina II em baixa/moderada concentração): reduz o FPR, mas eleva Pcg e a fração de filtração (FF = TFG / FPR), preservando a TFG.\n• Obstrução ureteral aguda (litíase): eleva Pcb retrógrada, reduzindo a pressão efetiva de filtração e a TFG.",
+        integracao: "A medida da depuração (clearance) de inulina (ou creatinina endógena na prática clínica, C = U × V / P) estima a TFG, enquanto a depuração do ácido para-aminohipúrico (PAH) estima o fluxo plasmático renal efetivo.",
+        clinica: "Em pacientes com estenose bilateral da artéria renal ou hipovolemia grave, a TFG depende da vasoconstrição eferente mediada pela Angiotensina II; o uso de inibidores da ECA dilata a arteríola eferente, derrubando Pcg e precipitando insuficiência renal aguda pré-renal.",
+        discursiva: "A filtração glomerular consiste na formação de um ultrafiltrado plasmático isento de proteínas através de uma barreira seletiva em tamanho e carga elétrica constituída pelo endotélio fenestrado, membrana basal aniônica e diafragmas dos podócitos. A taxa de filtração glomerular (TFG ≈ 125 mL/min) é determinada pelo coeficiente de filtração (Kf) e pelo balanço das forças de Starling, sendo impulsionada pela pressão hidrostática capilar glomerular (Pcg) e contraposta pela pressão hidrostática da cápsula de Bowman (Pcb) e pela pressão oncótica capilar (πcg). Para proteger os capilares glomerulares e estabilizar a carga filtrada de solutos frente a flutuações da pressão arterial sistêmica (entre 80 e 180 mmHg), o rim emprega dois mecanismos intrínsecos de autorregulação: a resposta miogênica da arteríola aferente e o feedback tubuloglomerular mediado pela mácula densa via adenosina.",
+        perguntas: "1. Descreva os três componentes da barreira de filtração glomerular e explique como tamanho e carga elétrica determinam a filtrabilidade de uma molécula.\n2. Compare os efeitos da vasoconstrição isolada da arteríola aferente versus arteríola eferente sobre o FPR, Pcg, TFG e fração de filtração.\n3. Explique os dois mecanismos de autorregulação renal (miogênico e feedback tubuloglomerular).",
+        checklist: [
+          { text: "Detalhar barreira de filtração (endotélio, membrana basal aniônica, podócitos) e seletividade carga/tamanho", done: false },
+          { text: "Aplicar forças de Starling glomerulares: TFG = Kf · [(Pcg - Pcb) - πcg]", done: false },
+          { text: "Explicar autorregulação renal (80–180 mmHg): mecanismo miogênico + feedback tubuloglomerular (mácula densa)", done: false },
+          { text: "Comparar efeitos da resistência arteriolar aferente (AINEs/simpático) vs. eferente (Ang II/IECA)", done: false }
+        ]
+      },
+      23: {
+        conceito: "O transporte tubular modifica quantitativa e qualitativamente o ultrafiltrado glomerular ao longo dos segmentos do néfron por meio de processos altamente seletivos de reabsorção (lúmen → sangue capilar peritubular) e secreção (sangue → lúmen), recuperando mais de 99% da água e do sódio filtrados e eliminando catabólitos e fármacos.",
+        mecanismo: "• Motor Energético Comum: a Na⁺/K⁺-ATPase localizada exclusivamente na membrana basolateral de todas as células tubulares mantém baixa a concentração intracelular de Na⁺, criando o gradiente eletroquímico para a reabsorção apical.\n• Segmentos do Néfron:\n  1. Túbulo Contorcido Proximal (TCP — reabsorção isosmótica em massa): reabsorve ~65–70% do Na⁺, Cl⁻, K⁺ e água, ~85% do HCO₃⁻ e 100% da glicose e aminoácidos (via simporte SGLT2/SGLT1 e antiporte NHE3; transporte máximo Tm para glicose ~375 mg/min, limiar renal ~180–200 mg/dL). Também secreta ácidos e bases orgânicas (PAH, penicilina, furosemida).\n  2. Alça de Henle: ramo descendente delgado permeável apenas à água (aquaporina-1); ramo ascendente espesso impermeável à água ('segmento diluidor'), reabsorve ~25% do NaCl via cotransportador NKCC2 e gera diferença de potencial lúmen-positiva que impulsiona a reabsorção paracelular de Ca²⁺ e Mg²⁺.\n  3. Túbulo Contorcido Distal Inicial (TCD): impermeável à água; reabsorve ~5% do NaCl via cotransportador NCC e reabsorve Ca²⁺ sob estímulo do PTH (canais TRPV5).\n  4. TCD Final e Ducto Coletor Cortical:\n     - Células Principais: reabsorvem Na⁺ via canais epiteliais ENaC e secretam K⁺ (canais ROMK); reguladas pela Aldosterona (aumenta expressão de ENaC, ROMK e Na⁺/K⁺-ATPase) e pelo ADH (insere aquaporina-2 na membrana apical).\n     - Células Intercaladas: Tipo α secretam H⁺ (H⁺-ATPase e H⁺/K⁺-ATPase) e reabsorvem HCO₃⁻; Tipo β secretam HCO₃⁻.",
+        variacoes: "• Elevação da glicemia acima do limiar renal (>200 mg/dL no diabetes descompensado): satura os transportadores SGLT2/SGLT1 (Tm), provocando glicosúria e diurese osmótica.\n• Aumento da oferta de Na⁺ e água ao ducto coletor (ex.: uso de diuréticos de alça ou tiazídicos): aumenta a entrada de Na⁺ via ENaC nas células principais, tornando o lúmen mais negativo e aumentando a secreção de K⁺ (hipocalemia) e H⁺ (alcalose metabólica).",
+        integracao: "As forças de Starling nos capilares peritubulares (baixa pressão hidrostática após a arteríola eferente e alta pressão oncótica devido à hemoconcentração glomerular) favorecem a captação contínua do fluido reabsorvido (balanço glomerulotubular).",
+        clinica: "Mecanismo dos diuréticos por segmento: inibidores da anidrase carbônica (acetazolamida no TCP), diuréticos de alça (furosemida inibe NKCC2 — também aumentam excreção de Ca²⁺), tiazídicos (hidroclorotiazida inibe NCC — reduzem excreção de Ca²⁺) e poupadores de potássio (espironolactona antagoniza aldosterona; amilorida bloqueia ENaC).",
+        discursiva: "O transporte tubular ajusta com precisão a composição do fluido filtrado através de mecanismos ativos e passivos impulsionados pela Na⁺/K⁺-ATPase basolateral. No túbulo contorcido proximal ocorre a reabsorção isosmótica em massa de cerca de dois terços do sódio e da água, da maior parte do bicarbonato e da totalidade da glicose e aminoácidos por cotransporte saturável (SGLT2/SGLT1). Na alça de Henle, o ramo descendente reabsorve água enquanto o ramo ascendente espesso, impermeável à água, transporta NaCl via NKCC2 e impulsiona a reabsorção paracelular de Ca²⁺ e Mg²⁺. Finalmente, o ajuste fino ocorre no néfron distal: o túbulo distal inicial reabsorve NaCl via NCC e Ca²⁺ sob ação do PTH, enquanto nas células principais do ducto coletor a aldosterona promove reabsorção de Na⁺ (via ENaC) acoplada à secreção de K⁺, e o ADH regula a permeabilidade à água.",
+        perguntas: "1. Explique o conceito de Transporte Máximo (Tm) e limiar renal utilizando a reabsorção de glicose no túbulo proximal.\n2. Compare as propriedades de permeabilidade e os principais transportadores de cada segmento do néfron (TCP, alça de Henle, TCD e ducto coletor).\n3. Explique por que os diuréticos de alça (furosemida) e tiazídicos causam hipocalemia, enquanto os antagonistas da aldosterona (espironolactona) causam hipercalemia.",
+        checklist: [
+          { text: "Destacar Na⁺/K⁺-ATPase basolateral como motor comum + reabsorção isosmótica e Tm da glicose no TCP", done: false },
+          { text: "Diferenciar permeabilidade e transportadores da Alça de Henle (NKCC2 / segmento diluidor) e TCD (NCC)", done: false },
+          { text: "Detalhar células principais (ENaC/ROMK — Aldosterona e AQP2 — ADH) e intercaladas (α/β) no coletor", done: false },
+          { text: "Correlacionar locais de ação e efeitos eletrolíticos dos principais diuréticos", done: false }
+        ]
+      },
+      24: {
+        conceito: "O equilíbrio hidroeletrolítico compreende a regulação integrada da osmolaridade do líquido extracelular (~285–295 mOsm/L, controlada pelo balanço de água livre via ADH e sede) e do volume do líquido extracelular (volemia efetiva, controlada pelo balanço de sódio via SRAA, sistema nervoso simpático, ANP e natriurese pressórica).",
+        mecanismo: "• Mecanismo Multiplicador de Contracorrente e Formação de Urina Concentrada:\n  1. O transporte ativo de NaCl sem água pelo ramo ascendente espesso da alça de Henle (NKCC2) cria um gradiente osmótico corticomedular crescente (de 300 mOsm/L no córtex até 1200 mOsm/L na papila medular), amplificado pela recirculação de ureia no ducto coletor medular interno (UT-A1/UT-A3).\n  2. Os vasa recta preservam esse gradiente medular operando como trocadores passivos de contracorrente com baixo fluxo sanguíneo.\n  3. Na presença de ADH (vasopressina), sua ligação aos receptores V2 basolaterais das células principais ativa a via Gs/AMPc/PKA, promovendo a exocitose de vesículas contendo canais de água Aquaporina-2 (AQP2) na membrana apical; a água flui osmoticamente para o interstício medular hipertônico, produzindo urina concentrada (até 1200 mOsm/L). Na ausência de ADH, o ducto coletor permanece impermeável à água, excretando urina diluída (até 50 mOsm/L).\n• Controle da Osmolaridade vs. Volemia:\n  - Osmorreceptores hipotalâmicos (OVLT/SFO): detectam variações de apenas 1% na osmolaridade plasmática, estimulando a secreção de ADH pela neuro-hipófise e o centro da sede.\n  - Barorreceptores de baixa e alta pressão: quedas >8–10% na volemia estimulam ADH não-osmótico, ativam o simpático renal e o SRAA (retenção de Na⁺).\n• Homeostase do Potássio (K⁺): balanço interno rápido mediado por insulina, agonistas β2 e alcalemia (estimulam Na⁺/K⁺-ATPase, deslocando K⁺ para o LIC) e balanço externo renal controlado pela aldosterona nas células principais.",
+        variacoes: "• Privação hídrica: eleva osmolaridade plasmática → estimula osmorreceptores → ↑ ADH e sede → ↑ AQP2 no ducto coletor → redução do volume urinário e aumento da osmolaridade urinária.\n• Ingestão rápida de grande volume de água pura: reduz osmolaridade plasmática → inibe ADH → remoção de AQP2 → diurese aquosa (clearance de água livre positivo).\n• Hipovolemia com hiponatremia: os estímulos barorreceptores de volume sobrepõem-se aos osmorreceptores, mantendo o ADH elevado mesmo com hipo-osmolaridade plasmática.",
+        integracao: "A homeostase da osmolaridade protege o volume intracelular (especialmente dos neurônios encefálicos) contra edema ou desidratação osmótica, enquanto a regulação do sódio sustenta o volume intravascular e a pressão arterial sistêmica.",
+        clinica: "• Diabetes insipidus central (deficiência na síntese/secreção de ADH) vs. nefrogênico (resistência dos receptores V2/AQP2 ao ADH, ex.: toxicidade por lítio): ambos cursam com poliúria diluída intensa, polidipsia e risco de hipernatremia se o acesso à água for restrito.\n• SIADH (Secreção Inapropriada de ADH): retenção excessiva de água livre sem perda de sódio, causando hiponatremia euvolêmica hipotônica.",
+        discursiva: "O equilíbrio hidroeletrolítico resulta da regulação dissociada, porém integrada, da osmolaridade e do volume do líquido extracelular. A osmolaridade plasmática é mantida em torno de 290 mOsm/L pelo ajuste da excreção renal de água livre mediado pelo ADH e pelo mecanismo da sede, disparados por osmorreceptores hipotalâmicos. Para excretar urina concentrada, o rim utiliza o multiplicador de contracorrente da alça de Henle e a recirculação de ureia para construir um interstício medular hipertônico de até 1200 mOsm/L, preservado pelo fluxo lento dos vasa recta; ao ligar-se aos receptores V2 no ducto coletor, o ADH insere canais de aquaporina-2 na membrana apical, permitindo a reabsorção osmótica de água. Paralelamente, o volume extracelular efetivo é regulado pelo balanço corporal de sódio coordenado pelo sistema renina-angiotensina-aldosterona, sistema simpático e peptídeos natriuréticos.",
+        perguntas: "1. Explique como o multiplicador de contracorrente da alça de Henle, a ureia e os vasa recta geram e mantêm o gradiente osmótico corticomedular.\n2. Detalhe o mecanismo celular de ação do ADH no ducto coletor e diferencie diabetes insipidus central, nefrogênico e SIADH.\n3. Como o organismo regula o potássio plasmático a curto prazo (redistribuição transcelular) e a longo prazo (excreção renal)?",
+        checklist: [
+          { text: "Diferenciar controle da osmolaridade (água livre / osmorreceptores / ADH) vs. volemia (sódio / SRAA / ANP)", done: false },
+          { text: "Explicar multiplicador contracorrente (NKCC2), recirculação de ureia e trocador vasa recta", done: false },
+          { text: "Detalhar via do ADH: receptor V2 → Gs/AMPc/PKA → inserção apical de Aquaporina-2", done: false },
+          { text: "Explicar balanço interno (insulina, β2, pH) e externo (aldosterona) do K⁺ + Diabetes Insipidus/SIADH", done: false }
+        ]
+      },
+      25: {
+        conceito: "O equilíbrio ácido-base mantém a concentração de íons H⁺ no líquido extracelular em níveis nanomolares extremamente estreitos (pH arterial entre 7,35 e 7,45; [H⁺] ≈ 40 nEq/L) para preservar a conformação terciária das proteínas e enzimas, por meio de três linhas de defesa sequenciais: tampões químicos (segundos), regulação respiratória da PaCO₂ (minutos) e regulação renal do HCO₃⁻ (horas a dias).",
+        mecanismo: "• Equação de Henderson-Hasselbalch: pH = 6,1 + log([HCO₃⁻] / [0,03 × PaCO₂]). O pH depende da razão entre o componente metabólico/renal ([HCO₃⁻] ≈ 24 mEq/L) e o componente respiratório (PaCO₂ ≈ 40 mmHg).\n• 1ª Linha — Tampões Químicos: sistema bicarbonato/CO₂ (principal tampão aberto do LEC, pois PaCO₂ e HCO₃⁻ são regulados independentemente), proteínas plasmáticas/hemoglobina e fosfato (importante no LIC e na urina).\n• 2ª Linha — Compensação Respiratória: alterações do pH estimulam quimiorreceptores periféricos e centrais; acidemia estimula hiperventilação (↓ PaCO₂), enquanto alcalemia reduz a ventilação alveolar (↑ PaCO₂).\n• 3ª Linha — Regulação Renal (Acidificação Urinária):\n  1. Reabsorção de todo o HCO₃⁻ filtrado (predominantemente no TCP via secreção de H⁺ pelo trocador apical NHE3 e anidrase carbônica luminal/citosólica — processo de conservação, não gera bicarbonato novo).\n  2. Geração de 'Novo' HCO₃⁻ e Excreção de Ácidos Fixos: ocorre quando o H⁺ secretado no néfron distal (células intercaladas α via H⁺-ATPase) é tamponado na luz tubular por tampões não-bicarbonato — acidez titulável (fosfato HPO₄²⁻ → H₂PO₄⁻) e íon amônio (NH₃ + H⁺ → NH₄⁺, sintetizado a partir da glutamina no TCP, principal mecanismo adaptativo na acidose crônica) — enviando um HCO₃⁻ recém-sintetizado ao sangue.",
+        variacoes: "• Acidose Metabólica (↓ [HCO₃⁻] primário): compensada por hiperventilação (↓ PaCO₂ prevista pela fórmula de Winter: PaCO₂ = 1,5 × [HCO₃⁻] + 8 ± 2) e aumento da amoniogênese renal.\n• Alcalose Metabólica (↑ [HCO₃⁻] primário): compensada por hipoventilação (↑ PaCO₂) e excreção renal de HCO₃⁻ (células intercaladas β via pendrina).\n• Acidose Respiratória (↑ PaCO₂ primário por hipoventilação): compensada agudamente por tampões intracelulares/Hb e cronicamente (3–5 dias) pelo aumento da reabsorção e geração renal de HCO₃⁻.\n• Alcalose Respiratória (↓ PaCO₂ primário por hiperventilação): compensada pela redução da secreção renal de H⁺ e excreção urinária de HCO₃⁻.",
+        integracao: "O equilíbrio ácido-base interage diretamente com a homeostase do potássio: na acidemia mineral (hiperclorêmica), o excesso de H⁺ entra nas células em troca da saída de K⁺ (gerando hipercalemia), enquanto a alcalemia promove influxo celular de K⁺ (hipocalemia).",
+        clinica: "Cetoacidose diabética gera acidose metabólica com ânion gap elevado (acúmulo de β-hidroxibutirato e acetoacetato), desencadeando respiração profunda e rápida de Kussmaul (compensação respiratória) e intensa excreção urinária de NH₄⁺.",
+        discursiva: "A manutenção do pH arterial entre 7,35 e 7,45 é expressa pela equação de Henderson-Hasselbalch (pH = 6,1 + log([HCO₃⁻] / [0,03 × PaCO₂])) e depende da atuação coordenada de três sistemas. Imediatamente, os tampões químicos — liderados pelo sistema bicarbonato no líquido extracelular e pelas proteínas e hemoglobina no meio intracelular — minimizam variações bruscas de H⁺. Em minutos, o sistema respiratório ajusta a ventilação alveolar para modular a PaCO₂ em resposta à ativação dos quimiorreceptores. Por fim, em horas a dias, os rins promovem a correção definitiva tanto pela reabsorção completa do bicarbonato filtrado no túbulo proximal quanto pela geração de novo bicarbonato nas células intercaladas α do néfron distal, processo acoplado à excreção de H⁺ sob a forma de acidez titulável (fosfato) e, sobretudo, de íon amônio (NH₄⁺).",
+        perguntas: "1. Escreva a equação de Henderson-Hasselbalch e diferencie os quatro distúrbios ácido-base primários e suas respectivas respostas compensatórias.\n2. Distinga o mecanismo renal de reabsorção do bicarbonato filtrado (túbulo proximal) da geração de 'novo' bicarbonato (acidez titulável e amoniogênese).\n3. Explique a relação recíproca entre variações do pH extracelular e a concentração plasmática de potássio.",
+        checklist: [
+          { text: "Enunciar equação de Henderson-Hasselbalch e valores normais (pH 7,35–7,45; PaCO₂ 40; HCO₃⁻ 24)", done: false },
+          { text: "Explicar as 3 linhas de defesa: tampões (bicarbonato/Hb), respiração (PaCO₂) e rins (HCO₃⁻)", done: false },
+          { text: "Diferenciar reabsorção de HCO₃⁻ filtrado (NHE3 no TCP) vs. geração de novo HCO₃⁻ (fosfato e NH₄⁺)", done: false },
+          { text: "Identificar distúrbios primários, compensações esperadas e relação pH ↔ K⁺", done: false }
+        ]
+      },
+      26: {
+        conceito: "A fisiologia da digestão abrange a motilidade, as secreções exócrinas, a digestão enzimática luminal/de borda em escova e a absorção transepitelial de nutrientes, água e eletrólitos ao longo do trato gastrointestinal, coordenados pelo Sistema Nervoso Entérico (plexos mioentérico de Auerbach e submucoso de Meissner), pelo SNA e por hormônios gastrointestinais.",
+        mecanismo: "• Regulação Neuro-Humoral:\n  - Sistema Nervoso Entérico (SNE): integra reflexos locais intrínsecos; parassimpático (nervo vago/pélvico) estimula motilidade e secreção, enquanto o simpático as inibe e contrai esfíncteres.\n  - Hormônios GI Principais:\n    1. Gastrina (células G antrais; estimulada por peptídeos, distensão e GRP vagal): estimula secreção de HCl pelas células parietais e crescimento da mucosa.\n    2. Secretina (células S duodenais; estimulada por H⁺/ácido no duodeno): estimula secreção pancreática e biliar rica em HCO₃⁻ para neutralizar o quimo ácido e inibe secreção ácida gástrica.\n    3. Colecistocinina — CCK (células I duodenais; estimulada por ácidos graxos e aminoácidos): estimula secreção pancreática rica em enzimas, contração da vesícula biliar, relaxamento do esfíncter de Oddi e retardo do esvaziamento gástrico.\n    4. GIP / GLP-1 (incretinas): estimulam secreção de insulina dependente de glicose.\n• Secreções e Absorção:\n  - Estômago: células parietais secretam HCl (bomba H⁺/K⁺-ATPase estimulada por ACh [M3], gastrina [CCK2] e histamina via células ECL [H2 → Gs/AMPc]) e fator intrínseco (essencial para absorção de vitamina B12 no íleo terminal); células principais secretam pepsinogênio.\n  - Digestão e Absorção: carboidratos (amilase + dissacaridases da borda em escova → glicose/galactose absorvidas por SGLT1 e frutose por GLUT5; saída basolateral por GLUT2); proteínas (pepsina + proteases pancreáticas ativadas pela enteroquinase/tripsina → aminoácidos e di/tripeptídeos absorvidos por simporte com Na⁺ e H⁺ [PepT1]); lipídios (emulsificação por sais biliares + lipase pancreática/colipase → micelas mistas → difusão no enterócito → ressíntese de triglicerídeos e formação de quilomícrons exportados via linfáticos/quilíferos).",
+        variacoes: "• Gastrectomia total ou ressecção do íleo terminal: compromete a secreção de fator intrínseco ou seu sítio de absorção, levando à deficiência de vitamina B12 (anemia megaloblástica e neuropatia).\n• Insuficiência pancreática exócrina ou obstrução biliar: reduz a emulsificação e hidrólise de lipídios, causando esteatorreia e deficiência de vitaminas lipossolúveis (A, D, E, K).",
+        integracao: "A secreção de HCl gástrico gera o fenômeno da 'maré alcalina' no sangue venoso gástrico devido à troca basolateral HCO₃⁻/Cl⁻ na célula parietal, posteriormente neutralizada pela secreção pancreática de HCO₃⁻ estimulada pela secretina.",
+        clinica: "Inibidores da bomba de prótons (omeprazol) bloqueiam irreversivelmente a H⁺/K⁺-ATPase apical da célula parietal, inibindo a secreção ácida independentemente do estímulo (ACh, gastrina ou histamina).",
+        discursiva: "O trato gastrointestinal converte alimentos ingeridos em moléculas absorvíveis por meio da integração entre motilidade, secreção, digestão enzimática e transporte epitelial, coordenados pelo sistema nervoso entérico e por hormônios peptídicos. No estômago, as células parietais secretam HCl pela H⁺/K⁺-ATPase sob estímulo sinérgico de acetilcolina, gastrina e histamina, além de fator intrínseco para a absorção ileal de vitamina B12. A chegada do quimo ácido e rico em nutrientes ao duodeno libera secretina, que estimula a secreção pancreática e biliar de bicarbonato para neutralizar o pH luminal, e colecistocinina (CCK), que promove a secreção de zimogênios pancreáticos, contrai a vesícula biliar e relaxa o esfíncter de Oddi. Finalmente, monossacarídeos e aminoácidos são absorvidos no intestino delgado por transporte ativo secundário acoplado a Na⁺ ou H⁺, enquanto os lipídios são solubilizados em micelas pelos sais biliares, reesterificados nos enterócitos e transportados para a linfa na forma de quilomícrons.",
+        perguntas: "1. Compare os estímulos e as ações fisiológicas da gastrina, secretina e colecistocinina (CCK).\n2. Explique o mecanismo celular da secreção de HCl pela célula parietal gástrica e a interação entre ACh, gastrina e histamina.\n3. Descreva as etapas de digestão, emulsificação, absorção e transporte dos lipídios da dieta até a circulação.",
+        checklist: [
+          { text: "Detalhar os 3 principais hormônios GI: Gastrina, Secretina e CCK (estímulos e alvos)", done: false },
+          { text: "Explicar secreção gástrica de HCl (H⁺/K⁺-ATPase; ACh, gastrina, histamina/H2) e Fator Intrínseco", done: false },
+          { text: "Resumir absorção de carboidratos (SGLT1/GLUT5/GLUT2), proteínas (PepT1) e lipídios (micelas/quilomícrons)", done: false },
+          { text: "Correlacionar ressecção ileal/gastrectomia (B12) e insuficiência pancreática/biliar (esteatorreia)", done: false }
+        ]
+      },
+      27: {
+        conceito: "A glândula tireoide regula a taxa metabólica basal, a termogênese, o crescimento somático e o desenvolvimento do sistema nervoso central por meio da síntese e secreção dos hormônios tireoidianos tiroxina (T₄, pró-hormônio predominante na secreção) e tri-iodotironina (T₃, forma biologicamente mais ativa), sob controle do eixo hipotálamo-hipófise-tireoide.",
+        mecanismo: "• Biossíntese nos Folículos Tireoidianos (mediada pela Tireoperoxidase — TPO e estimulada pelo TSH):\n  1. Captação ativa de iodeto (I⁻) na membrana basolateral pelo simporte Na⁺/I⁻ (NIS) e efluxo para o coloide via pendrina.\n  2. Oxidação do I⁻ a iodo ativo (I₂) pela TPO na interface apical-coloide.\n  3. Organificação: iodação de resíduos de tirosina da tireoglobulina formando MIT e DIT.\n  4. Acoplamento pela TPO: DIT + DIT → T₄; MIT + DIT → T₃ (armazenados no coloide).\n  5. Endocitose de gotículas de coloide, proteólise lisossomal da tireoglobulina e secreção de T₄ (~90%) e T₃ (~10%) para o sangue (transportados ligados principalmente à TBG — globulina ligadora de tiroxina).\n• Ativação Periférica e Mecanismo Nuclear: nos tecidos-alvo, as desiodases tipo 1 e 2 (D1/D2) convertem T₄ em T₃ (enquanto a D3 converte T₄ em T₃ reverso inativo — rT₃). O T₃ liga-se a receptores nucleares tireoidianos (TR) heterodimerizados com RXR nos elementos responsivos (TRE) do DNA, ativando a transcrição de genes para Na⁺/K⁺-ATPase, enzimas respiratórias mitocondriais, receptores β-adrenérgicos e cadeia pesada de α-miosina.\n• Regulação (Feedback Negativo): hipotálamo (TRH) → adeno-hipófise (TSH via Gs/AMPc) → tireoide (T₃/T₄); o T₃ intracelular (gerado localmente na hipófise pela D2) inibe a transcrição de TSH e TRH.",
+        variacoes: "• Hipertireoidismo primário (ex.: Doença de Graves por anticorpos estimuladores do receptor de TSH — TRAb): eleva T₄ livre e T₃, suprimindo fortemente o TSH hipofisário; cursa com aumento do metabolismo basal, intolerância ao calor, perda ponderal, sudorese e taquicardia (por up-regulation de receptores β1 cardíacos).\n• Hipotireoidismo primário (ex.: Tireoidite de Hashimoto ou deficiência grave de iodo): reduz T₄ livre e T₃, removendo o feedback negativo e elevando acentuadamente o TSH (o qual promove hipertrofia folicular e bócio).",
+        integracao: "Os hormônios tireoidianos exercem efeito permissivo essencial sobre as catecolaminas ao aumentar a expressão de receptores β-adrenérgicos no miocárdio e tecido adiposo, além de atuarem em sinergia com o GH para a maturação esquelética.",
+        clinica: "Efeito Wolff-Chaikoff: a administração aguda de altas doses de iodeto inibe transitoriamente a organificação e a síntese hormonal pela TPO, mecanismo utilizado no preparo pré-operatório de tireoidectomia ou na crise tireotóxica (após bloqueio prévio com tionamidas).",
+        discursiva: "A fisiologia tireoidiana é regulada por retroalimentação negativa ao longo do eixo hipotálamo-hipófise-tireoide, no qual o TRH hipotalâmico estimula a secreção adeno-hipofisária de TSH, que por sua vez ativa todas as etapas da síntese hormonal nos folículos tireoidianos. Esse processo envolve a captação basolateral de iodeto pelo cotransportador Na⁺/I⁻ (NIS), sua oxidação, organificação na tireoglobulina e acoplamento catalisados pela tireoperoxidase para formar T₄ e T₃. Na circulação, os hormônios viajam ligados sobretudo à TBG, sendo o T₄ convertido perifericamente pelas desiodases em T₃, a forma biologicamente ativa. Ao ligar-se a receptores nucleares específicos, o T₃ modula a transcrição gênica para elevar a expressão da Na⁺/K⁺-ATPase, o consumo mitocondrial de oxigênio, a termogênese e a densidade de receptores β-adrenérgicos, além de ser indispensável para a mielinização e maturação do sistema nervoso central.",
+        perguntas: "1. Descreva as etapas da biossíntese e secreção dos hormônios tireoidianos, destacando o papel do cotransportador NIS e da tireoperoxidase.\n2. Por que o T₃ é considerado o hormônio tireoidiano biologicamente ativo, embora a tireoide secrete predominantemente T₄?\n3. Explique o perfil laboratorial (TSH e T₄ livre) e as manifestações cardiovasculares e metabólicas no hipertireoidismo primário versus hipotireoidismo primário.",
+        checklist: [
+          { text: "Detalhar etapas da síntese: captação (NIS), oxidação, organificação (MIT/DIT) e acoplamento (TPO)", done: false },
+          { text: "Explicar conversão periférica T₄ → T₃ (desiodases D1/D2 vs. rT₃ pela D3) e mecanismo de ação nuclear", done: false },
+          { text: "Descrever eixo TRH–TSH–T₃/T₄ por feedback negativo e up-regulation de receptores β-adrenérgicos", done: false },
+          { text: "Diferenciar hipertireoidismo (Graves) vs. hipotireoidismo (Hashimoto/deficiência de iodo e bócio)", done: false }
+        ]
+      },
+      28: {
+        conceito: "A regulação do metabolismo ósseo e da homeostase do cálcio e fosfato mantém a concentração plasmática de cálcio ionizado (~1,1–1,3 mmol/L ou cálcio total ~8,5–10,5 mg/dL) rigorosamente constante — essencial para a excitabilidade neuromuscular, contração muscular, exocitose sináptica e coagulação — por meio da ação integrada do Paratormônio (PTH), do Calcitriol (1,25-[OH]₂-vitamina D₃) e da Calcitonina sobre ossos, rins e intestino.",
+        mecanismo: "• Paratormônio — PTH (secretado pelas células principais das paratireoides em resposta à queda do Ca²⁺ plasmático detectada pelo receptor sensor de cálcio CaSR — acoplado a Gq/Gi):\n  1. Osso: liga-se a receptores nos osteoblastos, estimulando a expressão de RANKL (e reduzindo osteoprotegerina — OPG), o que ativa a diferenciação e reabsorção óssea pelos osteoclastos, liberando Ca²⁺ e PO₄³⁻ para o sangue.\n  2. Rim: aumenta a reabsorção de Ca²⁺ no túbulo contorcido distal (canais TRPV5), inibe a reabsorção de fosfato no túbulo proximal (internalizando cotransportadores NaPi-IIa → fosfatúria, evitando precipitação de fosfato de cálcio) e estimula a enzima 1α-hidroxilase.\n• Calcitriol — 1,25-(OH)₂D₃ (sintetizado a partir do colecalciferol cutâneo/dietético após 25-hidroxilação hepática e 1α-hidroxilação renal estimulada pelo PTH e pela hipofosfatemia):\n  - Atua via receptores nucleares (VDR) nos enterócitos, aumentando a síntese de canais apicais de cálcio (TRPV6), calbindina citosólica e Ca²⁺-ATPase basolateral, elevando a absorção intestinal tanto de Ca²⁺ quanto de PO₄³⁻.\n• Calcitonina (células parafoliculares C da tireoide em resposta à hipercalcemia): inibe diretamente a atividade reabsortiva dos osteoclastos (papel secundário na regulação crônica em humanos).\n• Remodelação Óssea: equilíbrio dinâmico entre osteoblastos (formação de matriz osteoide e mineralização com hidroxiapatita) e osteoclastos (reabsorção ácida e enzimática em lacunas de Howship) regulado pelo eixo RANK / RANKL / OPG.",
+        variacoes: "• Hiperparatireoidismo primário (adenoma de paratireoide): eleva PTH → hipercalcemia, hipofosfatemia (efeito fosfatúrico do PTH), hipercalciúria e reabsorção óssea excessiva (osteíte fibrosa cística).\n• Hipoparatireoidismo (ex.: pós-tireoidectomia): reduz PTH e calcitriol → hipocalcemia e hiperfosfatemia, causando hiperexcitabilidade neuromuscular (parestesias, espasmo carpopedal, laringoespasmo e convulsões).",
+        integracao: "O pH plasmático modula a fração de cálcio ionizado biologicamente ativo: na alcalemia aguda, o aumento das cargas negativas na albumina aumenta a ligação de Ca²⁺ à proteína, reduzindo o Ca²⁺ ionizado livre e precipitando sintomas de tetania mesmo com calcemia total normal.",
+        clinica: "Doença renal crônica (DRC): a perda de massa néfrica reduz a atividade da 1α-hidroxilase (↓ calcitriol → ↓ absorção intestinal de Ca²⁺) e retém fosfato (hiperfosfatemia), estimulando cronicamente as paratireoides (hiperparatireoidismo secundário) e levando à osteodistrofia renal.",
+        discursiva: "A homeostase do cálcio e do fosfato é coordenada pela interação entre paratormônio (PTH), calcitriol e calcitonina sobre os ossos, os rins e o intestino. Diante da redução do cálcio ionizado plasmático detectada pelo receptor sensor de cálcio (CaSR), as glândulas paratireoides secretam PTH, que eleva a calcemia por três vias: no osso, estimula os osteoblastos a expressarem RANKL, ativando a reabsorção osteoclástica; nos rins, promove a reabsorção distal de Ca²⁺ enquanto inibe a reabsorção proximal de fosfato (efeito fosfatúrico); e, ainda nos rins, ativa a enzima 1α-hidroxilase para converter 25-hidroxivitamina D em calcitriol. Por sua vez, o calcitriol atua em receptores nucleares intestinais para aumentar a expressão de calbindina e canais de cálcio, elevando a absorção entérica de Ca²⁺ e fosfato e restabelecendo o equilíbrio mineral.",
+        perguntas: "1. Explique como o PTH atua nos ossos, nos rins e indiretamente no intestino para corrigir a hipocalcemia, justificando seu efeito fosfatúrico.\n2. Descreva o papel do sistema RANK / RANKL / Osteoprotegerina (OPG) no acoplamento entre osteoblastos e osteoclastos durante a remodelação óssea.\n3. Explique a fisiopatologia do hiperparatireoidismo secundário na doença renal crônica.",
+        checklist: [
+          { text: "Detalhar ações do PTH: osso (via osteoblasto/RANKL), rim (↑ reabsorção Ca²⁺ distal + fosfatúria proximal) e ativação 1α-hidroxilase", done: false },
+          { text: "Explicar síntese e ação nuclear do Calcitriol (calbindina / absorção intestinal de Ca²⁺ e PO₄³⁻)", done: false },
+          { text: "Descrever remodelação óssea (osteoblastos vs. osteoclastos; eixo RANK/RANKL/OPG) e papel da calcitonina", done: false },
+          { text: "Correlacionar hiperparatireoidismo primário vs. secundário (DRC) e efeito da alcalemia no Ca²⁺ ionizado", done: false }
+        ]
+      }
+    };
+  </script>
 
   <script>
     const STORAGE_KEY = 'acaddrive_unifeso_monitoria_v2';
-// ... existing code ... -->
+
+    const MONITORIA_BLOCKS = [
+      'Todos os Blocos',
+      'Geral',
+      'Neurofisiológico',
+      'Muscular',
+      'Cardiovascular',
+      'Respiratório',
+      'Renal',
+      'Gastrointestinal',
+      'Endócrino/Metabólico'
+    ];
+
+    const CATEGORIES = [
+      'Todos',
+      'Estudo Dirigido',
+      'Slides / Aula',
+      'Livro / Referência',
+      'Provas e Questões',
+      'Artigo'
+    ];
+
+    const SUBJECT_COLORS = {
+      indigo: { bg: 'bg-indigo-600', soft: 'bg-indigo-50 dark:bg-indigo-500/15', text: 'text-indigo-600 dark:text-indigo-300' },
+      emerald: { bg: 'bg-emerald-600', soft: 'bg-emerald-50 dark:bg-emerald-500/15', text: 'text-emerald-600 dark:text-emerald-300' },
+      rose: { bg: 'bg-rose-600', soft: 'bg-rose-50 dark:bg-rose-500/15', text: 'text-rose-600 dark:text-rose-300' },
+      amber: { bg: 'bg-amber-500', soft: 'bg-amber-50 dark:bg-amber-500/15', text: 'text-amber-600 dark:text-amber-300' },
+      sky: { bg: 'bg-sky-600', soft: 'bg-sky-50 dark:bg-sky-500/15', text: 'text-sky-600 dark:text-sky-300' },
+      violet: { bg: 'bg-violet-600', soft: 'bg-violet-50 dark:bg-violet-500/15', text: 'text-violet-600 dark:text-violet-300' },
+      teal: { bg: 'bg-teal-600', soft: 'bg-teal-50 dark:bg-teal-500/15', text: 'text-teal-600 dark:text-teal-300' }
+    };
+
+    let appData = {
+      darkMode: false,
+      periods: [],
+      subjects: [],
+      materials: [],
+      monitoriaTopics: [],
+      schedule: [],
+      simHistory: []
+    };
+
+    let uiState = {
+      viewMode: 'monitoria', // 'monitoria' | 'period' | 'subject' | 'all' | 'exam'
+      monitoriaTab: 'matriz', // 'matriz' | 'cronograma' | 'simulador'
+      selectedPeriodId: 'period-4',
+      selectedSubjectId: null,
+      searchQuery: '',
+      priorityFilter: 'all',
+      blockFilter: 'Todos os Blocos',
+      masteryFilter: 'all',
+      categoryFilter: 'Todos',
+      onlyExamFilter: false,
+      overviewPeriodFilter: 'all',
+      activeTopicId: null,
+      fichaEditMode: false,
+      sessionBlobs: {},
+      simPoolFilter: 'all',
+      simDurationMinutes: 30,
+      simSecondsLeft: 1800,
+      simRunning: false,
+      simTimerInterval: null,
+      simDrawnTopicIds: [],
+      simResponses: ['', ''],
+      simFinished: false,
+      simRubric: [
+        { conhecimento: 4, mecanismo: 3, organizacao: 2, clinica: 1 },
+        { conhecimento: 4, mecanismo: 3, organizacao: 2, clinica: 1 }
+      ]
+    };
+
+    // -------------------------------------------------------------------------
+    // 4.1 Utilitários Gerais
+    // -------------------------------------------------------------------------
+    function escapeHtml(str) {
+      if (str === null || str === undefined) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function stripHtml(html) {
+      const div = document.createElement('div');
+      div.innerHTML = html || '';
+      return (div.textContent || div.innerText || '').trim();
+    }
+
+    function extractNumber(str) {
+      const m = String(str || '').match(/\d+/);
+      return m ? parseInt(m[0], 10) : 99;
+    }
+
+    function sortPeriodsChronologically(periods) {
+      return [...periods].sort((a, b) => (a.order || extractNumber(a.name)) - (b.order || extractNumber(b.name)));
+    }
+
+    function formatBytes(bytes) {
+      if (!bytes) return '';
+      const k = 1024;
+      const sizes = ['B', 'KB', 'MB', 'GB'];
+      const i = Math.floor(Math.log(bytes) / Math.log(k));
+      return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+    }
+
+    function formatDate(ts) {
+      if (!ts) return '';
+      return new Date(ts).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+    }
+
+    function getDaysUntilExam() {
+      const examDate = new Date('2026-12-07T08:00:00');
+      const now = new Date();
+      const diffMs = examDate.getTime() - now.getTime();
+      const days = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+      return days > 0 ? days : 0;
+    }
+
+    function isTopicFilled(topic) {
+      if (!topic || !topic.sections) return false;
+      return Boolean(
+        (topic.sections.conceito && topic.sections.conceito.trim().length > 10) &&
+        (topic.sections.mecanismo && topic.sections.mecanismo.trim().length > 10)
+      );
+    }
+
+    function buildHtmlFromTopicSections(topic) {
+      const s = topic.sections || {};
+      const checklistHtml = (s.checklist || [])
+        .map(c => `<li>${escapeHtml(c.text)}</li>`)
+        .join('');
+
+      return `
+        <h1>${escapeHtml(topic.title)}</h1>
+        <h2>1. Conceito Central</h2>
+        <p>${escapeHtml(s.conceito || '')}</p>
+        <h2>2. Mecanismo Fisiológico</h2>
+        <p>${escapeHtml(s.mecanismo || '')}</p>
+        <h2>3. O que acontece quando aumenta / diminui</h2>
+        <p>${escapeHtml(s.variacoes || '')}</p>
+        <h2>4. Integração entre Sistemas</h2>
+        <p>${escapeHtml(s.integracao || '')}</p>
+        <h2>5. Aplicação Clínica</h2>
+        <p>${escapeHtml(s.clinica || '')}</p>
+        <h2>6. Resposta Discursiva de Alto Nível (Padrão Monitoria)</h2>
+        <blockquote>${escapeHtml(s.discursiva || '')}</blockquote>
+        <h2>7. Perguntas Sorteáveis</h2>
+        <p>${escapeHtml(s.perguntas || '')}</p>
+        <h2>8. Pontos que Não Podem Faltar</h2>
+        <ul>${checklistHtml}</ul>
+      `;
+    }
+
+    function createEmptySections(title) {
+      return {
+        conceito: '',
+        mecanismo: '',
+        variacoes: '',
+        integracao: '',
+        clinica: '',
+        discursiva: '',
+        perguntas: '',
+        checklist: [
+          { text: `Definir o conceito central e os determinantes fisiológicos de ${title}`, done: false },
+          { text: 'Descrever a sequência causal completa (estímulo → sensor → via/mediador → efetor → resposta)', done: false },
+          { text: 'Explicar o comportamento frente ao aumento e à diminuição da variável regulada', done: false },
+          { text: 'Apresentar integração sistêmica e correlação clínica fundamentada (Guyton & Hall / Costanzo)', done: false }
+        ]
+      };
+    }
+
+    // -------------------------------------------------------------------------
+    // 4.2 Banco Inicial dos 28 Temas (Temas 1 a 3 já 100% preenchidos)
+    // -------------------------------------------------------------------------
+    function getInitialMonitoriaTopics() {
+      const filledThree = [
+        {
+          id: 'top-homeostase',
+          number: 1,
+          title: 'Homeostase e meio interno',
+          block: 'Geral',
+          priority: 'baixa',
+          mastery: 2,
+          caiNaProva: false,
+          sections: {
+            conceito: 'Homeostase é a manutenção de condições físico-químicas relativamente constantes no líquido extracelular (LEC) — denominado por Claude Bernard de milieu intérieur (meio interno) e sistematizado por Walter Cannon. Como o LEC banha todas as células do organismo, a estabilidade de sua composição (osmolaridade, pH, temperatura, concentrações de O₂, CO₂, glicose, Na⁺, K⁺ e Ca²⁺) permite que as células sobrevivam e desempenhem suas funções especializadas independentemente das flutuações do ambiente externo.',
+            mecanismo: 'A estabilidade do meio interno é mantida por sistemas de controle compostos por sensor (receptor), via aferente, centro integrador, via eferente e efetor, operando sob três estratégias principais:\n• Retroalimentação negativa (feedback negativo): mecanismo predominante da homeostase. Quando uma variável se desvia do seu ponto de ajuste (set point), o sistema desencadeia resposta na direção oposta à perturbação inicial, restaurando o equilíbrio. A eficácia é medida pelo Ganho = Correção / Erro residual.\n• Retroalimentação positiva (feedback positivo): o estímulo inicial desencadeia resposta que amplifica o próprio estímulo na mesma direção. Na fisiologia, ocorre em eventos autolimitados que exigem conclusão rápida (geração do potencial de ação via influxo de Na⁺, pico pré-ovulatório de LH, contrações uterinas mediadas por ocitocina no parto e cascata de coagulação).\n• Controle antecipatório (feed-forward): o sistema nervoso antecipa uma perturbação antes que a variável regulada se altere no meio interno (ex.: aumento da ventilação e da frequência cardíaca no início do exercício físico por comando central).',
+            variacoes: '• Diminuição do ganho de um sistema de feedback negativo: gera maior oscilação da variável regulada diante de perturbações (ex.: perda de sensibilidade dos barorreceptores no envelhecimento ou disautonomia causando hipotensão ortostática).\n• Perda do limite fisiológico no feedback positivo: transforma um mecanismo adaptativo em ciclo vicioso patológico (ex.: na hemorragia aguda > 2 L, a queda da PA reduz o fluxo coronariano, enfraquecendo o miocárdio e reduzindo ainda mais o débito cardíaco).\n• Elevação controlada vs. falha do set point: na febre, pirogênios endógenos (via PGE₂ no hipotálamo anterior) elevam o set point termorregulador; na intermação (hipertermia), o set point permanece normal, mas a dissipação de calor é superada.',
+            integracao: 'Os sistemas respiratório, gastrointestinal e tegumentar realizam trocas com o meio externo; o sistema cardiovascular transporta continuamente o LEC entre os capilares e o interstício; o sistema renal regula com precisão a composição iônica, hídrica e ácido-básica; e os sistemas nervoso (respostas rápidas em milissegundos a segundos) e endócrino (respostas lentas e sustentadas em minutos a dias) coordenam todos os efetores.',
+            clinica: 'Choque hipovolêmico compensado vs. descompensado: na perda volêmica moderada, os mecanismos de feedback negativo (barorreceptores, descarga simpática, sistema renina-angiotensina-aldosterona e ADH) sustentam a pressão arterial e a perfusão cerebral/coronariana. Se a perda ultrapassa a capacidade compensatória, instala-se o feedback positivo de hipóxia tecidual, acidose lática e falência cardíaca.',
+            discursiva: 'A homeostase consiste na manutenção de condições físico-químicas relativamente constantes no líquido extracelular (LEC), o qual constitui o meio interno que envolve e nutre todas as células do organismo. Essa estabilidade não significa imutabilidade estática, mas um equilíbrio dinâmico sustentado por sistemas de controle neuroendócrinos que monitoram variáveis reguladas em torno de um ponto de ajuste (set point). O principal mecanismo operacional é a retroalimentação negativa, na qual o desvio de uma variável ativa efetores que geram uma resposta oposta à perturbação inicial, sendo sua eficácia expressa pelo ganho do sistema — razão entre a correção promovida e o erro residual. Complementarmente, o organismo utiliza o controle antecipatório (feed-forward) para minimizar perturbações previsíveis antes que alterem o meio interno, e reserva a retroalimentação positiva para eventos autolimitados que exigem amplificação rápida, como o potencial de ação e o parto, visto que sua ativação descontrolada gera ciclos viciosos letais, como ocorre no choque descompensado.',
+            perguntas: '1. Diferencie meio interno, líquido extracelular e homeostase, explicando por que o estado estacionário fisiológico não equivale ao equilíbrio químico.\n2. Compare retroalimentação negativa, retroalimentação positiva e controle antecipatório (feed-forward), exemplificando cada um na fisiologia humana.\n3. Como o conceito de ganho de um sistema de controle explica a diferença entre a regulação rápida e a regulação a longo prazo da pressão arterial?',
+            checklist: [
+              { text: 'Definir meio interno = líquido extracelular (LEC) (Claude Bernard / Walter Cannon)', done: true },
+              { text: 'Explicar retroalimentação negativa como base da homeostase + fórmula do Ganho (Correção / Erro)', done: true },
+              { text: 'Diferenciar feedback positivo fisiológico autolimitado vs. ciclo vicioso patológico', done: true },
+              { text: 'Citar controle antecipatório (feed-forward) e integração nervosa (rápida) + endócrina (lenta)', done: false }
+            ]
+          }
+        },
+        {
+          id: 'top-transporte-membrana',
+          number: 2,
+          title: 'Transporte através da membrana',
+          block: 'Geral',
+          priority: 'media',
+          mastery: 2,
+          caiNaProva: false,
+          sections: {
+            conceito: 'A membrana plasmática atua como uma barreira lipídica seletivamente permeável que separa os compartimentos intracelular (LIC) e extracelular (LEC). Os mecanismos de transporte transmembrana controlam o fluxo de solutos e água, estabelecendo e mantendo os gradientes químicos e elétricos indispensáveis para o volume celular, a sinalização elétrica e a absorção/secreção epitelial.',
+            mecanismo: 'Os transportes dividem-se conforme o gasto energético e o sentido em relação ao gradiente eletroquímico:\n• Transporte Passivo (a favor do gradiente eletroquímico, sem gasto direto de ATP):\n  - Difusão simples: passagem pela bicamada lipídica (O₂, CO₂, esteroides) ou por canais iônicos. Obedece à Lei de Fick (J = -D · A · ΔC/Δx), crescendo linearmente sem saturação.\n  - Difusão facilitada: mediada por proteínas carreadoras (ex.: GLUT) que sofrem mudança conformacional, exibindo estereoespecificidade, competição e saturação (Tmáx / Vmáx).\n  - Osmose: movimento líquido de água (via bicamada e aquaporinas) determinado pela tonicidade efetiva, que depende dos solutos impermeantes e do coeficiente de reflexão (σ).\n• Transporte Ativo (contra o gradiente eletroquímico, saturável e dependente de energia):\n  - Ativo primário: acoplado diretamente à hidrólise de ATP, tendo como principal exemplo a Na⁺/K⁺-ATPase (extrusão de 3 Na⁺ e influxo de 2 K⁺ por ATP — eletrogênica).\n  - Ativo secundário: utiliza a energia potencial do gradiente de Na⁺ criado pela Na⁺/K⁺-ATPase para mover outro soluto contra seu gradiente por simporte/cotransporte (SGLT1, SGLT2, NKCC2) ou antiporte/contratransporte (trocador Na⁺/Ca²⁺ [NCX], trocador Na⁺/H⁺ [NHE]).',
+            variacoes: '• Inibição da Na⁺/K⁺-ATPase (digitálicos como digoxina/ouabaína ou hipóxia): eleva o Na⁺ intracelular e reduz seu gradiente transmembrana. No miocárdio, diminui a extrusão de Ca²⁺ pelo antiporte NCX, elevando o Ca²⁺ citosólico e aumentando a contratilidade (inotropismo positivo). Na isquemia prolongada, causa acúmulo intracelular de Na⁺ e Cl⁻ com entrada osmótica de água (edema celular).\n• Redução da tonicidade do LEC (hiponatremia hipotônica): desloca água para o LIC, causando edema celular (crítico no encéfalo).',
+            integracao: 'A Na⁺/K⁺-ATPase basolateral é o motor energético que sustenta simultaneamente a bioeletrogênese (ao manter o gradiente de K⁺ do potencial de repouso), a absorção intestinal de nutrientes (SGLT1), a reabsorção tubular renal (SGLT2, NKCC2, NCC) e a contratilidade cardíaca via trocador NCX.',
+            clinica: 'Terapia de Reidratação Oral (TRO) na cólera: a toxina colérica estimula a secreção de Cl⁻ nas criptas via AMPc/CFTR, mas preserva o cotransportador SGLT1 nas vilosidades. A oferta conjunta de glicose e Na⁺ ativa o simporte SGLT1, promovendo absorção de Na⁺ seguida passivamente por Cl⁻ e água.',
+            discursiva: 'O transporte através da membrana plasmática regula o trânsito de solutos e solventes entre os meios intra e extracelular, dividindo-se em passivo e ativo conforme o gasto energético e a relação com o gradiente eletroquímico. No transporte passivo, os solutos movem-se a favor de seu gradiente sem consumo direto de ATP: na difusão simples, o fluxo é proporcional ao gradiente de concentração e à área (Lei de Fick), não sofrendo saturação; já na difusão facilitada, proteínas carreadoras conferem especificidade e exibem cinética saturável (Tmáx). No transporte ativo, solutos são movidos contra seu gradiente eletroquímico. O transporte ativo primário utiliza diretamente a hidrólise de ATP, tendo como principal exemplo a Na⁺/K⁺-ATPase, uma bomba eletrogênica (3 Na⁺ efluxo / 2 K⁺ influxo) que mantém baixa a concentração intracelular de sódio. Esse gradiente de Na⁺ fornece a energia potencial para o transporte ativo secundário, tanto por simporte (como o cotransportador SGLT1/SGLT2) quanto por antiporte (como o trocador Na⁺/Ca²⁺). Por fim, a osmose governa o movimento da água conforme a tonicidade efetiva do meio, de modo que falhas na Na⁺/K⁺-ATPase comprometem tanto a excitabilidade quanto o volume celular.',
+            perguntas: '1. Diferencie difusão simples, difusão facilitada e transporte ativo primário quanto à dependência de energia, relação com o gradiente eletroquímico e cinética de saturação.\n2. Explique o papel central da Na⁺/K⁺-ATPase na manutenção do volume celular e no funcionamento do transporte ativo secundário.\n3. Distinga osmolaridade de tonicidade, explicando por que uma solução isosmótica de ureia comporta-se como hipotônica frente à membrana de uma hemácia.',
+            checklist: [
+              { text: 'Comparar difusão simples (Lei de Fick, linear) vs. difusão facilitada (carreador, saturável/Tmáx)', done: true },
+              { text: 'Detalhar Na⁺/K⁺-ATPase: estequiometria (3 Na⁺ fora / 2 K⁺ dentro) e natureza eletrogênica', done: true },
+              { text: 'Explicar transporte ativo secundário: simporte (SGLT1/2) e antiporte (NCX, NHE) acoplados ao Na⁺', done: false },
+              { text: 'Diferenciar osmolaridade de tonicidade efetiva (coeficiente de reflexão σ)', done: false }
+            ]
+          }
+        },
         {
           id: 'top-receptores-transducao',
           number: 3,
@@ -629,7 +1231,14 @@
           priority: 'media',
           mastery: 2,
           caiNaProva: false,
-// ... existing code ... -->
+          sections: {
+            conceito: 'A comunicação intercelular depende da conversão de um sinal químico extracelular (primeiro mensageiro — neurotransmissor, hormônio ou mediador parácrino) em uma cascata bioquímica intracelular específica. Essa transdução de sinal promove amplificação, integração e regulação temporal (de milissegundos a dias), variando conforme a solubilidade do ligante e a localização do receptor.',
+            mecanismo: 'Os receptores dividem-se conforme a natureza química do ligante:\n• Receptores de Membrana (ligantes hidrofílicos — peptídeos, catecolaminas, acetilcolina):\n  1. Ionotrópicos (canais ligante-dependentes): alteram diretamente a condutância iônica (Na⁺, K⁺, Ca²⁺ ou Cl⁻) em milissegundos (ex.: receptor nicotínico de ACh, GABAA).\n  2. Metabotrópicos acoplados à proteína G (GPCRs — 7 domínios transmembrana): a ligação do agonista troca GDP por GTP na subunidade α:\n     - Via Gs: ativa adenilil ciclase → ↑ AMPc → ativa PKA (ex.: receptores β1, β2, V2).\n     - Via Gi: inibe adenilil ciclase (↓ AMPc) e subunidades βγ abrem canais de K⁺ (ex.: receptores α2, M2).\n     - Via Gq: ativa fosfolipase C (PLC), clivando PIP₂ em IP₃ (libera Ca²⁺ do retículo) e DAG (ativa PKC junto ao Ca²⁺) (ex.: receptores α1, M1/M3, AT1, V1).\n  3. Catalíticos / Ligados a enzimas: Tirosina-quinase intrínseca (RTK — ex.: insulina via PI3K/Akt e MAPK), associados a JAK/STAT (GH, prolactina, citocinas) e guanilil ciclase (ANP e NO → ↑ GMPc/PKG).\n• Receptores Intracelulares (ligantes lipofílicos — esteroides, hormônios tireoidianos T₃, calcitriol): atravessam a membrana plasmática, ligam-se a receptores citoplasmáticos/nucleares e atuam sobre Elementos Responsivos a Hormônios (HRE) no DNA, modulando a transcrição gênica e a síntese proteica em escala de horas a dias.',
+            variacoes: '• Exposição crônica a altas concentrações de agonista: desencadeia dessensibilização (fosforilação do GPCR por GRKs e ligação de β-arrestina, bloqueando o acoplamento à proteína G) seguida de regulação negativa (down-regulation por endocitose e degradação lisossomal).\n• Bloqueio prolongado por antagonista ou redução crônica do agonista: induz regulação positiva (up-regulation), elevando a densidade de receptores na membrana e gerando hipersensibilidade.',
+            integracao: 'A diversidade de receptores explica a especificidade tecidual do Sistema Nervoso Autônomo e do Sistema Endócrino: a adrenalina circulante promove vasoconstrição cutânea/esplâncnica via α1 (Gq → ↑ Ca²⁺), vasodilatação muscular esquelética via β2 (Gs → ↑ AMPc) e cronotropismo/inotropismo positivos cardíacos via β1 (Gs → ↑ AMPc/PKA).',
+            clinica: 'Efeito rebote na suspensão abrupta de betabloqueadores: o antagonismo crônico β1 promove up-regulation de receptores adrenérgicos no miocárdio; a retirada súbita expõe essa população aumentada de receptores às catecolaminas endógenas, provocando taquicardia intensa, hipertensão e risco de isquemia miocárdica.',
+            discursiva: 'A transdução de sinais químicos permite que mensageiros extracelulares modulem a função celular com especificidade e amplificação, variando conforme a solubilidade do ligante. Mensageiros hidrofílicos atuam em receptores de membrana: os ionotrópicos abrem canais iônicos diretamente, gerando respostas elétricas em milissegundos; os metabotrópicos acoplados à proteína G (GPCRs) modulam enzimas efetoras por meio de segundos mensageiros — a via Gs ativa a adenilil ciclase e eleva o AMPc/PKA, a via Gi inibe essa enzima, e a via Gq ativa a fosfolipase C, gerando IP₃ (mobilizador de Ca²⁺ reticular) e DAG (ativador de PKC); já os receptores catalíticos ativam cascatas de fosforilação como tirosina-quinase (RTK, caso da insulina) ou JAK/STAT. Em contraste, ligantes lipofílicos, como esteroides e hormônios tireoidianos, atravessam a membrana e ativam receptores intracelulares que se ligam a elementos responsivos no DNA, regulando a transcrição gênica e a síntese proteica em escala de horas a dias. Finalmente, a responsividade celular é dinamicamente ajustada pela concentração do ligante por meio de dessensibilização, down-regulation e up-regulation.',
+            perguntas: '1. Compare as vias de sinalização intracelular desencadeadas pela ativação dos receptores adrenérgicos α1, β1 e α2, detalhando proteínas G, enzimas efetoras e segundos mensageiros.\n2. Por que os hormônios peptídicos apresentam início de ação rápido e duração curta, enquanto os hormônios esteroides e tireoidianos têm latência prolongada e efeito sustentado?\n3. Explique os mecanismos moleculares envolvidos na dessensibilização e na down-regulation de receptores acoplados à proteína G frente à estimulação crônica por um agonista.',
             checklist: [
               { text: 'Distinguir ligantes hidrofílicos (membrana) vs. lipofílicos (intracelulares / DNA-HRE)', done: true },
               { text: 'Dominar as 3 vias GPCR: Gs (↑AMPc/PKA), Gi (↓AMPc / abre K⁺) e Gq (PLC → IP₃/Ca²⁺ + DAG/PKC)', done: true },
@@ -637,7 +1246,10 @@
               { text: 'Explicar dessensibilização (β-arrestina), down-regulation e up-regulation (efeito rebote)', done: false }
             ]
           }
-        },
+        }
+      ];
+
+      const remainingMeta = [
         // EXCITABILIDADE, MÚSCULO E NEUROFISIOLOGIA (4 a 11)
         { id: 'top-bioeletrogenese', number: 4, title: 'Bioeletrogênese', block: 'Muscular', priority: 'alta', mastery: 0, caiNaProva: true },
         { id: 'top-transmissao-sinaptica', number: 5, title: 'Transmissão sináptica', block: 'Neurofisiológico', priority: 'media', mastery: 0, caiNaProva: false },
@@ -647,8 +1259,143 @@
         { id: 'top-controle-movimento', number: 9, title: 'Controle encefálico do movimento', block: 'Neurofisiológico', priority: 'baixa', mastery: 0, caiNaProva: false },
         { id: 'top-sistema-sensorial', number: 10, title: 'Sistema sensorial', block: 'Neurofisiológico', priority: 'baixa', mastery: 0, caiNaProva: false },
         { id: 'top-fisiologia-dor', number: 11, title: 'Fisiologia da dor', block: 'Neurofisiológico', priority: 'media', mastery: 0, caiNaProva: false },
-        // CARDIOVASCULAR (6)
-// ... existing code ... -->
+
+        // CARDIOVASCULAR (12 a 17)
+        { id: 'top-eletrofisiologia-cardiaca', number: 12, title: 'Eletrofisiologia cardíaca', block: 'Cardiovascular', priority: 'media', mastery: 0, caiNaProva: false },
+        { id: 'top-hemodinamica', number: 13, title: 'Hemodinâmica', block: 'Cardiovascular', priority: 'media', mastery: 0, caiNaProva: false },
+        { id: 'top-ciclo-cardiaco', number: 14, title: 'Ciclo cardíaco e coração como bomba', block: 'Cardiovascular', priority: 'alta', mastery: 0, caiNaProva: true },
+        { id: 'top-microcirculacao', number: 15, title: 'Microcirculação', block: 'Cardiovascular', priority: 'media', mastery: 0, caiNaProva: false },
+        { id: 'top-debito-retorno-venoso', number: 16, title: 'Débito cardíaco e retorno venoso', block: 'Cardiovascular', priority: 'alta', mastery: 0, caiNaProva: true },
+        { id: 'top-controle-pa', number: 17, title: 'Controle da pressão arterial', block: 'Cardiovascular', priority: 'alta', mastery: 0, caiNaProva: true },
+
+        // RESPIRATÓRIO (18 a 21)
+        { id: 'top-mecanica-respiratoria', number: 18, title: 'Mecânica respiratória', block: 'Respiratório', priority: 'alta', mastery: 0, caiNaProva: true },
+        { id: 'top-difusao-transporte-gases', number: 19, title: 'Difusão e transporte de gases', block: 'Respiratório', priority: 'alta', mastery: 0, caiNaProva: true },
+        { id: 'top-ventilacao-perfusao', number: 20, title: 'Ventilação e perfusão', block: 'Respiratório', priority: 'alta', mastery: 0, caiNaProva: true },
+        { id: 'top-controle-ventilacao', number: 21, title: 'Controle da ventilação', block: 'Respiratório', priority: 'media', mastery: 0, caiNaProva: false },
+
+        // RENAL (22 a 25)
+        { id: 'top-filtracao-glomerular', number: 22, title: 'Filtração glomerular', block: 'Renal', priority: 'alta', mastery: 0, caiNaProva: true },
+        { id: 'top-transporte-tubular', number: 23, title: 'Transporte tubular', block: 'Renal', priority: 'alta', mastery: 0, caiNaProva: true },
+        { id: 'top-equilibrio-hidroeletrolitico', number: 24, title: 'Equilíbrio hidroeletrolítico', block: 'Renal', priority: 'alta', mastery: 0, caiNaProva: true },
+        { id: 'top-equilibrio-acido-base', number: 25, title: 'Equilíbrio ácido-base', block: 'Renal', priority: 'alta', mastery: 0, caiNaProva: true },
+
+        // GASTROINTESTINAL E ENDÓCRINO/METABÓLICO (26 a 28)
+        { id: 'top-fisiologia-digestao', number: 26, title: 'Fisiologia da digestão', block: 'Gastrointestinal', priority: 'media', mastery: 0, caiNaProva: false },
+        { id: 'top-fisiologia-tireoide', number: 27, title: 'Fisiologia da tireoide', block: 'Endócrino/Metabólico', priority: 'media', mastery: 0, caiNaProva: false },
+        { id: 'top-metabolismo-osseo', number: 28, title: 'Regulação do metabolismo ósseo', block: 'Endócrino/Metabólico', priority: 'media', mastery: 0, caiNaProva: false }
+      ];
+
+      const hydratedRemaining = remainingMeta.map(item => ({
+        ...item,
+        sections: createEmptySections(item.title)
+      }));
+
+      return [...filledThree, ...hydratedRemaining];
+    }
+
+    function getInitialSchedule() {
+      return [
+        { id: 'day-20-11', date: '20/11 (Sex)', phase: 'Fase 1: Geral & Sinalização', isLight: false, note: 'Validação oral (Nível 2) das 3 fichas já prontas no AcadDrive.', topicIds: ['top-homeostase', 'top-transporte-membrana', 'top-receptores-transducao'], completed: false },
+        { id: 'day-21-11', date: '21/11 (Sáb)', phase: 'Fase 1: Excitabilidade & Músculo', isLight: false, note: 'Estudo das 3 fichas + escrita discursiva (Nível 3) de Bioeletrogênese.', topicIds: ['top-bioeletrogenese', 'top-transmissao-sinaptica', 'top-contracao-esqueletica'], completed: false },
+        { id: 'day-22-11', date: '22/11 (Dom)', phase: 'Fase 1: Neurofisiologia', isLight: false, note: 'Escrita discursiva (Nível 3) de Sistema Nervoso Autônomo + revisão oral de Bioeletrogênese.', topicIds: ['top-sna', 'top-reflexos-medulares', 'top-controle-movimento'], completed: false },
+        { id: 'day-23-11', date: '23/11 (Seg)', phase: 'Fase 1: Sensorial & Fechamento', isLight: false, note: 'Concluir Bloco 1 (11/28) + bateria oral rápida (15 min) dos checklists anteriores.', topicIds: ['top-sistema-sensorial', 'top-fisiologia-dor'], completed: false },
+        { id: 'day-24-11', date: '24/11 (Ter)', phase: 'Fase 2: Cardiovascular', isLight: true, note: '1 tema focado (Eletrofisiologia cardíaca) respeitando treino de handebol à noite.', topicIds: ['top-eletrofisiologia-cardiaca'], completed: false },
+        { id: 'day-25-11', date: '25/11 (Qua)', phase: 'Fase 2: Cardiovascular', isLight: true, note: '1 tema focado (Hemodinâmica e Lei de Poiseuille) respeitando treino noturno.', topicIds: ['top-hemodinamica'], completed: false },
+        { id: 'day-26-11', date: '26/11 (Qui)', phase: 'Fase 2: Cardiovascular', isLight: false, note: 'Escrita discursiva (Nível 3) de Ciclo cardíaco (Diagrama de Wiggers) + Microcirculação.', topicIds: ['top-ciclo-cardiaco', 'top-microcirculacao'], completed: false },
+        { id: 'day-27-11', date: '27/11 (Sex)', phase: 'Fase 2: Cardiovascular', isLight: false, note: 'Fechar Bloco Cardiovascular com escrita discursiva de DC/Retorno Venoso e Controle da PA.', topicIds: ['top-debito-retorno-venoso', 'top-controle-pa'], completed: false },
+        { id: 'day-28-11', date: '28/11 (Sáb)', phase: 'Fase 2: Respiratório', isLight: false, note: 'Escrita discursiva de Mecânica respiratória e Difusão/Transporte de gases + revisão Cardio.', topicIds: ['top-mecanica-respiratoria', 'top-difusao-transporte-gases'], completed: false },
+        { id: 'day-29-11', date: '29/11 (Dom)', phase: 'Fase 2: Respiratório', isLight: false, note: 'Fechar Bloco Respiratório com relação V/Q (shunt vs. espaço morto) e Controle da ventilação.', topicIds: ['top-ventilacao-perfusao', 'top-controle-ventilacao'], completed: false },
+        { id: 'day-30-11', date: '30/11 (Seg)', phase: 'Fase 3: Renal', isLight: false, note: 'Escrita discursiva de Filtração glomerular (autorregulação) e Transporte tubular.', topicIds: ['top-filtracao-glomerular', 'top-transporte-tubular'], completed: false },
+        { id: 'day-01-12', date: '01/12 (Ter)', phase: 'Fase 3: Renal', isLight: true, note: '1 tema focado (Equilíbrio hidroeletrolítico e ADH) respeitando treino noturno.', topicIds: ['top-equilibrio-hidroeletrolitico'], completed: false },
+        { id: 'day-02-12', date: '02/12 (Qua)', phase: 'Fase 3: Renal', isLight: true, note: 'Fechar Bloco Renal (todos os 12 temas 🔴 concluídos) com Equilíbrio ácido-base.', topicIds: ['top-equilibrio-acido-base'], completed: false },
+        { id: 'day-03-12', date: '03/12 (Qui)', phase: 'Fase 3: Digestório & Endócrino', isLight: false, note: 'Concluir os 28/28 temas do edital (Digestão, Tireoide e Metabolismo Ósseo) e exportar backup.', topicIds: ['top-fisiologia-digestao', 'top-fisiologia-tireoide', 'top-metabolismo-osseo'], completed: false },
+        { id: 'day-04-12', date: '04/12 (Sex)', phase: 'Fase 4: Modo Prova — Simulado 1', isLight: false, note: 'Sortear 2 temas aleatórios com tempo limitado + correção linha a linha pela rubrica /10.', topicIds: [], completed: false },
+        { id: 'day-05-12', date: '05/12 (Sáb)', phase: 'Fase 4: Modo Prova — Simulado 2', isLight: false, note: 'Sortear 2 temas SEM CONSULTA + revisão rápida apenas dos checklists (8) dos temas 🔴.', topicIds: [], completed: false },
+        { id: 'day-06-12', date: '06/12 (Dom)', phase: 'Fase 4: Modo Prova — Simulado Final', isLight: false, note: 'Simulado final em condição real de prova + revisão exclusiva dos pontos esquecidos.', topicIds: [], completed: false }
+      ];
+    }
+
+    function getInitialAcademicData(topics) {
+      const periods = [
+        { id: 'period-1', name: '1º Período', order: 1, createdAt: Date.now() - 40000 },
+        { id: 'period-2', name: '2º Período', order: 2, createdAt: Date.now() - 30000 },
+        { id: 'period-3', name: '3º Período', order: 3, createdAt: Date.now() - 20000 },
+        { id: 'period-4', name: '4º Período', order: 4, createdAt: Date.now() - 10000 }
+      ];
+
+      const subjects = [
+        { id: 'subj-fisiologia', periodId: 'period-4', name: 'Fisiologia', professor: 'UNIFESO • Bibliografia: Guyton & Hall, Linda Costanzo, Berne & Levy', color: 'indigo', createdAt: Date.now() - 9000 },
+        { id: 'subj-neuroanatomia', periodId: 'period-4', name: 'Neuroanatomia', professor: 'Vias ascendentes/descendentes, tronco encefálico e córtex', color: 'violet', createdAt: Date.now() - 8000 },
+        { id: 'subj-patologia', periodId: 'period-4', name: 'Patologia', professor: 'Processos patológicos gerais, inflamação e neoplasias', color: 'rose', createdAt: Date.now() - 7000 },
+        { id: 'subj-ietc', periodId: 'period-4', name: 'IETC', professor: 'Integração Ensino-Trabalho-Comunidade', color: 'emerald', createdAt: Date.now() - 6000 }
+      ];
+
+      const materials = topics
+        .filter(isTopicFilled)
+        .map((t, idx) => ({
+          id: `mat-ed-${t.id}`,
+          periodId: 'period-4',
+          subjectId: 'subj-fisiologia',
+          type: 'summary',
+          title: `Estudo Dirigido ${String(t.number).padStart(2, '0')}: ${t.title}`,
+          category: 'Estudo Dirigido',
+          caiNaProva: Boolean(t.caiNaProva),
+          content: buildHtmlFromTopicSections(t),
+          createdAt: Date.now() - (5000 - idx * 100),
+          updatedAt: Date.now() - (5000 - idx * 100)
+        }));
+
+      materials.push({
+        id: 'mat-ref-guyton',
+        periodId: 'period-4',
+        subjectId: 'subj-fisiologia',
+        type: 'link',
+        title: 'Pasta de Referências — Guyton & Hall / Costanzo / Berne & Levy',
+        url: 'https://drive.google.com',
+        category: 'Livro / Referência',
+        caiNaProva: true,
+        description: 'Bibliografia base oficial para fundamentação das respostas discursivas da monitoria.',
+        createdAt: Date.now() - 1000,
+        updatedAt: Date.now() - 1000
+      });
+
+      return { periods, subjects, materials };
+    }
+
+    // -------------------------------------------------------------------------
+    // 4.3 Persistência e Mesclagem Automática com fichas.js
+    // -------------------------------------------------------------------------
+    function saveAppState() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
+      } catch (e) {
+        console.warn('Falha ao salvar no localStorage:', e);
+      }
+    }
+
+    function applyThemeClass() {
+      const root = document.documentElement;
+      if (appData.darkMode) {
+        root.classList.add('dark');
+      } else {
+        root.classList.remove('dark');
+      }
+    }
+
+    window.toggleDarkMode = function () {
+      appData.darkMode = !appData.darkMode;
+      applyThemeClass();
+      saveAppState();
+      refreshIcons();
+    };
+
+    function refreshIcons() {
+      if (window.lucide && typeof window.lucide.createIcons === 'function') {
+        window.lucide.createIcons();
+      }
+    }
+
     function loadAppState() {
       try {
         const raw = localStorage.getItem(STORAGE_KEY);
@@ -673,7 +1420,6 @@
         console.warn('Erro ao ler localStorage, inicializando dados padrão:', e);
       }
 
-      // Primeira inicialização limpa
       const topics = getInitialMonitoriaTopics();
       const academic = getInitialAcademicData(topics);
       const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -692,13 +1438,11 @@
       saveAppState();
     }
 
-    // Mescla automaticamente fichas externas (window.FICHAS_EXTERNAS[4..28]) preservando progresso
     function mergeExternalFichasIntoState() {
       const canonicalTopics = getInitialMonitoriaTopics();
       const externalBank = (window.FICHAS_EXTERNAS && typeof window.FICHAS_EXTERNAS === 'object') ? window.FICHAS_EXTERNAS : {};
       let hasChanges = false;
 
-      // Garante alinhamento exato dos 28 temas (1 a 28) preservando nível de domínio e marcações
       appData.monitoriaTopics = canonicalTopics.map(canon => {
         const existing = appData.monitoriaTopics.find(t => t.id === canon.id) || canon;
         const mergedTopic = {
@@ -748,7 +1492,283 @@
         saveAppState();
       }
     }
-// ... existing code ... -->
+
+    // -------------------------------------------------------------------------
+    // 4.4 Backup e Restauração JSON
+    // -------------------------------------------------------------------------
+    window.exportBackupJson = function () {
+      const payload = JSON.stringify(appData, null, 2);
+      const blob = new Blob([payload], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      const stamp = new Date().toISOString().slice(0, 10);
+      a.href = url;
+      a.download = `acaddrive-fisiologia-backup-${stamp}.json`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast('Backup .json exportado com sucesso!');
+    };
+
+    window.triggerImportJson = function () {
+      document.getElementById('import-json-input')?.click();
+    };
+
+    window.handleImportJson = function (event) {
+      const file = event.target.files?.[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        try {
+          const imported = JSON.parse(e.target.result);
+          if (!imported || !Array.isArray(imported.monitoriaTopics)) {
+            throw new Error('Formato inválido');
+          }
+          appData = {
+            darkMode: Boolean(imported.darkMode),
+            periods: imported.periods || [],
+            subjects: imported.subjects || [],
+            materials: imported.materials || [],
+            monitoriaTopics: imported.monitoriaTopics,
+            schedule: imported.schedule || getInitialSchedule(),
+            simHistory: imported.simHistory || []
+          };
+          mergeExternalFichasIntoState();
+          applyThemeClass();
+          saveAppState();
+          renderAll();
+          showToast('Backup restaurado com sucesso!');
+        } catch (err) {
+          showToast('Arquivo de backup inválido.', 'error');
+        }
+      };
+      reader.readAsText(file);
+      event.target.value = '';
+    };
+
+    // -------------------------------------------------------------------------
+    // 4.5 Modais, Toasts e Navegação
+    // -------------------------------------------------------------------------
+    function showToast(message, type = 'success') {
+      const container = document.getElementById('toast-container');
+      if (!container) return;
+      const toast = document.createElement('div');
+      const colors = type === 'error'
+        ? 'bg-rose-600 text-white'
+        : type === 'info'
+        ? 'bg-slate-800 text-white dark:bg-slate-700'
+        : 'bg-emerald-600 text-white';
+
+      toast.className = `${colors} px-4 py-3 rounded-xl shadow-lg text-xs sm:text-sm font-semibold flex items-center justify-between gap-3 pointer-events-auto animate-fade-in`;
+      toast.innerHTML = `<span>${escapeHtml(message)}</span>`;
+      container.appendChild(toast);
+
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transition = 'opacity 0.25s ease';
+        setTimeout(() => toast.remove(), 260);
+      }, 3000);
+    }
+
+    window.openModal = function (id) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.classList.remove('hidden');
+      el.classList.add('flex');
+      refreshIcons();
+    };
+
+    window.closeModal = function (id) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.classList.add('hidden');
+      el.classList.remove('flex');
+    };
+
+    function openConfirmModal(title, message, onConfirm) {
+      document.getElementById('confirm-title').textContent = title;
+      document.getElementById('confirm-message').textContent = message;
+      const yesBtn = document.getElementById('confirm-yes-btn');
+      yesBtn.onclick = () => {
+        closeModal('modal-confirm');
+        if (typeof onConfirm === 'function') onConfirm();
+      };
+      openModal('modal-confirm');
+    }
+
+    window.toggleSidebar = function (open) {
+      const sidebar = document.getElementById('sidebar');
+      const backdrop = document.getElementById('sidebar-backdrop');
+      if (!sidebar || !backdrop) return;
+      if (open) {
+        sidebar.classList.remove('-translate-x-full');
+        backdrop.classList.remove('hidden');
+      } else {
+        sidebar.classList.add('-translate-x-full');
+        backdrop.classList.add('hidden');
+      }
+    };
+
+    window.navigateToMonitoria = function (tab = 'matriz') {
+      uiState.viewMode = 'monitoria';
+      uiState.monitoriaTab = tab;
+      uiState.searchQuery = '';
+      const searchInput = document.getElementById('global-search-input');
+      if (searchInput) searchInput.value = '';
+      toggleSidebar(false);
+      renderAll();
+    };
+
+    window.navigateToOverview = function (mode) {
+      uiState.viewMode = mode; // 'all' | 'exam'
+      uiState.searchQuery = '';
+      const searchInput = document.getElementById('global-search-input');
+      if (searchInput) searchInput.value = '';
+      toggleSidebar(false);
+      renderAll();
+    };
+
+    window.selectPeriod = function (periodId) {
+      uiState.viewMode = 'period';
+      uiState.selectedPeriodId = periodId;
+      uiState.selectedSubjectId = null;
+      uiState.searchQuery = '';
+      const searchInput = document.getElementById('global-search-input');
+      if (searchInput) searchInput.value = '';
+      toggleSidebar(false);
+      renderAll();
+    };
+
+    window.selectSubject = function (subjectId) {
+      const subj = appData.subjects.find(s => s.id === subjectId);
+      if (!subj) return;
+      uiState.viewMode = 'subject';
+      uiState.selectedPeriodId = subj.periodId;
+      uiState.selectedSubjectId = subjectId;
+      uiState.categoryFilter = 'Todos';
+      uiState.onlyExamFilter = false;
+      uiState.searchQuery = '';
+      const searchInput = document.getElementById('global-search-input');
+      if (searchInput) searchInput.value = '';
+      toggleSidebar(false);
+      renderAll();
+    };
+
+    window.handleGlobalSearch = function (val) {
+      uiState.searchQuery = val.trim();
+      const clearBtn = document.getElementById('clear-search-btn');
+      const hint = document.getElementById('search-shortcut-hint');
+      if (uiState.searchQuery) {
+        clearBtn?.classList.remove('hidden');
+        hint?.classList.add('hidden');
+      } else {
+        clearBtn?.classList.add('hidden');
+        hint?.classList.remove('hidden');
+      }
+      renderMainContent();
+    };
+
+    window.clearGlobalSearch = function () {
+      uiState.searchQuery = '';
+      const input = document.getElementById('global-search-input');
+      if (input) input.value = '';
+      document.getElementById('clear-search-btn')?.classList.add('hidden');
+      document.getElementById('search-shortcut-hint')?.classList.remove('hidden');
+      renderMainContent();
+    };
+
+    // -------------------------------------------------------------------------
+    // 4.6 Renderização da Barra Lateral e Roteador Principal
+    // -------------------------------------------------------------------------
+    function renderSidebar() {
+      const allCount = appData.materials.length;
+      const examCount = appData.materials.filter(m => m.caiNaProva).length + appData.monitoriaTopics.filter(t => t.caiNaProva).length;
+
+      const allBadge = document.getElementById('badge-all-count');
+      const examBadge = document.getElementById('badge-exam-count');
+      if (allBadge) allBadge.textContent = String(allCount);
+      if (examBadge) examBadge.textContent = String(examCount);
+
+      const navMonitoria = document.getElementById('nav-monitoria');
+      const navAll = document.getElementById('nav-all');
+      const navExam = document.getElementById('nav-exam');
+
+      const activeBtnCls = 'bg-indigo-50/90 dark:bg-indigo-500/15 text-indigo-700 dark:text-indigo-200 border-indigo-200 dark:border-indigo-500/30 shadow-2xs';
+      const inactiveBtnCls = 'border-transparent text-slate-600 dark:text-slate-300 hover:bg-slate-100/80 dark:hover:bg-slate-800/70';
+
+      if (navMonitoria) {
+        navMonitoria.className = `w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-semibold transition-all border ${uiState.viewMode === 'monitoria' && !uiState.searchQuery ? activeBtnCls : 'border-indigo-100/80 dark:border-indigo-500/20 bg-indigo-50/40 dark:bg-indigo-500/5 text-indigo-700 dark:text-indigo-300 hover:bg-indigo-50 dark:hover:bg-indigo-500/15'}`;
+      }
+      if (navAll) {
+        navAll.className = `w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-medium transition-all border ${uiState.viewMode === 'all' && !uiState.searchQuery ? activeBtnCls : inactiveBtnCls}`;
+      }
+      if (navExam) {
+        navExam.className = `w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-medium transition-all border ${uiState.viewMode === 'exam' && !uiState.searchQuery ? activeBtnCls : inactiveBtnCls}`;
+      }
+
+      const periodsListEl = document.getElementById('periods-list');
+      if (!periodsListEl) return;
+
+      const sortedPeriods = sortPeriodsChronologically(appData.periods);
+      periodsListEl.innerHTML = sortedPeriods.map(p => {
+        const isActive = (uiState.viewMode === 'period' || uiState.viewMode === 'subject') && uiState.selectedPeriodId === p.id && !uiState.searchQuery;
+        const subjCount = appData.subjects.filter(s => s.periodId === p.id).length;
+        return `
+          <div class="group flex items-center justify-between rounded-xl transition-all ${isActive ? 'bg-slate-900 dark:bg-indigo-600 text-white font-semibold' : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/80'}">
+            <button onclick="selectPeriod('${p.id}')" class="flex-1 flex items-center justify-between px-3 py-2 text-left text-sm min-w-0">
+              <span class="flex items-center gap-2.5 truncate">
+                <i data-lucide="folder" class="w-4 h-4 shrink-0 ${isActive ? 'text-indigo-300 dark:text-white' : 'text-slate-400'}"></i>
+                <span class="truncate">${escapeHtml(p.name)}</span>
+              </span>
+              <span class="text-[11px] px-1.5 py-0.5 rounded-md ${isActive ? 'bg-white/15 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400'}">${subjCount}</span>
+            </button>
+            <button onclick="confirmDeletePeriod('${p.id}', event)" class="opacity-0 group-hover:opacity-100 p-1.5 mr-1 rounded-lg hover:bg-rose-500/20 text-slate-400 hover:text-rose-500 transition-opacity" title="Excluir período">
+              <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderMainContent() {
+      const container = document.getElementById('main-content');
+      if (!container) return;
+
+      if (uiState.searchQuery) {
+        renderSearchResultsView(container);
+        return;
+      }
+
+      if (uiState.viewMode === 'period') {
+        renderPeriodSubjectsView(container);
+      } else if (uiState.viewMode === 'subject') {
+        renderSubjectRepositoryView(container);
+      } else if (uiState.viewMode === 'all') {
+        renderOverviewView(container, false);
+      } else if (uiState.viewMode === 'exam') {
+        renderOverviewView(container, true);
+      } else {
+        renderMonitoriaView(container);
+      }
+    }
+
+    // -------------------------------------------------------------------------
+    // 4.7 Central Estratégica: Monitoria de Fisiologia (07/12/2026)
+    // -------------------------------------------------------------------------
+    function renderMonitoriaView(container) {
+      const totalTopics = appData.monitoriaTopics.length;
+      const filledCount = appData.monitoriaTopics.filter(isTopicFilled).length;
+      const level3Count = appData.monitoriaTopics.filter(t => Number(t.mastery) === 3).length;
+      const level2Count = appData.monitoriaTopics.filter(t => Number(t.mastery) === 2).length;
+      const progressPct = Math.round((filledCount / totalTopics) * 100);
+      const level3Pct = Math.round((level3Count / totalTopics) * 100);
+      const daysLeft = getDaysUntilExam();
+
+      container.innerHTML = `
+        <div class="animate-fade-in space-y-6">
+          <!-- Banner Estratégico Superior -->
+          <div class="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white rounded-3xl p-6 sm:p-8 shadow-card border border-indigo-500/20">
             <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
               <div class="space-y-2 max-w-2xl">
                 <div class="flex flex-wrap items-center gap-2">
@@ -1237,7 +2257,6 @@
         checklist: newChecklist.length ? newChecklist : oldChecklist
       };
 
-      // Sincroniza também como Estudo Dirigido na matéria Fisiologia (4º Período)
       syncTopicToFisiologiaRepository(topic);
 
       if (Number(topic.mastery) === 0 && isTopicFilled(topic)) {
@@ -1277,7 +2296,6 @@
       }
     }
 
-    // Colagem rápida inteligente de fichas geradas na conversa
     window.openQuickPasteModal = function () {
       document.getElementById('quick-paste-textarea').value = '';
       openModal('modal-quick-paste');
@@ -1674,7 +2692,6 @@
         return;
       }
 
-      // Embaralhamento Fisher-Yates
       for (let i = pool.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [pool[i], pool[j]] = [pool[j], pool[i]];
@@ -1735,9 +2752,9 @@
       showToast('Simulado registrado no histórico!');
     };
 
-    // =========================================================================
-    // SEÇÃO ACADÊMICA: PERÍODOS, MATÉRIAS E REPOSITÓRIO DE MATERIAIS
-    // =========================================================================
+    // -------------------------------------------------------------------------
+    // 4.8 Seção Acadêmica: Períodos, Matérias e Repositório de Materiais
+    // -------------------------------------------------------------------------
     function renderPeriodSubjectsView(container) {
       const period = appData.periods.find(p => p.id === uiState.selectedPeriodId) || appData.periods[0];
       if (!period) return;
@@ -2068,7 +3085,7 @@
     }
 
     // -------------------------------------------------------------------------
-    // CRUD Períodos, Matérias e Materiais
+    // 4.9 CRUD Períodos, Matérias e Materiais
     // -------------------------------------------------------------------------
     window.openPeriodModal = function (periodId = null) {
       const p = periodId ? appData.periods.find(x => x.id === periodId) : null;
@@ -2173,7 +3190,6 @@
       });
     };
 
-    // Upload de Arquivos Locais (com DataURL para pequenos arquivos persistirem no GitHub Pages)
     window.triggerFileInput = () => document.getElementById('subject-file-input')?.click();
     window.handleFileSelect = (e) => {
       if (e.target.files?.length) {
@@ -2216,7 +3232,6 @@
           showToast(`"${file.name}" adicionado!`);
         };
 
-        // Persiste arquivos de até 1.2 MB diretamente no localStorage para reabrir após F5
         if (file.size <= 1.2 * 1024 * 1024) {
           const reader = new FileReader();
           reader.onload = (ev) => saveRecord(ev.target.result);
@@ -2228,7 +3243,6 @@
       });
     }
 
-    // Links e Resumos
     window.openLinkModal = function (matId = null) {
       const m = matId ? appData.materials.find(x => x.id === matId) : null;
       document.getElementById('modal-link-title').textContent = m ? 'Editar Link' : 'Adicionar Link Externo';
